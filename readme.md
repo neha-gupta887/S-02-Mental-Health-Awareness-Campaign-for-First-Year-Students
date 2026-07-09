@@ -73,6 +73,9 @@ MindBridge provides a supportive digital ecosystem where students can:
 The platform is designed to encourage early support, reduce stigma, and help students find the right resources when they need them.
 
 ---
+### 🌟 What Makes MindBridge Different?
+
+Unlike traditional mental health apps, MindBridge combines AI-powered wellness guidance with real human support through senior buddies, mentors, and verified professional counselors. Our goal is not just to provide information, but to ensure that every student can find the right support at the right time.
 
 ## ✨ Key Features
 
