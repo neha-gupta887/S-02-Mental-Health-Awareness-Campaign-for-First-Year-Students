@@ -179,6 +179,9 @@ O --> P[Reach Full Potential 🌱]
 ```
 
 ---
+## 🏗️ System Architecture
+
+> Architecture diagram coming soon.
 
 ## 🛠️ Tech Stack
 
