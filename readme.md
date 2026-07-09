@@ -1,3 +1,4 @@
+"Every year, thousands of talented students struggle—not because they lack ability, but because they lack support. MindBridge exists to ensure that mental health never becomes a barrier to a student's potential."
 # 🌿 MindBridge – A Digital Mental Wellness Platform for University Students
 
 # ❤️ Our Story
