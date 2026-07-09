@@ -4,6 +4,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 # 🌿 MindBridge – A Digital Mental Wellness Platform for University Students
+> **Empowering first-year students with AI-powered wellness guidance, peer support, and access to professional mental health resources.**
 
 # ❤️ Our Story
 
