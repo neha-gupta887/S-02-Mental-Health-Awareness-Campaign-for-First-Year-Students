@@ -245,3 +245,7 @@ Our goal is to create a supportive campus ecosystem where students can confident
 MindBridge is an educational and wellness support platform. It is **not** a medical device or a replacement for professional mental health care.
 
 If a user is experiencing a mental health crisis or believes they may be at risk of harming themselves or others, they should immediately contact local emergency services or a qualified mental health professional.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
