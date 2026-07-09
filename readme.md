@@ -142,7 +142,41 @@ The platform is designed to encourage early support, reduce stigma, and help stu
 
 # 🔄 MindBridge User Flow
 
-(Your flowchart goes here)
+## 🔄 MindBridge User Flow
+
+```mermaid
+flowchart TD
+
+A([Student Opens MindBridge]) --> B{How are you feeling today?}
+
+B -->|😊 Good| C[Daily Wellness Dashboard]
+
+B -->|😐 Okay| D[Mood Tracker]
+
+B -->|😔 Stressed / 😢 Low| E[AI Wellness Companion]
+
+E --> F[Guided Breathing & Relaxation]
+
+F --> G{Feeling Better?}
+
+G -->|Yes| H[Continue Wellness Journey]
+
+G -->|No| I[Choose Support]
+
+I --> J[👩‍🎓 Senior Buddy]
+
+I --> K[👨‍🏫 Mentor]
+
+I --> L[🧑‍⚕️ Professional Counselor]
+
+L --> M[Student Receives Support]
+
+M --> N[Mood Improves]
+
+N --> O[Better Academic Performance]
+
+O --> P[Reach Full Potential 🌱]
+```
 
 ---
 
