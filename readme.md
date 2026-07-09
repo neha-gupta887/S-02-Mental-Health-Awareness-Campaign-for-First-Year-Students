@@ -176,6 +176,63 @@ If a user is experiencing a mental health crisis or believes they may be at risk
 
 ---
 
+
+🎯 Our Motto
+
+"Supporting Minds. Unlocking Potential."
+
+Our Vision
+
+To build a campus where every student feels heard, supported, and empowered to reach their true potential without mental health becoming a barrier to success.
+
+Our Mission
+Reduce the stigma around mental health.
+Provide immediate access to trusted support.
+Connect students with senior buddies, mentors, and professional counselors.
+Encourage healthy daily habits through wellness tools.
+Help students thrive academically and emotionally.
+🔄 MindBridge User Flow
+                     Student Opens MindBridge
+                              │
+                              ▼
+                 "How are you feeling today?"
+                              │
+      ┌──────────────┬──────────────┬──────────────┐
+      │              │              │
+      ▼              ▼              ▼
+    😊 Good       😐 Okay       😔 Stressed / 😢 Low
+      │              │              │
+      ▼              ▼              ▼
+Daily Wellness     Mood Saved     AI Wellness Companion
+      │              │              │
+      │              ▼              ▼
+      │        Mood Dashboard   Personalized Suggestions
+      │                             │
+      │                             ▼
+      │               Guided Breathing • Meditation
+      │               Journaling • Wellness Tips
+      │                             │
+      │                             ▼
+      │                  Feeling Better?
+      │                    │         │
+      │                  Yes         No
+      │                    │         │
+      ▼                    ▼         ▼
+Continue Daily      Save Progress   Choose Support
+Wellness Journey                    │
+                                    ├── 👩‍🎓 Senior Buddy
+                                    ├── 👨‍🏫 Mentor
+                                    ├── 🧑‍⚕️ Professional Counselor
+                                    └── 📞 Emergency Resources
+                                              │
+                                              ▼
+                                 Student Receives Support
+                                              │
+                                              ▼
+                                 Mood Improves Over Time
+                                              │
+                                              ▼
+                               Academic + Personal Growth
 ## ❤️ Our Mission
 
 We believe that seeking help is a sign of strength, not weakness.
