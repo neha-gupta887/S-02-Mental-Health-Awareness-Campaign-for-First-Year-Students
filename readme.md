@@ -177,21 +177,41 @@ If a user is experiencing a mental health crisis or believes they may be at risk
 ---
 
 
-🎯 Our Motto
+# ❤️ Our Story
 
-"Supporting Minds. Unlocking Potential."
+MindBridge was inspired by the real challenges that many first-year university students experience.
 
-Our Vision
+The transition from school to college is exciting, but it can also be overwhelming. Homesickness, academic pressure, loneliness, anxiety, and the lack of proper guidance often make students struggle silently. These challenges can affect confidence, learning, and academic performance, even for highly capable and hardworking students.
+
+We believe that **no student's potential should be limited by a lack of mental health support or guidance.**
+
+Our mission is to ensure that every first-year student has access to the right support at the right time—whether through self-help resources, peer mentors, senior buddies, or professional counselors.
+
+> **"Talent should define a student's future—not stress, loneliness, or the absence of support."**
+
+---
+
+# 🎯 Our Motto
+
+**"Supporting Minds. Unlocking Potential."**
+
+### Our Vision
 
 To build a campus where every student feels heard, supported, and empowered to reach their true potential without mental health becoming a barrier to success.
 
-Our Mission
-Reduce the stigma around mental health.
-Provide immediate access to trusted support.
-Connect students with senior buddies, mentors, and professional counselors.
-Encourage healthy daily habits through wellness tools.
-Help students thrive academically and emotionally.
-🔄 MindBridge User Flow
+### Our Mission
+
+* Reduce the stigma around mental health.
+* Provide immediate access to trusted support.
+* Connect students with senior buddies, mentors, and professional counselors.
+* Encourage healthy daily habits through wellness tools.
+* Help students thrive academically and emotionally.
+
+---
+
+# 🔄 MindBridge User Flow
+
+```text
                      Student Opens MindBridge
                               │
                               ▼
@@ -233,8 +253,17 @@ Wellness Journey                    │
                                               │
                                               ▼
                                Academic + Personal Growth
-## ❤️ Our Mission
+```
 
-We believe that seeking help is a sign of strength, not weakness.
+---
 
-**MindBridge exists to ensure that every student has access to guidance, community, and support—because no one should navigate university life alone.**
+# 🌱 Impact We Want to Create
+
+We don't just want students to manage stress.
+
+We want every first-year student to know that asking for help is a sign of strength, not weakness.
+
+Our goal is to create a supportive campus ecosystem where students can confidently seek guidance, build meaningful connections, and focus on learning without feeling alone.
+
+**Because every deserving student deserves the opportunity to succeed—not just academically, but emotionally as well.**
+
