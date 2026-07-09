@@ -249,3 +249,17 @@ If a user is experiencing a mental health crisis or believes they may be at risk
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## 👩‍💻 Author
+
+**Neha Gupta**
+
+Computer Science Engineering Student
+
+Chandigarh University
+
+GitHub: https://github.com/neha-gupta887
+
+LinkedIn: https://linkedin.com/in/neha-gupta-82201a360
