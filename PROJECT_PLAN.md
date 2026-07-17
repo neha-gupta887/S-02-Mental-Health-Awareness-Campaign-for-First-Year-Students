@@ -27,7 +27,7 @@
 - [ ] Professional Counselor
 - [ ] Profile
 
-      ## 👤 User Journey
+## 👤 User Journey
 
 1. Student opens MindBridge
 2. Creates an account / Logs in
