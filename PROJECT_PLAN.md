@@ -157,3 +157,88 @@ After the user selects a mood, MindBridge will immediately display a personalize
 - 👨‍🎓 Connect with Senior Buddy
 - 👨‍🏫 Connect with Mentor
 - 👩‍⚕️ Find a Counselor
+
+## 😊 Mood Tracker
+
+### Purpose
+Help students track their emotional well-being every day.
+
+### Moods
+- 😊 Happy
+- 😐 Okay
+- 😔 Stressed
+- 😟 Anxious
+- 😴 Tired
+- 😡 Frustrated
+
+### Mood Details
+After selecting a mood, the user can optionally write:
+- What's making you feel this way today?
+
+### AI Response
+Based on the selected mood, MindBridge will:
+- Suggest a breathing exercise
+- Recommend journaling
+- Share a motivational message
+- Recommend talking to a Senior Buddy, Mentor, or Counselor if needed
+
+### Mood History
+Users can view their mood history to understand patterns over time.
+### After Mood Selection
+
+Show a confirmation message:
+
+💚 Thanks for checking in!
+
+What would you like to do next?
+
+- 🫁 Start a Breathing Exercise
+- 📝 Write in Journal
+- 🤖 Talk to AI Companion
+  ## 📝 Journal
+
+### Purpose
+Provide students with a private space to express their thoughts and emotions.
+
+### Features
+- Write a journal entry
+- Select today's mood
+- Add a title (optional)
+- Auto-save date and time
+
+### AI Reflection
+After saving the journal, AI can:
+- Summarize the entry
+- Highlight positive thoughts
+- Suggest coping strategies if needed
+
+### Privacy
+Journal entries are private and visible only to the user.
+### After Saving the Journal
+
+Display:
+
+💚 Your journal has been saved successfully.
+
+### AI Reflection
+
+The AI analyzes the journal and provides:
+
+- A short summary of the user's thoughts
+- An encouraging and empathetic response
+- Positive insights from the journal
+- Personalized wellness suggestions
+
+### Recommended Actions
+
+Depending on the journal, the AI may suggest:
+
+- 🫁 Start a Breathing Exercise
+- 📝 Continue Journaling
+- 🤖 Talk to AI Companion
+- 👨‍🎓 Connect with a Senior Buddy
+- 👨‍🏫 Connect with a Mentor
+- 👩‍⚕️ Reach out to a Professional Counselor (if needed)
+
+> Note: AI provides guidance and support only. It does not diagnose or replace professional mental health care.
+
