@@ -1,11 +1,13 @@
-MVP (Version 1)
-✅ Landing Page
-✅ Login / Signup
-✅ Dashboard
-✅ Mood Check-in
-✅ Guided Breathing
-✅ Journal
-✅ AI Wellness Companion
-✅ Senior Buddy
-✅ Mentor
-✅ Professional Counselor Directory
+# 📋 MindBridge Project Plan
+
+## Version 1 (MVP)
+
+- [ ] Landing Page
+- [ ] Login / Signup
+- [ ] Dashboard
+- [ ] Mood Check-in
+- [ ] Guided Breathing
+- [ ] AI Wellness Companion
+- [ ] Senior Buddy Connect
+- [ ] Mentor Connect
+- [ ] Counselor Directory
