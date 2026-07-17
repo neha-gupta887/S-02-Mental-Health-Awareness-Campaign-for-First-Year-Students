@@ -41,8 +41,6 @@
    - Book a Professional Counselor
 8. Track progress on the dashboard
 
-
-
 ## 🚀 Onboarding Flow
 
 ### Screen 1
@@ -61,3 +59,80 @@ Get AI guidance, connect with senior buddies, mentors, and professional counselo
 😟 Anxious
 
 ➡️ Continue to Login
+
+## 🏠 Dashboard
+
+### Welcome
+- Good Morning/Afternoon, [User Name] 🌿
+
+### Today's Mood
+- Show today's selected mood
+
+### Quick Actions
+- 😊 Check Mood
+- 🫁 Start Breathing Exercise
+- 📝 Write Journal
+- 🤖 Talk to AI Companion
+
+### Need Support?
+- 👨‍🎓 Connect with Senior Buddy
+- 👨‍🏫 Connect with Mentor
+- 👩‍⚕️ Find a Counselor
+
+### Daily Motivation
+
+Display one positive quote every day.
+
+Examples:
+- "Every small step toward your well-being matters."
+- "It's okay to ask for help."
+- "Progress, not perfection."
+- "Take a deep breath. You've got this."
+
+## 🏠 Dashboard
+
+### Welcome
+- Good Morning/Afternoon, [User Name] 🌿
+
+### Daily Motivation
+Display one positive quote every day.
+
+Examples:
+- "Every small step toward your well-being matters."
+- "It's okay to ask for help."
+- "Progress, not perfection."
+- "Take a deep breath. You've got this."
+
+### 🌱 Daily Wellness Check
+
+Question:
+**How are you feeling today?**
+
+Mood Options:
+- 😊 Happy
+- 😐 Okay
+- 😔 Stressed
+- 😟 Anxious
+
+### AI Suggestions
+
+Based on the selected mood:
+
+- 😊 Happy → "Keep up your healthy routine!"
+- 😐 Okay → "A short walk or journaling can boost your day."
+- 😔 Stressed → "Let's try a 2-minute breathing exercise."
+- 😟 Anxious → "Would you like to talk to the AI Companion?"
+
+### Today's Mood
+- Show today's selected mood
+
+### Quick Actions
+- 😊 Check Mood
+- 🫁 Start Breathing Exercise
+- 📝 Write Journal
+- 🤖 Talk to AI Companion
+
+### Need Support?
+- 👨‍🎓 Connect with Senior Buddy
+- 👨‍🏫 Connect with Mentor
+- 👩‍⚕️ Find a Counselor
