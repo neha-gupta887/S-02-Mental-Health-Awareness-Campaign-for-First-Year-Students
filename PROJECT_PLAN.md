@@ -40,3 +40,24 @@
    - Connect with a Mentor
    - Book a Professional Counselor
 8. Track progress on the dashboard
+
+
+
+## 🚀 Onboarding Flow
+
+### Screen 1
+**Welcome to MindBridge**
+Supporting Minds. Unlocking Potential.
+
+### Screen 2
+**You're Never Alone**
+Get AI guidance, connect with senior buddies, mentors, and professional counselors whenever you need support.
+
+### Screen 3
+**How are you feeling today?**
+😊 Happy
+😐 Okay
+😔 Stressed
+😟 Anxious
+
+➡️ Continue to Login
