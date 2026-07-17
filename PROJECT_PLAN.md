@@ -131,6 +131,27 @@ Based on the selected mood:
 - 🫁 Start Breathing Exercise
 - 📝 Write Journal
 - 🤖 Talk to AI Companion
+### 🎯 Recommended Action Card
+
+After the user selects a mood, MindBridge will immediately display a personalized action card.
+
+**Examples:**
+
+😊 Happy
+- 🌟 Keep up your healthy routine!
+- **Button:** Explore Today's Wellness Tip
+
+😐 Okay
+- 📝 A quick journal entry can help you reflect.
+- **Button:** Open Journal
+
+😔 Stressed
+- 🫁 You seem stressed. Let's take a 2-minute guided breathing exercise.
+- **Button:** Start 2-Minute Breathing Exercise
+
+😟 Anxious
+- 🤖 Talking can help. Chat with the AI Wellness Companion.
+- **Button:** Talk to AI Companion
 
 ### Need Support?
 - 👨‍🎓 Connect with Senior Buddy
