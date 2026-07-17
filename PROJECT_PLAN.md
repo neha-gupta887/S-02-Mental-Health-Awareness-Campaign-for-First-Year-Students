@@ -241,4 +241,109 @@ Depending on the journal, the AI may suggest:
 - 👩‍⚕️ Reach out to a Professional Counselor (if needed)
 
 > Note: AI provides guidance and support only. It does not diagnose or replace professional mental health care.
+## 🤖 AI Wellness Companion
+
+### Purpose
+Provide students with safe, supportive, and personalized wellness guidance using AI.
+
+### What the AI Can Do
+- Answer mental wellness questions
+- Suggest breathing exercises
+- Recommend journaling
+- Share motivational messages
+- Help students manage stress, anxiety, and study pressure
+- Guide students to campus support resources
+
+### What the AI Cannot Do
+- Diagnose mental health conditions
+- Prescribe medication
+- Replace a psychologist or counselor
+- Handle emergencies independently
+
+### Example Interaction
+
+**User:**
+I'm feeling very stressed because of exams.
+
+**AI:**
+I'm sorry you're feeling stressed. You're not alone, and I'm here to support you.
+
+Here are a few things that might help:
+
+- 🫁 Start a 2-minute Breathing Exercise
+- 📝 Write in your Journal
+- 👨‍🎓 Connect with a Senior Buddy
+
+Remember, asking for help is a sign of strength.
+
+## 🛟 AI Support Flow
+
+### Level 1 – Self Help
+If the user feels:
+- 😊 Happy
+- 😐 Okay
+
+AI suggests:
+- Daily motivation
+- Wellness tips
+- Gratitude practice
+
+---
+
+### Level 2 – Mild Stress
+If the user reports stress or anxiety occasionally:
+
+AI suggests:
+- 🫁 Guided Breathing
+- 📝 Journaling
+- 📚 Study & stress management tips
+
+---
+
+### Level 3 – Continued Stress
+If the user reports stress for several consecutive check-ins:
+
+AI recommends:
+- 👨‍🎓 Connect with a Senior Buddy
+
+---
+
+### Level 4 – Ongoing Emotional Difficulty
+If the user continues to report emotional challenges over time or requests additional support:
+
+AI recommends:
+- 👨‍🏫 Connect with a Mentor
+
+---
+
+### Level 5 – Professional Support
+If the user indicates they would like professional help or continues to experience significant distress:
+
+AI recommends:
+- 👩‍⚕️ Contact a Professional Counselor
+
+### Disclaimer
+MindBridge provides wellness support and guidance. It does not diagnose mental health conditions or replace professional medical care.
+## 🛠️ Tech Stack
+
+### Frontend
+- React (Vite)
+- Tailwind CSS
+
+### Backend
+- Firebase
+
+### Authentication
+- Firebase Authentication
+
+### Database
+- Cloud Firestore
+
+### AI
+- Gemini API
+
+### Deployment
+- Firebase Hosting / Vercel
+
+
 
