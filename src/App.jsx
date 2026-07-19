@@ -1,10 +1,12 @@
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-100">
-      <h1 className="text-5xl font-bold text-green-700">
-        🌿 Welcome to MindBridge
-      </h1>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+    </>
   );
 }
 
