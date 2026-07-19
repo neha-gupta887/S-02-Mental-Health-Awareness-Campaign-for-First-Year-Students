@@ -1,41 +1,49 @@
+import {
+  FaSmile,
+  FaRobot,
+  FaLeaf,
+  FaBookOpen,
+  FaHandsHelping,
+  FaBook,
+} from "react-icons/fa";
 function Features() {
   const features = [
-    {
-      title: "Mood Tracker",
-      icon: "😊",
-      description: "Track your daily emotions and visualize your mood journey.",
-    },
-    {
-      title: "AI Companion",
-      icon: "🤖",
-      description: "Get instant emotional support and wellness guidance.",
-    },
-    {
-      title: "Breathing Exercises",
-      icon: "🌿",
-      description: "Reduce stress with guided breathing and mindfulness sessions.",
-    },
-    {
-      title: "Daily Journal",
-      icon: "📖",
-      description: "Write your thoughts and reflect on your day.",
-    },
-    {
-      title: "Mentor Connect",
-      icon: "🤝",
-      description: "Reach out to mentors whenever you need support.",
-    },
-    {
-      title: "Resource Library",
-      icon: "📚",
-      description: "Access curated articles, videos, and wellness resources.",
-    },
-  ];
+  {
+    title: "Mood Tracker",
+    icon: <FaSmile />,
+    description: "Track your daily emotions and visualize your mood journey.",
+  },
+  {
+    title: "AI Companion",
+    icon: <FaRobot />,
+    description: "Get instant emotional support and wellness guidance.",
+  },
+  {
+    title: "Breathing Exercises",
+    icon: <FaLeaf />,
+    description: "Reduce stress with guided breathing and mindfulness sessions.",
+  },
+  {
+    title: "Daily Journal",
+    icon: <FaBookOpen />,
+    description: "Write your thoughts and reflect on your day.",
+  },
+  {
+    title: "Mentor Connect",
+    icon: <FaHandsHelping />,
+    description: "Reach out to mentors whenever you need support.",
+  },
+  {
+    title: "Resource Library",
+    icon: <FaBook />,
+    description: "Access curated articles, videos, and wellness resources.",
+  },
+];
 
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-
+        {/* Section Heading */}
         <div className="text-center">
           <h2 className="text-4xl font-bold text-gray-900">
             Everything You Need for Better Mental Wellness
@@ -47,16 +55,16 @@ function Features() {
           </p>
         </div>
 
+        {/* Feature Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-green-50 rounded-2xl p-8 hover:bg-green-100 hover:-translate-y-2 transition-all duration-300 shadow-md"
+              className="bg-green-50 rounded-2xl p-8 shadow-md hover:bg-green-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
             >
               <div className="text-5xl">{feature.icon}</div>
 
-              <h3 className="mt-5 text-2xl font-bold">
+              <h3 className="mt-5 text-2xl font-bold text-gray-900">
                 {feature.title}
               </h3>
 
@@ -65,9 +73,7 @@ function Features() {
               </p>
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
