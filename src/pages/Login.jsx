@@ -1,7 +1,54 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
+import { login, googleLogin } from "../services/authService";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await login(email, password);
+
+      alert("🎉 Login successful!");
+
+      navigate("/dashboard");
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+
+      await googleLogin();
+
+      alert("🎉 Google Login Successful!");
+
+      navigate("/dashboard");
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
       {/* Left Section */}
@@ -38,13 +85,15 @@ function Login() {
             Login to continue your ManaSetu journey.
           </p>
 
-          <form className="mt-8 space-y-5">
+          <form onSubmit={handleLogin} className="mt-8 space-y-5">
             {/* Email */}
             <div className="relative">
               <FaEnvelope className="absolute left-4 top-4 text-gray-400" />
               <input
                 type="email"
                 placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
@@ -55,6 +104,8 @@ function Login() {
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
@@ -66,14 +117,21 @@ function Login() {
                 Remember Me
               </label>
 
-              <a href="#" className="text-green-600 hover:underline">
+              <button
+                type="button"
+                className="text-green-600 hover:underline"
+              >
                 Forgot Password?
-              </a>
+              </button>
             </div>
 
             {/* Login Button */}
-            <button className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition">
-              Login
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition disabled:bg-green-400"
+            >
+              {loading ? "Logging In..." : "Login"}
             </button>
 
             {/* Divider */}
@@ -86,7 +144,9 @@ function Login() {
             {/* Google Button */}
             <button
               type="button"
-              className="w-full border py-3 rounded-xl flex justify-center items-center gap-3 hover:bg-gray-100 transition"
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              className="w-full border py-3 rounded-xl flex justify-center items-center gap-3 hover:bg-gray-100 transition disabled:opacity-50"
             >
               <FaGoogle className="text-red-500" />
               Continue with Google
