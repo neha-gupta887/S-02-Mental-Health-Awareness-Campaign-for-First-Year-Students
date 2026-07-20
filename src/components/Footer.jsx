@@ -15,12 +15,13 @@ function Footer() {
           {/* Brand */}
           <div>
             <h2 className="text-3xl font-bold text-white">
-              Mind<span className="text-green-500">Bridge</span>
+              Mana<span className="text-green-500">Setu</span>
             </h2>
 
             <p className="mt-5 leading-7">
-              Empowering students with AI-driven mental wellness support,
-              personalized guidance, and a caring community.
+              ManaSetu is a student-first mental wellness platform that combines
+              AI-powered guidance, mindfulness, mood tracking, and a supportive
+              community to help students build healthier minds.
             </p>
           </div>
 
@@ -73,7 +74,7 @@ function Footer() {
             </div>
 
             <p className="mt-6">
-              Email: support@mindbridge.com
+              Email: support@manasetu.com
             </p>
           </div>
 
@@ -83,11 +84,11 @@ function Footer() {
         <div className="border-t border-gray-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
 
           <p>
-            © 2026 MindBridge. All Rights Reserved.
+            © 2026 ManaSetu. All Rights Reserved.
           </p>
 
           <p className="flex items-center gap-2 mt-4 md:mt-0">
-            Made with <FaHeart className="text-red-500" /> for Students
+            Made with <FaHeart className="text-red-500" /> for Student Well-being
           </p>
 
         </div>
