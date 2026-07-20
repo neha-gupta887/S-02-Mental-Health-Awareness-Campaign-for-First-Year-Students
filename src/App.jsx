@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import CallToAction from "./components/CallToAction";
 import Testimonials from "./components/Testimonials";
 import WhyChoose from "./components/WhyChoose";
@@ -16,6 +17,7 @@ function App() {
   <WhyChoose />
   <Testimonials />
   <CallToAction />
+  <Footer />
 </>
   );
 }
