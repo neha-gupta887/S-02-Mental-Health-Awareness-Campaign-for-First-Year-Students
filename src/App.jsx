@@ -1,24 +1,20 @@
-import Footer from "./components/Footer";
-import CallToAction from "./components/CallToAction";
-import Testimonials from "./components/Testimonials";
-import WhyChoose from "./components/WhyChoose";
-import HowItWorks from "./components/HowItWorks";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <>
-  <Navbar />
-  <Hero />
-  <Features />
-  <HowItWorks />
-  <WhyChoose />
-  <Testimonials />
-  <CallToAction />
-  <Footer />
-</>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,271 +1,71 @@
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
-# 🌿 MindBridge – A Digital Mental Wellness Platform for University Students
-> **Empowering first-year students with AI-powered wellness guidance, peer support, and access to professional mental health resources.**
-
-# ❤️ Our Story
-
-MindBridge was inspired by the real challenges that many first-year university students experience.
-
-The transition from school to college is exciting, but it can also be overwhelming. Homesickness, academic pressure, loneliness, anxiety, and the lack of proper guidance often make students struggle silently. These challenges can affect confidence, learning, and academic performance, even for highly capable and hardworking students.
-
-We believe that **no student's potential should be limited by a lack of mental health support or guidance.**
-
-Our mission is to ensure that every first-year student has access to the right support at the right time—whether through self-help resources, peer mentors, senior buddies, or professional counselors.
-
-> **"Talent should define a student's future—not stress, loneliness, or the absence of support."**
-
----
-
-# 🎯 Our Motto
-
-**"Supporting Minds. Unlocking Potential."**
-
-### Our Vision
-
-To build a campus where every student feels heard, supported, and empowered to reach their true potential without mental health becoming a barrier to success.
-
-### Our Mission
-
-- Reduce the stigma around mental health.
-- Provide immediate access to trusted support.
-- Connect students with senior buddies, mentors, and professional counselors.
-- Encourage healthy daily habits through wellness tools.
-- Help students thrive academically and emotionally.
-
----
-
-## 📖 Overview
-
-**MindBridge** is a student-first digital mental wellness platform designed to support first-year university students as they transition into college life.
-
-Many students experience homesickness, stress, anxiety, loneliness, academic pressure, and a lack of guidance during their first semester. MindBridge aims to bridge this gap by combining technology, peer support, and access to professional resources in a safe, accessible, and engaging platform.
-
-> **Our Vision:** *No student should feel alone during their university journey.*
-
----
-
-## 🎯 Problem Statement
-
-Research shows that a significant number of first-year students experience mental health challenges due to:
-
-- Academic pressure
-- Homesickness
-- Social isolation
-- Difficulty adjusting to university life
-- Lack of awareness of available support
-- Fear of asking for help because of stigma
-
-These challenges can negatively affect academic performance, confidence, and overall well-being.
-
----
-
-## 💡 Our Solution
-
-MindBridge provides a supportive digital ecosystem where students can:
-
-- Track their daily mood
-- Learn evidence-based stress management techniques
-- Practice guided breathing and relaxation exercises
-- Access campus mental health resources
-- Connect with trained senior buddies and mentors
-- Discover verified professional counselors
-- Join wellness workshops and awareness campaigns
-- Build healthy habits through gamified wellness challenges
-
-The platform is designed to encourage early support, reduce stigma, and help students find the right resources when they need them.
-
----
-### 🌟 What Makes MindBridge Different?
-
-Unlike traditional mental health apps, MindBridge combines AI-powered wellness guidance with real human support through senior buddies, mentors, and verified professional counselors. Our goal is not just to provide information, but to ensure that every student can find the right support at the right time.
-
-## ✨ Key Features
-
-### 😊 Mood Tracker
-- Daily emotional check-ins
-- Mood history
-- Weekly and monthly insights
-
-### 🌬️ Guided Breathing Exercises
-- Box Breathing (4-4-4-4)
-- 4-7-8 Breathing
-- Deep Calm Breathing
-- Animated breathing bubble
-- Nature sounds and relaxation timer
-
-### 🤖 AI Wellness Companion
-- Educational wellness guidance
-- Stress management tips
-- Study and productivity suggestions
-- Campus resource recommendations
-
-> **Disclaimer:** The AI assistant does not diagnose medical conditions or replace professional mental health care.
-
-### 👩‍🎓 Senior Buddy Connect
-- College guidance
-- Academic support
-- Campus navigation
-- Friendly conversations
-
-### 👨‍🏫 Mentor Support
-- Time management
-- Career planning
-- Study strategies
-- Personal development
-
-### 🧑‍⚕️ Professional Counselor Directory
-- Verified counselors
-- Contact information
-- Appointment guidance
-- Online and offline support resources
-
-### 🗺️ Campus Resource Hub
-- Counseling center
-- Faculty mentors
-- Student support clubs
-- Emergency contacts
-- Trusted online mental health resources
-
-### 📝 Private Journal
-- Daily reflections
-- Gratitude entries
-- Personal wellness notes
-
-### 🌱 Wellness Challenges
-- Daily self-care goals
-- Habit streaks
-- Achievement badges
-- Progress tracking
-
-### 📅 Workshops & Events
-- Registration
-- Event details
-- Attendance tracking
-- Feedback collection
-
----
-
-# 🔄 MindBridge User Flow
-
-## 🔄 MindBridge User Flow
-
-```mermaid
-flowchart TD
-
-A([Student Opens MindBridge]) --> B{How are you feeling today?}
-
-B -->|😊 Good| C[Daily Wellness Dashboard]
-
-B -->|😐 Okay| D[Mood Tracker]
-
-B -->|😔 Stressed / 😢 Low| E[AI Wellness Companion]
-
-E --> F[Guided Breathing & Relaxation]
-
-F --> G{Feeling Better?}
-
-G -->|Yes| H[Continue Wellness Journey]
-
-G -->|No| I[Choose Support]
-
-I --> J[👩‍🎓 Senior Buddy]
-
-I --> K[👨‍🏫 Mentor]
-
-I --> L[🧑‍⚕️ Professional Counselor]
-
-L --> M[Student Receives Support]
-
-M --> N[Mood Improves]
-
-N --> O[Better Academic Performance]
-
-O --> P[Reach Full Potential 🌱]
-```
-
----
-## 🏗️ System Architecture
-
-> Architecture diagram coming soon.
-
-## 🛠️ Tech Stack
-
-### Frontend
-- React
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-
-### Backend
-- Firebase Authentication
-- Cloud Firestore
-- Firebase Storage
-
-### Charts
-- Chart.js
-
-### Hosting
-- Firebase Hosting
-
----
-
-## 🎯 Target Users
-
-- First-year undergraduate students
-- Student mentors
-- Faculty advisors
-- University counseling centers
-
----
-
-## 🚀 Future Scope
-
-- AI-powered personalized wellness recommendations
-- Multilingual support
-- Mobile application
-- Anonymous peer support community
-- University admin dashboard
-- Smart analytics for awareness campaigns
-- Integration with campus wellness initiatives
-
----
-
-## 🌱 Impact We Want to Create
-
-We don't just want students to manage stress.
-
-We want every first-year student to know that asking for help is a sign of strength, not weakness.
-
-Our goal is to create a supportive campus ecosystem where students can confidently seek guidance, build meaningful connections, and focus on learning without feeling alone.
-
-**Because every deserving student deserves the opportunity to succeed—not just academically, but emotionally as well.**
-
----
-
-## ⚠️ Important Disclaimer
-
-MindBridge is an educational and wellness support platform. It is **not** a medical device or a replacement for professional mental health care.
-
-If a user is experiencing a mental health crisis or believes they may be at risk of harming themselves or others, they should immediately contact local emergency services or a qualified mental health professional.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
----
-
-## 👩‍💻 Author
-
-**Neha Gupta**
-
-Computer Science Engineering Student
-
-Chandigarh University
-
-GitHub: https://github.com/neha-gupta887
-
-LinkedIn: https://linkedin.com/in/neha-gupta-82201a360
+# S-02: Mental Health Awareness Campaign for First-Year Students
+
+## Social Challenge
+**First-year university students experience significant mental health challenges — anxiety, homesickness, academic pressure — yet awareness of available resources is low and stigma remains high on most campuses.**
+
+## Background
+Studies show 30-45% of university students experience significant mental health symptoms. The first semester is the highest-risk period. Timely awareness and destigmatization reduce dropout rates and improve wellbeing outcomes.
+
+## Project Objectives
+1. Assess baseline mental health awareness and resource knowledge among first-years
+2. Design and execute a multi-format awareness campaign (posters, videos, workshops)
+3. Conduct at least 3 peer-led discussion workshops on stress, anxiety, and help-seeking
+4. Create a resource map of on-campus and online mental health services
+5. Measure post-campaign changes in awareness and attitude
+6. Produce a reproducible campaign toolkit for future student bodies
+
+## Stakeholders
+| Stakeholder | Role |
+| :--- | :--- |
+| First-year UG students | Primary audience |
+| University counseling center | Partner and content validator |
+| Student clubs (peer supporters) | Co-facilitators |
+| Faculty advisor | Oversight |
+| Senior students (mentors) | Peer leadership |
+
+## Requirements
+- **Research**: Review campus counseling utilization data; study destigmatization campaign best practices (WHO, NIMHANS guidelines).
+- **Survey**: Pre-campaign: awareness of resources, stigma attitude scale (adapted); post-campaign: same instrument + campaign recall.
+- **Execution**: Campaign rollout via posters, social media, hostels; 3 workshops (stress management, sleep hygiene, help-seeking).
+- **Documentation**: All materials, workshop recordings (with consent), survey data, counseling center feedback.
+
+## Implementation Plan
+| Week | Activity |
+| :--- | :--- |
+| 1 | Literature review, survey design, stakeholder meetings |
+| 2 | Pre-campaign survey; campaign material design |
+| 3 | Campaign launch (posters, Instagram, hostel noticeboards) |
+| 4 | Workshop 1 (stress & anxiety) + Workshop 2 (sleep & lifestyle) |
+| 5 | Workshop 3 (help-seeking & resources); resource map publication |
+| 6 | Post-survey, data analysis, toolkit compilation, final report |
+
+## Impact Metrics
+| Metric | Target |
+| :--- | :--- |
+| Students reached (campaign) | ≥ 300 |
+| Workshop participants | ≥ 75 |
+| Awareness improvement (survey) | ≥ 35% improvement |
+| Stigma score reduction | Measurable positive shift |
+| Resource map distribution | ≥ 200 students |
+
+## Expected Deliverables
+- [ ] Pre/post survey instrument and data analysis
+- [ ] Campaign materials (posters, social media graphics, video)
+- [ ] Resource map (printable + digital)
+- [ ] Workshop facilitation guides
+- [ ] Campaign toolkit (for reproducibility)
+- [ ] Final impact report
+
+## Evaluation Criteria
+| Criterion | Marks |
+| :--- | :--- |
+| Reach & Engagement | 25 |
+| Survey Design & Analysis Quality | 25 |
+| Campaign Material Quality | 20 |
+| Workshop Impact | 15 |
+| Documentation & Toolkit | 15 |
+
+## Bonus Impact Opportunities
+- Train 5 peer mental health ambassadors
+- Collaborate with the university counseling center on a helpline card
+- Publish a short research note in a university journal
