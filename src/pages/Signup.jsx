@@ -9,20 +9,20 @@ function Signup() {
         <div className="max-w-md text-white">
           <h1 className="text-5xl font-bold">
             Welcome to <br />
-            MindBridge
+            ManaSetu
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-green-100">
-            Join thousands of students building healthier habits, tracking
-            their emotions, and improving mental wellness with AI-powered
-            guidance.
+            Join thousands of students who are building healthier minds through
+            AI-powered support, daily mood tracking, mindfulness practices, and
+            meaningful mentor connections.
           </p>
 
           <div className="mt-10 space-y-4">
-            <div>✅ AI Wellness Companion</div>
-            <div>✅ Daily Mood Tracking</div>
-            <div>✅ Personal Journal</div>
-            <div>✅ Mentor & Buddy Support</div>
+            <div>🌿 AI Wellness Companion</div>
+            <div>😊 Daily Mood Tracking</div>
+            <div>📖 Personal Journal</div>
+            <div>🤝 Mentor & Buddy Support</div>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@ function Signup() {
           </h2>
 
           <p className="text-center text-gray-500 mt-2">
-            Start your wellness journey today.
+            Begin your wellness journey with ManaSetu.
           </p>
 
           <form className="mt-8 space-y-5">
