@@ -1,3 +1,4 @@
+import CallToAction from "./components/CallToAction";
 import Testimonials from "./components/Testimonials";
 import WhyChoose from "./components/WhyChoose";
 import HowItWorks from "./components/HowItWorks";
@@ -14,6 +15,7 @@ function App() {
   <HowItWorks />
   <WhyChoose />
   <Testimonials />
+  <CallToAction />
 </>
   );
 }
