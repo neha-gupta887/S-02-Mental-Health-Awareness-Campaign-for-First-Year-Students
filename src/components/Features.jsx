@@ -57,7 +57,7 @@ function Features() {
           </h2>
 
           <p className="mt-5 text-gray-600 max-w-2xl mx-auto leading-8">
-            MindBridge brings together powerful tools to help students stay
+            ManaSetu brings together powerful tools to help students stay
             emotionally healthy, connected, and supported throughout their
             academic journey.
           </p>

@@ -1,4 +1,4 @@
-# 📋 MindBridge Project Plan
+# 📋 ManaSetu Project Plan
 
 ## Version 1 (MVP)
 
@@ -29,7 +29,7 @@
 
 ## 👤 User Journey
 
-1. Student opens MindBridge
+1. Student opens ManaSetu
 2. Creates an account / Logs in
 3. Completes a quick onboarding
 4. Selects today's mood
@@ -44,7 +44,7 @@
 ## 🚀 Onboarding Flow
 
 ### Screen 1
-**Welcome to MindBridge**
+**Welcome to ManaSetu**
 Supporting Minds. Unlocking Potential.
 
 ### Screen 2
@@ -133,7 +133,7 @@ Based on the selected mood:
 - 🤖 Talk to AI Companion
 ### 🎯 Recommended Action Card
 
-After the user selects a mood, MindBridge will immediately display a personalized action card.
+After the user selects a mood, ManaSetu will immediately display a personalized action card.
 
 **Examples:**
 
@@ -176,7 +176,7 @@ After selecting a mood, the user can optionally write:
 - What's making you feel this way today?
 
 ### AI Response
-Based on the selected mood, MindBridge will:
+Based on the selected mood, ManaSetu will:
 - Suggest a breathing exercise
 - Recommend journaling
 - Share a motivational message
@@ -323,7 +323,7 @@ AI recommends:
 - 👩‍⚕️ Contact a Professional Counselor
 
 ### Disclaimer
-MindBridge provides wellness support and guidance. It does not diagnose mental health conditions or replace professional medical care.
+ManaSetu provides wellness support and guidance. It does not diagnose mental health conditions or replace professional medical care.
 ## 🛠️ Tech Stack
 
 ### Frontend

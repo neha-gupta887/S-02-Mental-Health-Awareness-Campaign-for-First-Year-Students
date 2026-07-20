@@ -6,7 +6,7 @@ function CallToAction() {
 
           {/* Badge */}
           <span className="inline-block bg-white/20 backdrop-blur-md text-white px-5 py-2 rounded-full text-sm font-semibold">
-            🌿 Join the MindBridge Community
+            🌿 Join the ManaSetu Community
           </span>
 
           {/* Heading */}
@@ -19,7 +19,7 @@ function CallToAction() {
           {/* Description */}
           <p className="mt-6 max-w-3xl mx-auto text-lg text-green-50 leading-8">
             Take the first step toward a healthier, happier, and more balanced
-            life. Join thousands of students using MindBridge to build better
+            life. Join thousands of students using ManaSetu to build better
             habits and improve their mental well-being every day.
           </p>
 

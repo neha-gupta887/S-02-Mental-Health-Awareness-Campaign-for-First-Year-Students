@@ -53,7 +53,7 @@ function WhyChoose() {
         {/* Heading */}
         <div className="text-center">
           <span className="inline-block px-5 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-            💚 Why Choose MindBridge
+            💚 Why Choose ManaSetu
           </span>
 
           <h2 className="mt-6 text-4xl lg:text-5xl font-bold text-gray-900">
@@ -62,7 +62,7 @@ function WhyChoose() {
           </h2>
 
           <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-8">
-            MindBridge combines technology, AI, and human support to create a
+            ManaSetu combines technology, AI, and human support to create a
             safe, personalized, and empowering experience for every student.
           </p>
         </div>

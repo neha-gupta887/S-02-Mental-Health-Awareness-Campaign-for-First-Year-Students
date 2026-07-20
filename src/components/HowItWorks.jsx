@@ -12,7 +12,7 @@ function HowItWorks() {
       icon: <FaUserPlus />,
       title: "Create Your Account",
       description:
-        "Sign up and create your personal MindBridge profile in just a few clicks.",
+        "Sign up and create your personal ManaSetu profile in just a few clicks.",
     },
     {
       number: "02",
@@ -55,7 +55,7 @@ function HowItWorks() {
           </h2>
 
           <p className="mt-5 text-gray-600 max-w-2xl mx-auto leading-8 text-lg">
-            MindBridge guides you step by step toward better mental well-being
+            ManaSetu guides you step by step toward better mental well-being
             with a simple, supportive, and personalized experience.
           </p>
         </div>

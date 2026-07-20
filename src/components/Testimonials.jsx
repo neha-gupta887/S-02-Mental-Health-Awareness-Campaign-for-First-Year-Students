@@ -6,7 +6,7 @@ function Testimonials() {
       name: "Aarav Sharma",
       role: "B.Tech Student",
       review:
-        "MindBridge helped me manage academic stress and stay consistent with my daily wellness routine. The AI companion feels genuinely supportive.",
+        "ManaSetu helped me manage academic stress and stay consistent with my daily wellness routine. The AI companion feels genuinely supportive.",
     },
     {
       name: "Priya Verma",
@@ -38,7 +38,7 @@ function Testimonials() {
 
           <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-8">
             See what students are saying about their experience with
-            MindBridge and how it has helped improve their mental well-being.
+            ManaSetu and how it has helped improve their mental well-being.
           </p>
         </div>
 

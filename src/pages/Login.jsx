@@ -8,20 +8,21 @@ function Login() {
       <div className="hidden lg:flex bg-gradient-to-br from-green-600 to-emerald-500 items-center justify-center p-12">
         <div className="max-w-md text-white">
           <h1 className="text-5xl font-bold">
-            Welcome <br />
-            Back!
+            Welcome Back to <br />
+            ManaSetu
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-green-100">
-            Continue your wellness journey with MindBridge. Track your mood,
-            connect with your AI companion, and stay mentally healthy.
+            Continue your wellness journey with ManaSetu. Track your mood,
+            connect with your AI companion, write your journal, and take care
+            of your mental well-being every day.
           </p>
 
           <div className="mt-10 space-y-4">
-            <div>💚 Track Daily Mood</div>
-            <div>🤖 AI Wellness Companion</div>
+            <div>🌿 AI Wellness Companion</div>
+            <div>😊 Daily Mood Tracking</div>
             <div>📖 Personal Journal</div>
-            <div>📊 Wellness Analytics</div>
+            <div>📊 Wellness Insights</div>
           </div>
         </div>
       </div>
@@ -34,7 +35,7 @@ function Login() {
           </h2>
 
           <p className="text-center text-gray-500 mt-2">
-            Login to continue your journey.
+            Login to continue your ManaSetu journey.
           </p>
 
           <form className="mt-8 space-y-5">
@@ -65,18 +66,13 @@ function Login() {
                 Remember Me
               </label>
 
-              <a
-                href="#"
-                className="text-green-600 hover:underline"
-              >
+              <a href="#" className="text-green-600 hover:underline">
                 Forgot Password?
               </a>
             </div>
 
             {/* Login Button */}
-            <button
-              className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition"
-            >
+            <button className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition">
               Login
             </button>
 
