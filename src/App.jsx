@@ -1,3 +1,4 @@
+import Testimonials from "./components/Testimonials";
 import WhyChoose from "./components/WhyChoose";
 import HowItWorks from "./components/HowItWorks";
 import Navbar from "./components/Navbar";
@@ -12,6 +13,7 @@ function App() {
   <Features />
   <HowItWorks />
   <WhyChoose />
+  <Testimonials />
 </>
   );
 }
