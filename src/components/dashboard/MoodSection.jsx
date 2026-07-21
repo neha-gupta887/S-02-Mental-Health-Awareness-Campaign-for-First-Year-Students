@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { saveMood } from "../../services/moodService";
 
 const moods = [
   { emoji: "😊", label: "Happy" },
@@ -10,6 +11,18 @@ const moods = [
 
 function MoodSection() {
   const [selectedMood, setSelectedMood] = useState(null);
+
+  const handleMoodClick = async (mood) => {
+    setSelectedMood(mood);
+
+    const success = await saveMood(mood);
+
+    if (success) {
+      alert("✅ Mood saved successfully!");
+    } else {
+      alert("❌ Failed to save mood.");
+    }
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
@@ -25,7 +38,7 @@ function MoodSection() {
         {moods.map((mood) => (
           <button
             key={mood.label}
-            onClick={() => setSelectedMood(mood)}
+            onClick={() => handleMoodClick(mood)}
             className={`rounded-xl p-5 transition border ${
               selectedMood?.label === mood.label
                 ? "bg-green-100 border-green-500 shadow-md"
