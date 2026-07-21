@@ -6,15 +6,16 @@ import {
   FaChartLine,
   FaCog,
 } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   const menuItems = [
-    { icon: <FaHome />, label: "Dashboard" },
-    { icon: <FaSmile />, label: "Mood Tracker" },
-    { icon: <FaBook />, label: "Journal" },
-    { icon: <FaRobot />, label: "AI Companion" },
-    { icon: <FaChartLine />, label: "Analytics" },
-    { icon: <FaCog />, label: "Settings" },
+    { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
+    { icon: <FaSmile />, label: "Mood Tracker", path: "/dashboard" },
+    { icon: <FaBook />, label: "Journal", path: "/journal" },
+    { icon: <FaRobot />, label: "AI Companion", path: "/dashboard" },
+    { icon: <FaChartLine />, label: "Analytics", path: "/dashboard" },
+    { icon: <FaCog />, label: "Settings", path: "/dashboard" },
   ];
 
   return (
@@ -27,13 +28,20 @@ function Sidebar() {
       {/* Navigation */}
       <nav className="space-y-3">
         {menuItems.map((item) => (
-          <button
+          <NavLink
             key={item.label}
-            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-gray-700 hover:bg-green-100 hover:text-green-700 transition"
+            to={item.path}
+            className={({ isActive }) =>
+              `w-full flex items-center gap-4 px-4 py-3 rounded-xl transition ${
+                isActive
+                  ? "bg-green-600 text-white"
+                  : "text-gray-700 hover:bg-green-100 hover:text-green-700"
+              }`
+            }
           >
             <span className="text-xl">{item.icon}</span>
             <span className="font-medium">{item.label}</span>
-          </button>
+          </NavLink>
         ))}
       </nav>
 
