@@ -4,6 +4,7 @@ import WelcomeCard from "../components/dashboard/WelcomeCard";
 import MoodSection from "../components/dashboard/MoodSection";
 import QuickActions from "../components/dashboard/QuickActions";
 import QuoteCard from "../components/dashboard/QuoteCard";
+import MoodHistory from "../components/dashboard/MoodHistory";
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -26,6 +27,7 @@ function Dashboard() {
         {/* Quick Actions */}
         <QuickActions />
         <QuoteCard />
+        <MoodHistory />
       </div>
     </div>
   );
