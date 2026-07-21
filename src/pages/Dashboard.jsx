@@ -3,7 +3,7 @@ import Topbar from "../components/dashboard/Topbar";
 import WelcomeCard from "../components/dashboard/WelcomeCard";
 import MoodSection from "../components/dashboard/MoodSection";
 import QuickActions from "../components/dashboard/QuickActions";
-
+import QuoteCard from "../components/dashboard/QuoteCard";
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -25,6 +25,7 @@ function Dashboard() {
 
         {/* Quick Actions */}
         <QuickActions />
+        <QuoteCard />
       </div>
     </div>
   );
