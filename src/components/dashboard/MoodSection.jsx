@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const moods = [
   { emoji: "😊", label: "Happy" },
   { emoji: "😌", label: "Calm" },
@@ -7,6 +9,8 @@ const moods = [
 ];
 
 function MoodSection() {
+  const [selectedMood, setSelectedMood] = useState(null);
+
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
       <h2 className="text-2xl font-bold text-gray-800">
@@ -21,13 +25,28 @@ function MoodSection() {
         {moods.map((mood) => (
           <button
             key={mood.label}
-            className="border rounded-xl p-5 hover:bg-green-50 hover:border-green-500 transition"
+            onClick={() => setSelectedMood(mood)}
+            className={`rounded-xl p-5 transition border ${
+              selectedMood?.label === mood.label
+                ? "bg-green-100 border-green-500 shadow-md"
+                : "bg-white border-gray-200 hover:bg-green-50 hover:border-green-400"
+            }`}
           >
             <div className="text-4xl">{mood.emoji}</div>
+
             <p className="mt-2 font-medium">{mood.label}</p>
           </button>
         ))}
       </div>
+
+      {selectedMood && (
+        <div className="mt-6 rounded-xl bg-green-50 border border-green-200 p-4">
+          <p className="text-lg font-semibold text-green-700">
+            {selectedMood.emoji} You are feeling{" "}
+            <span className="font-bold">{selectedMood.label}</span> today!
+          </p>
+        </div>
+      )}
     </div>
   );
 }
