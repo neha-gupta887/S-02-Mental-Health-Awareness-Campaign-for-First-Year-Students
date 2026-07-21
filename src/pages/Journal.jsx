@@ -6,8 +6,11 @@ import {
   deleteJournal,
   updateJournal,
 } from "../services/journalService";
+import useAuth from "../hooks/useAuth";
 
 function Journal() {
+  const user = useAuth();
+
   const [journal, setJournal] = useState("");
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,9 +25,14 @@ function Journal() {
     setEntries(data);
   };
 
+  // Wait for Firebase Auth before loading journals
   useEffect(() => {
+    if (user === undefined) return;
+
+    if (!user) return;
+
     loadJournals();
-  }, []);
+  }, [user]);
 
   // Save or Update Journal
   const handleSave = async () => {
@@ -71,7 +79,7 @@ function Journal() {
 
     if (success) {
       alert("🗑 Journal deleted.");
-      loadJournals();
+      await loadJournals();
     }
   };
 
