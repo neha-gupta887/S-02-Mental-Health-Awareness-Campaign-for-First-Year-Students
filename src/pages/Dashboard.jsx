@@ -1,7 +1,8 @@
-import MoodSection from "../components/dashboard/MoodSection";
 import Sidebar from "../components/dashboard/Sidebar";
 import Topbar from "../components/dashboard/Topbar";
 import WelcomeCard from "../components/dashboard/WelcomeCard";
+import MoodSection from "../components/dashboard/MoodSection";
+import QuickActions from "../components/dashboard/QuickActions";
 
 function Dashboard() {
   return (
@@ -21,6 +22,9 @@ function Dashboard() {
 
         {/* Mood Section */}
         <MoodSection />
+
+        {/* Quick Actions */}
+        <QuickActions />
       </div>
     </div>
   );
