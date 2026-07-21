@@ -1,7 +1,27 @@
+import MoodSection from "../components/dashboard/MoodSection";
+import Sidebar from "../components/dashboard/Sidebar";
+import Topbar from "../components/dashboard/Topbar";
+import WelcomeCard from "../components/dashboard/WelcomeCard";
+
 function Dashboard() {
   return (
-    <div className="min-h-screen flex items-center justify-center text-4xl font-bold">
-      Dashboard
+    <div className="min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <div className="ml-72 p-8">
+        {/* Topbar */}
+        <Topbar />
+
+        {/* Welcome Card */}
+        <div className="mt-8">
+          <WelcomeCard />
+        </div>
+
+        {/* Mood Section */}
+        <MoodSection />
+      </div>
     </div>
   );
 }
