@@ -7,6 +7,7 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 
 import { auth, db } from "./firebase";
@@ -16,9 +17,7 @@ export const saveJournal = async (content) => {
   try {
     const user = auth.currentUser;
 
-    if (!user) {
-      throw new Error("User is not logged in.");
-    }
+    if (!user) throw new Error("User is not logged in.");
 
     await addDoc(collection(db, "journals"), {
       uid: user.uid,
@@ -65,13 +64,28 @@ export const getJournalHistory = async () => {
   }
 };
 
-// Delete Journal Entry
+// Delete Journal
 export const deleteJournal = async (id) => {
   try {
     await deleteDoc(doc(db, "journals", id));
     return true;
   } catch (error) {
     console.error("Error deleting journal:", error);
+    return false;
+  }
+};
+
+// Update Journal
+export const updateJournal = async (id, content) => {
+  try {
+    await updateDoc(doc(db, "journals", id), {
+      content,
+      updatedAt: serverTimestamp(),
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error updating journal:", error);
     return false;
   }
 };

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaBookOpen, FaSave, FaTrash } from "react-icons/fa";
+import { FaBookOpen, FaSave, FaTrash, FaEdit, FaTimes } from "react-icons/fa";
 import {
   saveJournal,
   getJournalHistory,
   deleteJournal,
+  updateJournal,
 } from "../services/journalService";
 
 function Journal() {
@@ -11,7 +12,11 @@ function Journal() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load Journal History
+  // Edit State
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
+
+  // Load Journals
   const loadJournals = async () => {
     const data = await getJournalHistory();
     setEntries(data);
@@ -21,7 +26,7 @@ function Journal() {
     loadJournals();
   }, []);
 
-  // Save Journal
+  // Save or Update Journal
   const handleSave = async () => {
     if (!journal.trim()) {
       alert("Please write something before saving.");
@@ -30,14 +35,29 @@ function Journal() {
 
     setLoading(true);
 
-    const success = await saveJournal(journal);
+    let success = false;
+
+    if (isEditing) {
+      success = await updateJournal(editId, journal);
+
+      if (success) {
+        alert("✅ Journal updated successfully!");
+      }
+    } else {
+      success = await saveJournal(journal);
+
+      if (success) {
+        alert("✅ Journal saved successfully!");
+      }
+    }
 
     if (success) {
-      alert("✅ Journal saved successfully!");
       setJournal("");
+      setIsEditing(false);
+      setEditId(null);
       await loadJournals();
     } else {
-      alert("❌ Failed to save journal.");
+      alert("❌ Something went wrong.");
     }
 
     setLoading(false);
@@ -45,25 +65,39 @@ function Journal() {
 
   // Delete Journal
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this journal entry?"
-    );
-
-    if (!confirmDelete) return;
+    if (!window.confirm("Delete this journal entry?")) return;
 
     const success = await deleteJournal(id);
 
     if (success) {
-      alert("🗑 Journal deleted successfully!");
-      await loadJournals();
-    } else {
-      alert("❌ Failed to delete journal.");
+      alert("🗑 Journal deleted.");
+      loadJournals();
     }
+  };
+
+  // Edit Journal
+  const handleEdit = (entry) => {
+    setJournal(entry.content);
+    setEditId(entry.id);
+    setIsEditing(true);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Cancel Edit
+  const handleCancel = () => {
+    setJournal("");
+    setEditId(null);
+    setIsEditing(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-5xl mx-auto">
+
         {/* Heading */}
         <div className="flex items-center gap-3 mb-8">
           <FaBookOpen className="text-4xl text-green-600" />
@@ -71,83 +105,119 @@ function Journal() {
             <h1 className="text-4xl font-bold text-gray-800">
               My Journal
             </h1>
-            <p className="text-gray-500 mt-1">
-              Write down your thoughts, emotions, and experiences.
+            <p className="text-gray-500">
+              Write your thoughts and reflect on your day.
             </p>
           </div>
         </div>
 
-        {/* Journal Form */}
+        {/* Form */}
         <div className="bg-white rounded-3xl shadow-lg p-8">
-          <label className="block text-lg font-semibold text-gray-700 mb-4">
-            ✍️ How are you feeling today?
-          </label>
 
           <textarea
+            rows={8}
             value={journal}
             onChange={(e) => setJournal(e.target.value)}
-            placeholder="Write your thoughts here..."
-            rows={8}
-            className="w-full border border-gray-300 rounded-2xl p-5 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Write something..."
+            className="w-full border rounded-2xl p-5 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
           />
 
           <div className="flex justify-between items-center mt-4">
-            <p className="text-gray-500">
+            <span className="text-gray-500">
               {journal.length} characters
-            </p>
+            </span>
 
-            <button
-              onClick={handleSave}
-              disabled={loading}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition disabled:bg-green-400"
-            >
-              <FaSave />
-              {loading ? "Saving..." : "Save Entry"}
-            </button>
+            <div className="flex gap-3">
+
+              {isEditing && (
+                <button
+                  onClick={handleCancel}
+                  className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-xl"
+                >
+                  <FaTimes />
+                  Cancel
+                </button>
+              )}
+
+              <button
+                onClick={handleSave}
+                disabled={loading}
+                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl"
+              >
+                <FaSave />
+                {loading
+                  ? "Saving..."
+                  : isEditing
+                  ? "Update Entry"
+                  : "Save Entry"}
+              </button>
+
+            </div>
           </div>
         </div>
 
-        {/* Journal History */}
+        {/* History */}
         <div className="bg-white rounded-3xl shadow-lg p-8 mt-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+
+          <h2 className="text-2xl font-bold mb-6">
             📖 Previous Entries
           </h2>
 
           {entries.length === 0 ? (
-            <p className="text-center text-gray-500">
+            <p className="text-gray-500">
               No journal entries yet.
             </p>
           ) : (
             <div className="space-y-4">
+
               {entries.map((entry) => (
+
                 <div
                   key={entry.id}
-                  className="border rounded-2xl p-5 shadow-sm hover:shadow-md transition"
+                  className="border rounded-2xl p-5"
                 >
-                  <p className="text-gray-800 whitespace-pre-wrap">
+                  <p className="whitespace-pre-wrap">
                     {entry.content}
                   </p>
 
-                  <div className="flex justify-between items-center mt-4">
-                    <p className="text-sm text-gray-500">
+                  <div className="flex justify-between items-center mt-5">
+
+                    <span className="text-sm text-gray-500">
                       {entry.createdAt?.toDate
                         ? entry.createdAt.toDate().toLocaleString()
                         : "Just now"}
-                    </p>
+                    </span>
 
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
-                    >
-                      <FaTrash />
-                      Delete
-                    </button>
+                    <div className="flex gap-3">
+
+                      <button
+                        onClick={() => handleEdit(entry)}
+                        className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+                      >
+                        <FaEdit />
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(entry.id)}
+                        className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+                      >
+                        <FaTrash />
+                        Delete
+                      </button>
+
+                    </div>
+
                   </div>
                 </div>
+
               ))}
+
             </div>
           )}
+
         </div>
+
       </div>
     </div>
   );
