@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Journal from "./pages/Journal";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import AITest from "./pages/AITest";
+import Journal from "./pages/Journal";
+import AICompanion from "./pages/AICompanion";
+
 function App() {
   return (
     <BrowserRouter>
@@ -14,7 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/journal" element={<Journal />} />
-        <Route path="/ai-test" element={<AITest />} />
+        <Route path="/ai-companion" element={<AICompanion />} />
       </Routes>
     </BrowserRouter>
   );
