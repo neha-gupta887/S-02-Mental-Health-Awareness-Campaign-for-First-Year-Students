@@ -1,3 +1,4 @@
+import AchievementsCard from "../components/AchievementsCard";
 import { useEffect, useState } from "react";
 import {
   LineChart,
@@ -292,6 +293,7 @@ function MoodAnalytics() {
 
 </div>
 
+        <AchievementsCard analytics={analytics} />
         {/* Footer */}
 
         <div className="mt-10 text-center text-gray-500">
