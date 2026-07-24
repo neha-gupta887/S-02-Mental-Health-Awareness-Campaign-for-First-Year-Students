@@ -13,6 +13,7 @@ import {
 } from "recharts";
 
 import { getMoodAnalytics } from "../services/analyticsService";
+import AIInsightsCard from "../components/AIInsightsCard";
 
 const COLORS = [
   "#10B981",
@@ -27,9 +28,7 @@ function StatsCard({ title, value, emoji }) {
     <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
       <div className="text-4xl">{emoji}</div>
 
-      <h3 className="mt-3 text-gray-500">
-        {title}
-      </h3>
+      <h3 className="mt-3 text-gray-500">{title}</h3>
 
       <p className="text-3xl font-bold text-emerald-600 mt-2">
         {value}
@@ -45,6 +44,7 @@ function MoodAnalytics() {
     mostFrequentMood: "Loading...",
     moodDistribution: [],
     weeklyTrend: [],
+    streak: 0,
   });
 
   const [loading, setLoading] = useState(true);
@@ -71,7 +71,6 @@ function MoodAnalytics() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 p-8">
-
       <div className="max-w-7xl mx-auto">
 
         <h1 className="text-5xl font-bold text-center text-emerald-700">
@@ -93,10 +92,13 @@ function MoodAnalytics() {
           />
 
           <StatsCard
-  title="Mood Streak"
-  value={`${analytics.streak} Day${analytics.streak !== 1 ? "s" : ""}`}
-  emoji="🔥"
-/>
+            title="Mood Streak"
+            value={`${analytics.streak} Day${
+              analytics.streak !== 1 ? "s" : ""
+            }`}
+            emoji="🔥"
+          />
+
           <StatsCard
             title="Mood Entries"
             value={analytics.totalEntries}
@@ -147,7 +149,8 @@ function MoodAnalytics() {
             </ResponsiveContainer>
 
           </div>
-                    {/* Mood Distribution */}
+
+          {/* Mood Distribution */}
 
           <div className="bg-white rounded-3xl shadow-xl p-6">
 
@@ -201,7 +204,6 @@ function MoodAnalytics() {
             <div className="space-y-4">
 
               {analytics.moodDistribution.map((item, index) => (
-
                 <div
                   key={item.name}
                   className="flex items-center justify-between"
@@ -228,7 +230,6 @@ function MoodAnalytics() {
                   </span>
 
                 </div>
-
               ))}
 
             </div>
@@ -242,6 +243,9 @@ function MoodAnalytics() {
           )}
 
         </div>
+
+        {/* AI Insights */}
+                <AIInsightsCard analytics={analytics} />
 
         {/* Footer */}
 
