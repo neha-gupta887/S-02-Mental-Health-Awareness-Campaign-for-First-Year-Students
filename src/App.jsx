@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import AICompanion from "./pages/AICompanion";
+import BreathingExercise from "./pages/BreathingExercise";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/ai-companion" element={<AICompanion />} />
+        <Route path="/breathing" element={<BreathingExercise />} />
       </Routes>
     </BrowserRouter>
   );
