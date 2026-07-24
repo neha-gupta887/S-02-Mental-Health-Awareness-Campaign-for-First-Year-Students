@@ -5,6 +5,8 @@ import MoodSection from "../components/dashboard/MoodSection";
 import QuickActions from "../components/dashboard/QuickActions";
 import QuoteCard from "../components/dashboard/QuoteCard";
 import MoodHistory from "../components/dashboard/MoodHistory";
+import { Link } from "react-router-dom";
+
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -26,8 +28,26 @@ function Dashboard() {
 
         {/* Quick Actions */}
         <QuickActions />
-        <QuoteCard />
-        <MoodHistory />
+
+        {/* Analytics Button */}
+        <div className="mt-6">
+          <Link
+            to="/analytics"
+            className="block bg-emerald-600 hover:bg-emerald-700 text-white text-center py-4 rounded-2xl font-semibold text-lg transition"
+          >
+            📊 View Mood Analytics
+          </Link>
+        </div>
+
+        {/* Quote */}
+        <div className="mt-6">
+          <QuoteCard />
+        </div>
+
+        {/* Mood History */}
+        <div className="mt-6">
+          <MoodHistory />
+        </div>
       </div>
     </div>
   );
