@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -11,33 +12,19 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const weeklyData = [
-  { day: "Mon", mood: 4 },
-  { day: "Tue", mood: 3 },
-  { day: "Wed", mood: 5 },
-  { day: "Thu", mood: 2 },
-  { day: "Fri", mood: 4 },
-  { day: "Sat", mood: 5 },
-  { day: "Sun", mood: 4 },
-];
-
-const moodData = [
-  { name: "Happy", value: 8 },
-  { name: "Neutral", value: 4 },
-  { name: "Sad", value: 2 },
-  { name: "Anxious", value: 3 },
-];
+import { getMoodAnalytics } from "../services/analyticsService";
 
 const COLORS = [
   "#10B981",
   "#3B82F6",
   "#F59E0B",
   "#EF4444",
+  "#8B5CF6",
 ];
 
 function StatsCard({ title, value, emoji }) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+    <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
       <div className="text-4xl">{emoji}</div>
 
       <h3 className="mt-3 text-gray-500">
@@ -52,6 +39,36 @@ function StatsCard({ title, value, emoji }) {
 }
 
 function MoodAnalytics() {
+  const [analytics, setAnalytics] = useState({
+    totalEntries: 0,
+    currentMood: "Loading...",
+    mostFrequentMood: "Loading...",
+    moodDistribution: [],
+    weeklyTrend: [],
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadAnalytics = async () => {
+      const data = await getMoodAnalytics();
+      setAnalytics(data);
+      setLoading(false);
+    };
+
+    loadAnalytics();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100">
+        <h1 className="text-3xl font-bold text-emerald-600">
+          Loading Analytics...
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 p-8">
 
@@ -71,25 +88,25 @@ function MoodAnalytics() {
 
           <StatsCard
             title="Current Mood"
-            value="Happy 😊"
+            value={analytics.currentMood}
             emoji="😊"
           />
 
           <StatsCard
             title="Mood Streak"
-            value="6 Days"
+            value="Coming Soon"
             emoji="🔥"
           />
 
           <StatsCard
-            title="Journal Entries"
-            value="18"
+            title="Mood Entries"
+            value={analytics.totalEntries}
             emoji="📝"
           />
 
           <StatsCard
             title="Most Frequent"
-            value="Happy"
+            value={analytics.mostFrequentMood}
             emoji="⭐"
           />
 
@@ -99,20 +116,24 @@ function MoodAnalytics() {
 
         <div className="grid lg:grid-cols-2 gap-8 mt-12">
 
+          {/* Weekly Trend */}
+
           <div className="bg-white rounded-3xl shadow-xl p-6">
 
             <h2 className="text-2xl font-bold text-gray-700 mb-6">
               📈 Weekly Mood Trend
             </h2>
 
-            <ResponsiveContainer
-              width="100%"
-              height={300}
-            >
-              <LineChart data={weeklyData}>
+            <ResponsiveContainer width="100%" height={320}>
+
+              <LineChart data={analytics.weeklyTrend}>
+
                 <CartesianGrid strokeDasharray="3 3" />
+
                 <XAxis dataKey="day" />
+
                 <YAxis domain={[1, 5]} />
+
                 <Tooltip />
 
                 <Line
@@ -123,9 +144,11 @@ function MoodAnalytics() {
                 />
 
               </LineChart>
+
             </ResponsiveContainer>
 
           </div>
+                    {/* Mood Distribution */}
 
           <div className="bg-white rounded-3xl shadow-xl p-6">
 
@@ -133,33 +156,105 @@ function MoodAnalytics() {
               🥧 Mood Distribution
             </h2>
 
-            <ResponsiveContainer
-              width="100%"
-              height={300}
-            >
-              <PieChart>
+            {analytics.moodDistribution.length > 0 ? (
+              <ResponsiveContainer width="100%" height={320}>
+                <PieChart>
 
-                <Pie
-                  data={moodData}
-                  dataKey="value"
-                  outerRadius={100}
-                  label
-                >
-                  {moodData.map((entry, index) => (
-                    <Cell
-                      key={index}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
+                  <Pie
+                    data={analytics.moodDistribution}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={100}
+                    label
+                  >
+                    {analytics.moodDistribution.map((entry, index) => (
+                      <Cell
+                        key={entry.name}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
 
-                <Tooltip />
+                  <Tooltip />
 
-              </PieChart>
-
-            </ResponsiveContainer>
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex items-center justify-center h-80 text-gray-500">
+                No mood data available.
+              </div>
+            )}
 
           </div>
+
+        </div>
+
+        {/* Mood Summary */}
+
+        <div className="bg-white rounded-3xl shadow-xl p-8 mt-10">
+
+          <h2 className="text-2xl font-bold text-gray-700 mb-6">
+            📋 Mood Summary
+          </h2>
+
+          {analytics.moodDistribution.length > 0 ? (
+
+            <div className="space-y-4">
+
+              {analytics.moodDistribution.map((item, index) => (
+
+                <div
+                  key={item.name}
+                  className="flex items-center justify-between"
+                >
+
+                  <div className="flex items-center gap-3">
+
+                    <div
+                      className="w-5 h-5 rounded-full"
+                      style={{
+                        backgroundColor:
+                          COLORS[index % COLORS.length],
+                      }}
+                    />
+
+                    <span className="font-medium text-gray-700">
+                      {item.name}
+                    </span>
+
+                  </div>
+
+                  <span className="font-bold text-emerald-600">
+                    {item.value}
+                  </span>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          ) : (
+
+            <p className="text-center text-gray-500">
+              Start tracking your mood to view analytics.
+            </p>
+
+          )}
+
+        </div>
+
+        {/* Footer */}
+
+        <div className="mt-10 text-center text-gray-500">
+
+          <p>
+            🌿 Your analytics are generated from your personal mood history.
+          </p>
+
+          <p className="mt-2 text-sm">
+            Keep logging your mood daily to receive more meaningful insights.
+          </p>
 
         </div>
 
