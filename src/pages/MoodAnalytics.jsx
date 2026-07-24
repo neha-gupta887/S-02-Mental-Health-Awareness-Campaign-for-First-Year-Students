@@ -1,7 +1,4 @@
-import MoodCalendar from "../components/MoodCalendar";
-import AchievementsCard from "../components/AchievementsCard";
 import { useEffect, useState } from "react";
-import { downloadWellnessReport } from "../services/pdfService";
 
 import {
   LineChart,
@@ -16,8 +13,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { getMoodAnalytics } from "../services/analyticsService";
+import MoodCalendar from "../components/MoodCalendar";
+import AchievementsCard from "../components/AchievementsCard";
 import AIInsightsCard from "../components/AIInsightsCard";
+import AIRiskCard from "../components/AIRiskCard";
+
+import { getMoodAnalytics } from "../services/analyticsService";
+import { downloadWellnessReport } from "../services/pdfService";
 
 const COLORS = [
   "#10B981",
@@ -78,6 +80,8 @@ function MoodAnalytics() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 p-8">
       <div className="max-w-7xl mx-auto">
 
+        {/* Heading */}
+
         <h1 className="text-5xl font-bold text-center text-emerald-700">
           📊 Mood Analytics
         </h1>
@@ -85,16 +89,19 @@ function MoodAnalytics() {
         <p className="text-center text-gray-600 mt-3">
           Understand your emotions through meaningful insights.
         </p>
-        <div className="flex justify-center mt-8">
-  <button
-    onClick={() => downloadWellnessReport(analytics)}
-    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-lg font-semibold"
-  >
-    📥 Download Wellness Report
-  </button>
-</div>
 
-        {/* Stats */}
+        {/* Download Button */}
+
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() => downloadWellnessReport(analytics)}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-lg font-semibold"
+          >
+            📥 Download Wellness Report
+          </button>
+        </div>
+
+        {/* Statistics */}
 
         <div className="grid md:grid-cols-4 gap-6 mt-10">
 
@@ -162,8 +169,7 @@ function MoodAnalytics() {
             </ResponsiveContainer>
 
           </div>
-
-          {/* Mood Distribution */}
+                    {/* Mood Distribution */}
 
           <div className="bg-white rounded-3xl shadow-xl p-6">
 
@@ -172,7 +178,9 @@ function MoodAnalytics() {
             </h2>
 
             {analytics.moodDistribution.length > 0 ? (
+
               <ResponsiveContainer width="100%" height={320}>
+
                 <PieChart>
 
                   <Pie
@@ -182,22 +190,30 @@ function MoodAnalytics() {
                     outerRadius={100}
                     label
                   >
+
                     {analytics.moodDistribution.map((entry, index) => (
+
                       <Cell
                         key={entry.name}
                         fill={COLORS[index % COLORS.length]}
                       />
+
                     ))}
+
                   </Pie>
 
                   <Tooltip />
 
                 </PieChart>
+
               </ResponsiveContainer>
+
             ) : (
+
               <div className="flex items-center justify-center h-80 text-gray-500">
                 No mood data available.
               </div>
+
             )}
 
           </div>
@@ -217,6 +233,7 @@ function MoodAnalytics() {
             <div className="space-y-4">
 
               {analytics.moodDistribution.map((item, index) => (
+
                 <div
                   key={item.name}
                   className="flex items-center justify-between"
@@ -243,6 +260,7 @@ function MoodAnalytics() {
                   </span>
 
                 </div>
+
               ))}
 
             </div>
@@ -257,57 +275,68 @@ function MoodAnalytics() {
 
         </div>
 
-        {/* AI Insights */}
-                <AIInsightsCard analytics={analytics} />
+        {/* AI Wellness Insights */}
+
+        <AIInsightsCard analytics={analytics} />
+
         {/* Wellness Score */}
 
-<div className="bg-white rounded-3xl shadow-xl p-8 mt-10">
+        <div className="bg-white rounded-3xl shadow-xl p-8 mt-10">
 
-  <h2 className="text-2xl font-bold text-emerald-700">
-    🌿 Wellness Score
-  </h2>
+          <h2 className="text-2xl font-bold text-emerald-700">
+            🌿 Wellness Score
+          </h2>
 
-  <div className="mt-6">
+          <div className="mt-6">
 
-    <div className="w-full bg-gray-200 rounded-full h-5">
+            <div className="w-full bg-gray-200 rounded-full h-5">
 
-      <div
-        className="bg-emerald-500 h-5 rounded-full transition-all duration-700"
-        style={{
-          width: `${analytics.wellnessScore}%`,
-        }}
-      />
+              <div
+                className="bg-emerald-500 h-5 rounded-full transition-all duration-700"
+                style={{
+                  width: `${analytics.wellnessScore}%`,
+                }}
+              />
 
-    </div>
+            </div>
 
-    <p className="text-center text-4xl font-bold text-emerald-600 mt-6">
-      {analytics.wellnessScore}%
-    </p>
+            <p className="text-center text-4xl font-bold text-emerald-600 mt-6">
+              {analytics.wellnessScore}%
+            </p>
 
-    <p className="text-center text-gray-600 mt-3">
-      {analytics.wellnessScore >= 80 &&
-        "Excellent! Keep maintaining your healthy routine."}
+            <p className="text-center text-gray-600 mt-3">
 
-      {analytics.wellnessScore >= 60 &&
-        analytics.wellnessScore < 80 &&
-        "You're doing well. Small self-care habits can improve your wellbeing."}
+              {analytics.wellnessScore >= 80 &&
+                "Excellent! Keep maintaining your healthy routine."}
 
-      {analytics.wellnessScore >= 40 &&
-        analytics.wellnessScore < 60 &&
-        "Your wellbeing is moderate. Consider journaling and breathing exercises."}
+              {analytics.wellnessScore >= 60 &&
+                analytics.wellnessScore < 80 &&
+                "You're doing well. Small self-care habits can improve your wellbeing."}
 
-      {analytics.wellnessScore < 40 &&
-        "Your recent mood suggests you may need extra care. Try relaxation exercises or reach out to someone you trust."}
-    </p>
+              {analytics.wellnessScore >= 40 &&
+                analytics.wellnessScore < 60 &&
+                "Your wellbeing is moderate. Consider journaling and breathing exercises."}
 
-  </div>
+              {analytics.wellnessScore < 40 &&
+                "Your recent mood suggests you may need extra care. Try relaxation exercises or reach out to someone you trust."}
 
-</div>
+            </p>
+
+          </div>
+
+        </div>
+                {/* AI Risk Assessment */}
+
+        <AIRiskCard />
+
+        {/* Achievements */}
 
         <AchievementsCard analytics={analytics} />
-         {/* Mood Calendar */}
+
+        {/* Mood Calendar */}
 
         <MoodCalendar />
+
         {/* Footer */}
 
         <div className="mt-10 text-center text-gray-500">
