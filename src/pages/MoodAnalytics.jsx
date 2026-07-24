@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import WellnessPlanCard from "../components/WellnessPlanCard";
 import {
   LineChart,
   Line,
@@ -325,9 +325,13 @@ function MoodAnalytics() {
           </div>
 
         </div>
+        <WellnessPlanCard
+  wellnessScore={analytics.wellnessScore}
+/>
+
+<AIRiskCard />
                 {/* AI Risk Assessment */}
 
-        <AIRiskCard />
 
         {/* Achievements */}
 
