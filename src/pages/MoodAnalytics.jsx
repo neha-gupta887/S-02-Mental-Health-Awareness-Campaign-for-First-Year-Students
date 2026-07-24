@@ -93,11 +93,10 @@ function MoodAnalytics() {
           />
 
           <StatsCard
-            title="Mood Streak"
-            value="Coming Soon"
-            emoji="🔥"
-          />
-
+  title="Mood Streak"
+  value={`${analytics.streak} Day${analytics.streak !== 1 ? "s" : ""}`}
+  emoji="🔥"
+/>
           <StatsCard
             title="Mood Entries"
             value={analytics.totalEntries}

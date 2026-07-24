@@ -10,13 +10,14 @@ export const getMoodAnalytics = async () => {
       mostFrequentMood: "No Data",
       moodDistribution: [],
       weeklyTrend: [],
+      streak: 0,
     };
   }
 
   // Current Mood
   const currentMood = moods[0].mood;
 
-  // Count each mood
+  // Mood Count
   const moodCount = {};
 
   moods.forEach((item) => {
@@ -39,7 +40,7 @@ export const getMoodAnalytics = async () => {
     }
   });
 
-  // Weekly Trend (last 7 mood entries)
+  // Weekly Trend
   const weeklyTrend = moods
     .slice(0, 7)
     .reverse()
@@ -59,11 +60,43 @@ export const getMoodAnalytics = async () => {
           : 1,
     }));
 
+  // Daily Streak
+  const uniqueDays = [
+    ...new Set(
+      moods.map((item) =>
+        item.createdAt?.toDate().toISOString().split("T")[0]
+      )
+    ),
+  ];
+
+  uniqueDays.sort((a, b) => new Date(b) - new Date(a));
+
+  let streak = 0;
+
+  if (uniqueDays.length > 0) {
+    let expectedDate = new Date();
+
+    expectedDate.setHours(0, 0, 0, 0);
+
+    for (const day of uniqueDays) {
+      const current = new Date(day);
+      current.setHours(0, 0, 0, 0);
+
+      if (current.getTime() === expectedDate.getTime()) {
+        streak++;
+        expectedDate.setDate(expectedDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+  }
+
   return {
     totalEntries: moods.length,
     currentMood,
     mostFrequentMood,
     moodDistribution,
     weeklyTrend,
+    streak,
   };
 };
