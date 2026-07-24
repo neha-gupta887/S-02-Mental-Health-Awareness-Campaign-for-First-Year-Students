@@ -14,8 +14,12 @@ export const saveMood = async (mood) => {
     const user = auth.currentUser;
 
     if (!user) {
+      console.error("❌ No logged-in user found.");
       throw new Error("User is not logged in.");
     }
+
+    console.log("👤 Saving mood for user:", user.uid);
+    console.log("😊 Mood:", mood);
 
     await addDoc(collection(db, "moods"), {
       uid: user.uid,
@@ -25,9 +29,11 @@ export const saveMood = async (mood) => {
       createdAt: serverTimestamp(),
     });
 
+    console.log("✅ Mood saved successfully!");
+
     return true;
   } catch (error) {
-    console.error("Error saving mood:", error);
+    console.error("❌ Error saving mood:", error);
     return false;
   }
 };
@@ -37,7 +43,12 @@ export const getMoodHistory = async () => {
   try {
     const user = auth.currentUser;
 
-    if (!user) return [];
+    if (!user) {
+      console.error("❌ No logged-in user found while fetching moods.");
+      return [];
+    }
+
+    console.log("👤 Fetching moods for:", user.uid);
 
     const q = query(
       collection(db, "moods"),
@@ -46,12 +57,15 @@ export const getMoodHistory = async () => {
 
     const snapshot = await getDocs(q);
 
+    console.log("📄 Documents Found:", snapshot.size);
+
     const moods = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    // Sort newest first
+    console.log("📊 Mood Data:", moods);
+
     moods.sort((a, b) => {
       if (!a.createdAt || !b.createdAt) return 0;
       return b.createdAt.seconds - a.createdAt.seconds;
@@ -59,7 +73,7 @@ export const getMoodHistory = async () => {
 
     return moods;
   } catch (error) {
-    console.error("Error fetching moods:", error);
+    console.error("❌ Error fetching moods:", error);
     return [];
   }
 };

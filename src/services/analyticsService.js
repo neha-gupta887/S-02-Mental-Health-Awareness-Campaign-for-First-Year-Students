@@ -3,6 +3,8 @@ import { getMoodHistory } from "./moodService";
 export const getMoodAnalytics = async () => {
   const moods = await getMoodHistory();
 
+  const totalEntries = moods.length;
+
   if (!moods.length) {
     return {
       totalEntries: 0,
@@ -11,6 +13,7 @@ export const getMoodAnalytics = async () => {
       moodDistribution: [],
       weeklyTrend: [],
       streak: 0,
+      wellnessScore: 0,
     };
   }
 
@@ -24,6 +27,7 @@ export const getMoodAnalytics = async () => {
     moodCount[item.mood] = (moodCount[item.mood] || 0) + 1;
   });
 
+  // Mood Distribution
   const moodDistribution = Object.keys(moodCount).map((mood) => ({
     name: mood,
     value: moodCount[mood],
@@ -40,7 +44,7 @@ export const getMoodAnalytics = async () => {
     }
   });
 
-  // Weekly Trend
+  // Weekly Trend (Last 7 Entries)
   const weeklyTrend = moods
     .slice(0, 7)
     .reverse()
@@ -60,7 +64,7 @@ export const getMoodAnalytics = async () => {
           : 1,
     }));
 
-  // Daily Streak
+  // Mood Streak
   const uniqueDays = [
     ...new Set(
       moods.map((item) =>
@@ -75,7 +79,6 @@ export const getMoodAnalytics = async () => {
 
   if (uniqueDays.length > 0) {
     let expectedDate = new Date();
-
     expectedDate.setHours(0, 0, 0, 0);
 
     for (const day of uniqueDays) {
@@ -90,25 +93,26 @@ export const getMoodAnalytics = async () => {
       }
     }
   }
-  // Calculate Wellness Score (0–100)
 
-let totalMoodValue = 0;
+  // Wellness Score
+  let totalMoodValue = 0;
 
-weeklyTrend.forEach((item) => {
-  totalMoodValue += item.mood;
-});
+  weeklyTrend.forEach((item) => {
+    totalMoodValue += item.mood;
+  });
 
-const wellnessScore =
-  weeklyTrend.length > 0
-    ? Math.round((totalMoodValue / (weeklyTrend.length * 5)) * 100)
-    : 0;
+  const wellnessScore =
+    weeklyTrend.length > 0
+      ? Math.round((totalMoodValue / (weeklyTrend.length * 5)) * 100)
+      : 0;
+
   return {
-  totalEntries,
-  currentMood,
-  mostFrequentMood,
-  moodDistribution,
-  weeklyTrend,
-  streak,
-  wellnessScore,
-};
+    totalEntries,
+    currentMood,
+    mostFrequentMood,
+    moodDistribution,
+    weeklyTrend,
+    streak,
+    wellnessScore,
+  };
 };
