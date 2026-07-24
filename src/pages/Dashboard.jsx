@@ -49,6 +49,16 @@ function Dashboard() {
           </Link>
         </div>
 
+        {/* Support Center Button */}
+        <div className="mt-4">
+          <Link
+            to="/support"
+            className="block bg-red-600 hover:bg-red-700 text-white text-center py-4 rounded-2xl font-semibold text-lg transition"
+          >
+            🆘 Support Center
+          </Link>
+        </div>
+
         {/* Quote */}
         <div className="mt-6">
           <QuoteCard />
