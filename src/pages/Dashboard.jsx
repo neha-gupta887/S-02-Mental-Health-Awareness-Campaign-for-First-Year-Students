@@ -5,6 +5,7 @@ import MoodSection from "../components/dashboard/MoodSection";
 import QuickActions from "../components/dashboard/QuickActions";
 import QuoteCard from "../components/dashboard/QuoteCard";
 import MoodHistory from "../components/dashboard/MoodHistory";
+import MoodReminder from "../components/MoodReminder";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
@@ -23,11 +24,20 @@ function Dashboard() {
           <WelcomeCard />
         </div>
 
+        {/* Daily Mood Reminder */}
+        <div className="mt-6">
+          <MoodReminder />
+        </div>
+
         {/* Mood Section */}
-        <MoodSection />
+        <div className="mt-6">
+          <MoodSection />
+        </div>
 
         {/* Quick Actions */}
-        <QuickActions />
+        <div className="mt-6">
+          <QuickActions />
+        </div>
 
         {/* Analytics Button */}
         <div className="mt-6">
