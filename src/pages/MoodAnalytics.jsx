@@ -45,6 +45,7 @@ function MoodAnalytics() {
     moodDistribution: [],
     weeklyTrend: [],
     streak: 0,
+    wellnessScore: 0,
   });
 
   const [loading, setLoading] = useState(true);
@@ -246,6 +247,50 @@ function MoodAnalytics() {
 
         {/* AI Insights */}
                 <AIInsightsCard analytics={analytics} />
+        {/* Wellness Score */}
+
+<div className="bg-white rounded-3xl shadow-xl p-8 mt-10">
+
+  <h2 className="text-2xl font-bold text-emerald-700">
+    🌿 Wellness Score
+  </h2>
+
+  <div className="mt-6">
+
+    <div className="w-full bg-gray-200 rounded-full h-5">
+
+      <div
+        className="bg-emerald-500 h-5 rounded-full transition-all duration-700"
+        style={{
+          width: `${analytics.wellnessScore}%`,
+        }}
+      />
+
+    </div>
+
+    <p className="text-center text-4xl font-bold text-emerald-600 mt-6">
+      {analytics.wellnessScore}%
+    </p>
+
+    <p className="text-center text-gray-600 mt-3">
+      {analytics.wellnessScore >= 80 &&
+        "Excellent! Keep maintaining your healthy routine."}
+
+      {analytics.wellnessScore >= 60 &&
+        analytics.wellnessScore < 80 &&
+        "You're doing well. Small self-care habits can improve your wellbeing."}
+
+      {analytics.wellnessScore >= 40 &&
+        analytics.wellnessScore < 60 &&
+        "Your wellbeing is moderate. Consider journaling and breathing exercises."}
+
+      {analytics.wellnessScore < 40 &&
+        "Your recent mood suggests you may need extra care. Try relaxation exercises or reach out to someone you trust."}
+    </p>
+
+  </div>
+
+</div>
 
         {/* Footer */}
 

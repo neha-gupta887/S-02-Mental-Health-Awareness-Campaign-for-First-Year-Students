@@ -90,13 +90,25 @@ export const getMoodAnalytics = async () => {
       }
     }
   }
+  // Calculate Wellness Score (0–100)
 
+let totalMoodValue = 0;
+
+weeklyTrend.forEach((item) => {
+  totalMoodValue += item.mood;
+});
+
+const wellnessScore =
+  weeklyTrend.length > 0
+    ? Math.round((totalMoodValue / (weeklyTrend.length * 5)) * 100)
+    : 0;
   return {
-    totalEntries: moods.length,
-    currentMood,
-    mostFrequentMood,
-    moodDistribution,
-    weeklyTrend,
-    streak,
-  };
+  totalEntries,
+  currentMood,
+  mostFrequentMood,
+  moodDistribution,
+  weeklyTrend,
+  streak,
+  wellnessScore,
+};
 };
