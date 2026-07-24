@@ -1,5 +1,5 @@
 import CounselorCard from "../components/CounselorCard";
-
+import SOSCard from "../components/SOSCard";
 import {
   counselors,
   selfCareTips,
@@ -9,7 +9,6 @@ import {
 function Support() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 p-8">
-
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -78,7 +77,12 @@ function Support() {
           </div>
 
         </div>
-                {/* Self Care Tips */}
+
+        {/* SOS Emergency Card */}
+
+        <SOSCard />
+
+        {/* Self Care Tips */}
 
         <div className="bg-white rounded-3xl shadow-xl p-8 mt-14">
 
@@ -154,7 +158,6 @@ function Support() {
         </div>
 
       </div>
-
     </div>
   );
 }
