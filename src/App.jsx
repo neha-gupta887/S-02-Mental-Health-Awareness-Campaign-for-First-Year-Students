@@ -9,6 +9,7 @@ import AICompanion from "./pages/AICompanion";
 import BreathingExercise from "./pages/BreathingExercise";
 import MoodAnalytics from "./pages/MoodAnalytics";
 import Support from "./pages/Support";
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,9 +21,8 @@ function App() {
         <Route path="/journal" element={<Journal />} />
         <Route path="/ai-companion" element={<AICompanion />} />
         <Route path="/breathing" element={<BreathingExercise />} />
-        <Route
-  path="/analytics"element={<MoodAnalytics />}/>
-  import Support from "./pages/Support";
+        <Route path="/analytics" element={<MoodAnalytics />} />
+        <Route path="/support" element={<Support />} />
       </Routes>
     </BrowserRouter>
   );
