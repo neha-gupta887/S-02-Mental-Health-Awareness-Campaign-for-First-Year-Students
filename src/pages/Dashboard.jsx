@@ -8,6 +8,7 @@ import MoodHistory from "../components/dashboard/MoodHistory";
 import MoodReminder from "../components/MoodReminder";
 import { Link } from "react-router-dom";
 import DailyChallengesCard from "../components/DailyChallengesCard";
+import HabitTrackerCard from "../components/HabitTrackerCard";
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -68,6 +69,7 @@ function Dashboard() {
         {/* Mood History */}
         <div className="mt-6">
           <MoodHistory />
+          <HabitTrackerCard />
         </div>
       </div>
     </div>
