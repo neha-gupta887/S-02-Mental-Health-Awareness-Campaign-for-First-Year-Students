@@ -1,6 +1,8 @@
 import MoodCalendar from "../components/MoodCalendar";
 import AchievementsCard from "../components/AchievementsCard";
 import { useEffect, useState } from "react";
+import { downloadWellnessReport } from "../services/pdfService";
+
 import {
   LineChart,
   Line,
@@ -83,6 +85,14 @@ function MoodAnalytics() {
         <p className="text-center text-gray-600 mt-3">
           Understand your emotions through meaningful insights.
         </p>
+        <div className="flex justify-center mt-8">
+  <button
+    onClick={() => downloadWellnessReport(analytics)}
+    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-lg font-semibold"
+  >
+    📥 Download Wellness Report
+  </button>
+</div>
 
         {/* Stats */}
 
