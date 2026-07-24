@@ -19,9 +19,9 @@ function BreathingExercise() {
       setTimeLeft((prev) => {
         if (prev > 1) return prev - 1;
 
-        const nextIndex = (phaseIndex + 1) % phases.length;
-        setPhaseIndex(nextIndex);
-        return phases[nextIndex].duration;
+        const next = (phaseIndex + 1) % phases.length;
+        setPhaseIndex(next);
+        return phases[next].duration;
       });
     }, 1000);
 
@@ -41,40 +41,76 @@ function BreathingExercise() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-100 flex flex-col items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 flex items-center justify-center p-6">
 
-      <h1 className="text-4xl font-bold text-green-700 mb-3">
-        🌿 Guided Breathing
-      </h1>
+      <div className="w-full max-w-xl bg-white/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-8">
 
-      <p className="text-lg text-gray-600 mb-10">
-        Relax your mind by following the breathing cycle.
-      </p>
+        <h1 className="text-4xl font-bold text-center text-emerald-700">
+          🌿 Guided Breathing
+        </h1>
 
-      <BreathingCircle phase={phases[phaseIndex].name} />
+        <p className="text-center text-gray-600 mt-3">
+          Relax your mind with a calm breathing exercise.
+        </p>
 
-      <h2 className="text-3xl font-semibold mt-10 text-gray-800">
-        {phases[phaseIndex].name}
-      </h2>
+        <div className="mt-12 flex justify-center">
+          <BreathingCircle phase={phases[phaseIndex].name} />
+        </div>
 
-      <p className="text-5xl font-bold text-green-700 mt-4">
-        {timeLeft}
-      </p>
+        <h2 className="text-center text-3xl font-bold mt-10 text-gray-800">
+          {phases[phaseIndex].name}
+        </h2>
 
-      <div className="flex gap-5 mt-10">
-        <button
-          onClick={handleStart}
-          className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-lg"
-        >
-          ▶ Start
-        </button>
+        <p className="text-center text-6xl font-extrabold text-emerald-600 mt-4">
+          {timeLeft}
+        </p>
 
-        <button
-          onClick={handleStop}
-          className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-xl text-lg"
-        >
-          ■ Stop
-        </button>
+        <div className="mt-10">
+          <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-1000 ${
+                phases[phaseIndex].name === "Inhale"
+                  ? "bg-green-500 w-1/3"
+                  : phases[phaseIndex].name === "Hold"
+                  ? "bg-yellow-400 w-2/3"
+                  : "bg-blue-500 w-full"
+              }`}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mt-10">
+
+          <button
+            onClick={handleStart}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-lg font-semibold transition duration-300"
+          >
+            ▶ Start
+          </button>
+
+          <button
+            onClick={handleStop}
+            className="bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl text-lg font-semibold transition duration-300"
+          >
+            ■ Stop
+          </button>
+
+        </div>
+
+        <div className="mt-10 bg-emerald-50 rounded-2xl p-5 border border-emerald-100">
+
+          <h3 className="text-lg font-semibold text-emerald-700">
+            🌸 Breathing Guide
+          </h3>
+
+          <ul className="mt-3 space-y-2 text-gray-700">
+            <li>🟢 Inhale gently for 4 seconds.</li>
+            <li>🟡 Hold your breath for 4 seconds.</li>
+            <li>🔵 Exhale slowly for 6 seconds.</li>
+          </ul>
+
+        </div>
+
       </div>
     </div>
   );
