@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import WellnessPlanCard from "../components/WellnessPlanCard";
+import MoodForecastCard from "../components/MoodForecastCard";
 import {
   LineChart,
   Line,
@@ -326,6 +327,10 @@ function MoodAnalytics() {
 
         </div>
         <WellnessPlanCard
+  wellnessScore={analytics.wellnessScore}
+/>
+
+<MoodForecastCard
   wellnessScore={analytics.wellnessScore}
 />
 
