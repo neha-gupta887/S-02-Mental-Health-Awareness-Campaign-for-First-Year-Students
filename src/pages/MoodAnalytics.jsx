@@ -329,9 +329,7 @@ function MoodAnalytics() {
         <WellnessPlanCard
   wellnessScore={analytics.wellnessScore}
 />
-
-<MoodForecastCard
-  wellnessScore={analytics.wellnessScore}
+// <MoodForecastCard wellnessScore={analytics.wellnessScore}
 />
 
 <AIRiskCard />

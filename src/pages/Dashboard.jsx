@@ -7,7 +7,7 @@ import QuoteCard from "../components/dashboard/QuoteCard";
 import MoodHistory from "../components/dashboard/MoodHistory";
 import MoodReminder from "../components/MoodReminder";
 import { Link } from "react-router-dom";
-
+import DailyChallengesCard from "../components/DailyChallengesCard";
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -27,6 +27,7 @@ function Dashboard() {
         {/* Daily Mood Reminder */}
         <div className="mt-6">
           <MoodReminder />
+          <DailyChallengesCard />
         </div>
 
         {/* Mood Section */}
