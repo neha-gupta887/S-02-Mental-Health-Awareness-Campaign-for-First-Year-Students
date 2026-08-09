@@ -3,64 +3,67 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ===============================
-    // Journals
-    // ===============================
-    match /journals/{journalId} {
-      allow read, write: if request.auth != null &&
-        request.auth.uid == resource.data.uid;
-
-      allow create: if request.auth != null &&
-        request.auth.uid == request.resource.data.uid;
-    }
-
-    // ===============================
-    // Mood Tracker
-    // ===============================
-    match /moods/{moodId} {
-      allow read, write: if request.auth != null &&
-        request.auth.uid == resource.data.uid;
-
-      allow create: if request.auth != null &&
-        request.auth.uid == request.resource.data.uid;
-    }
-
-    // ===============================
-    // Wellness Memory
-    // ===============================
-    match /wellnessMemory/{memoryId} {
-      allow read, write: if request.auth != null &&
-        request.auth.uid == resource.data.uid;
-
-      allow create: if request.auth != null &&
-        request.auth.uid == request.resource.data.uid;
-    }
-
-    // ===============================
-    // AI Chat History
-    // ===============================
-    match /chatHistory/{chatId} {
-      allow read, write: if request.auth != null &&
-        request.auth.uid == resource.data.uid;
-
-      allow create: if request.auth != null &&
-        request.auth.uid == request.resource.data.uid;
-    }
-
-    // Gamification data, stored as one document per user.
-    match /achievements/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    match /garden/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // ===============================
-    // Deny everything else
-    // ===============================
+    // Deny all access by default.
+    // Specific rules below will grant access where appropriate.
     match /{document=**} {
       allow read, write: if false;
+    }
+
+    // =====================================================================
+    // PRIVATE USER-OWNED DATA
+    //
+    // Collections where each document is owned by a specific user.
+    // Rules ensure that a user can only access their own documents.
+    // =====================================================================
+
+    // Helper function to verify user ownership.
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // Journals: Users can manage their own journal entries.
+    match /journals/{journalId} {
+      allow read, update, delete: if isOwner(resource.data.uid);
+      allow create: if isOwner(request.resource.data.uid);
+    }
+
+    // Moods: Users can create and read their own mood entries.
+    // Updates and deletes are disallowed for data integrity.
+    match /moods/{moodId} {
+      allow read: if isOwner(resource.data.uid);
+      allow create: if isOwner(request.resource.data.uid);
+    }
+
+    // Wellness Memories: Users can manage their own memories.
+    match /wellnessMemory/{memoryId} {
+      allow read, update, delete: if isOwner(resource.data.uid);
+      allow create: if isOwner(request.resource.data.uid);
+    }
+
+    // AI Chat History: Users can create and read their own chat history.
+    match /chatHistory/{chatId} {
+      allow read: if isOwner(resource.data.uid);
+      allow create: if isOwner(request.resource.data.uid);
+    }
+
+    // Gamification data (Achievements, Garden) is stored as one document per user.
+    match /achievements/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+    match /garden/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // =====================================================================
+    // SHARED & PUBLIC DATA
+    // =====================================================================
+
+    // Senior Buddy profiles are readable by any authenticated user.
+    // Writes are restricted to prevent users from modifying profiles.
+    match /senior_buddies/{buddyId} {
+      allow read: if request.auth != null;
+      // In a real app, write access would be limited to admins or specific users.
+      allow write: if false;
     }
   }
 }
