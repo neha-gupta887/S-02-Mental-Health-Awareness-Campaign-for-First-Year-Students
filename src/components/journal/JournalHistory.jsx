@@ -5,7 +5,7 @@ import {
 } from "react-icons/fa";
 
 function JournalHistory({
-  entries,
+  entries = [],
   onEdit,
   onDelete,
 }) {

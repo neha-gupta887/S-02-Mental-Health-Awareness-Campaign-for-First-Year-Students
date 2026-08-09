@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   FaSmile,
   FaBookOpen,
+  FaHistory,
 } from "react-icons/fa";
 import { getMoodHistory } from "../../services/moodService";
 import { getJournalHistory } from "../../services/journalService";
