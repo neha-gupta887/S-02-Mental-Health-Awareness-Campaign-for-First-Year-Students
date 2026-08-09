@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
 
 import JournalEditor from "../components/journal/JournalEditor";
-import JournalItem from "../components/journal/JournalItem";
+import JournalItem from "./JournalItem.jsx";
 import JournalHistory from "../components/journal/JournalHistory";
 import JournalSearch from "../components/journal/JournalSearch";
 import JournalStats from "../components/journal/JournalStats";
 import JournalInsights from "../components/journal/JournalInsights";
 
-import ConfirmationModal from "../components/common/ConfirmationModal";
+
+import { ConfirmationModal } from "./ConfirmationModal.jsx";
 import {
   saveJournal,
   getJournalHistory,

@@ -15,7 +15,7 @@ import AICompanion from "./pages/AICompanion";
 import BreathingExercise from "./pages/BreathingExercise";
 import MoodAnalytics from "./pages/MoodAnalytics";
 import Support from "./pages/Support";
-import MoodCheckin from "./pages/MoodCheckin";
+import MoodCheckin from "./components/dashboard/MoodCheckin";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const privateRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;

@@ -23,6 +23,8 @@ import { generateWellnessPlan } from "../agents/orchestrator/wellnessOrchestrato
 import AgentExecution from "../components/AgentExecution";
 import { useAgent } from "../context/AgentContext";
 import { saveWellnessRecord } from "../services/memoryService";
+import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
+import AIReport from "../AIReport.jsx";
 
 function AICompanion() {
 
@@ -82,53 +84,11 @@ function AICompanion() {
     loadChats();
   }, []);
   // ===========================
-  // Emotion Check-in
-  // ===========================
-
-  const emotions = [
-    { label: "Happy", emoji: "😊" },
-    { label: "Calm", emoji: "😌" },
-    { label: "Stressed", emoji: "😰" },
-    { label: "Sad", emoji: "😔" },
-    { label: "Anxious", emoji: "😟" },
-    { label: "Overwhelmed", emoji: "😭" },
-  ];
-
-  const quickActions = [
-    {
-      title: "Calm me down",
-      text: "I feel stressed and need a quick calming activity.",
-      icon: <FaWind />,
-    },
-    {
-      title: "Help me focus",
-      text: "I'm having trouble focusing on my studies.",
-      icon: <FaBrain />,
-    },
-    {
-      title: "Improve my sleep",
-      text: "I'm not sleeping well. Help me build a better sleep routine.",
-      icon: <FaMoon />,
-    },
-    {
-      title: "Reflect with me",
-      text: "I want to reflect on what I'm feeling right now.",
-      icon: <FaBookOpen />,
-    },
-  ];
-
   const handleSuggestion = (text) => {
     setInput(text);
     setTimeout(() => {
       document.getElementById("mana-chat-input")?.focus();
     }, 0);
-  };
-
-  const handleEmotion = (emotion) => {
-    setSelectedEmotion(emotion.label);
-    handleSuggestion(
-      `${emotion.emoji} I'm feeling ${emotion.label.toLowerCase()} today. Can you help me understand and manage how I feel?`
-    );
   };
 
   // ===========================
@@ -202,17 +162,10 @@ const handleSend = async () => {
       exam: "",
     });
 
-    // Active Agents
-
-    setActiveAgents(result.selectedAgents || []);
+    setLatestResult(result);
 
     // Global Context
-
     setAgentResult(result);
-
-    // Dashboard
-
-    setLatestResult(result);
 
     // Save Memory
 
@@ -448,252 +401,57 @@ const handleSend = async () => {
     setLoading(false);
   };
     return (
-  <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-black p-4 sm:p-6">
-
-    <div className="max-w-7xl mx-auto">
-
-      {/* Header */}
-
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="rounded-[32px] bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 text-white shadow-2xl overflow-hidden"
-      >
-
-        <div className="relative p-8">
-
-          {/* Background Glow */}
-
-          <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-3xl"></div>
-
-          <div className="absolute -bottom-12 -left-12 w-44 h-44 rounded-full bg-white/10 blur-3xl"></div>
-
-          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-
-            <div className="flex items-center gap-5">
-
-              <div className="w-20 h-20 rounded-3xl bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-xl">
-
-                <FaRobot className="text-4xl" />
-
-              </div>
-
-              <div>
-
-                <h1 className="text-4xl font-extrabold">
-
-                  Mana AI
-
-                </h1>
-
-                <p className="mt-2 text-green-100">
-
-                  Agentic Wellness Companion
-
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="flex items-center gap-4">
-
-              <div className="rounded-full bg-white/20 backdrop-blur-xl px-5 py-3 flex items-center gap-3">
-
-                <FaCircle className="text-green-300 animate-pulse text-xs" />
-
-                <span className="font-medium">
-
-                  AI Online
-
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </motion.div>
-
-      {/* Active AI Agents */}
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-5"
-      >
-
-        {[
-          {
-            key: "mood",
-            title: "Mood Agent",
-            icon: <FaBrain />,
-            color: "bg-emerald-500",
-          },
-          {
-            key: "sleep",
-            title: "Sleep Agent",
-            icon: <FaMoon />,
-            color: "bg-blue-500",
-          },
-          {
-            key: "study",
-            title: "Study Agent",
-            icon: <FaBookOpen />,
-            color: "bg-purple-500",
-          },
-          {
-            key: "crisis",
-            title: "Crisis Agent",
-            icon: <FaHeartbeat />,
-            color: "bg-red-500",
-          },
-        ].map((agent) => (
-
-          <motion.div
-            whileHover={{
-              y: -6,
-              scale: 1.03,
-            }}
-            key={agent.key}
-            className="rounded-3xl bg-white dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-gray-700 p-6"
-          >
-
-            <div className="flex items-center justify-between">
-
-              <div
-                className={`w-14 h-14 rounded-2xl ${agent.color} flex items-center justify-center text-white text-2xl`}
-              >
-                {agent.icon}
-              </div>
-
-              <FaCircle
-                className={`text-xs ${
-                  activeAgents.includes(agent.key)
-                    ? "text-green-500 animate-pulse"
-                    : "text-gray-300"
-                }`}
-              />
-
-            </div>
-
-            <h3 className="mt-6 text-xl font-bold dark:text-white">
-
-              {agent.title}
-
-            </h3>
-
-            <p className="mt-2 text-gray-500 dark:text-gray-400">
-
-              {activeAgents.includes(agent.key)
-                ? "Currently analyzing"
-                : "Waiting"}
-
-            </p>
-
-          </motion.div>
-
-        ))}
-
-      </motion.div>
-
-      {/* Agent Execution */}
-
-      <div className="mt-8 rounded-3xl bg-white dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-gray-700 p-6">
-
-        <h2 className="text-2xl font-bold dark:text-white mb-6">
-
-          ⚙️ Agent Execution
-
-        </h2>
-
-        <AgentExecution activeAgents={activeAgents} />
-
-      </div>
+  <AuthenticatedLayout>
+    <div className="mx-auto flex h-[calc(100vh-10rem)] max-w-5xl flex-col">
       {/* ===========================
           Chat Section
       =========================== */}
 
-      <div className="mt-8 rounded-3xl bg-white dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-
+      <div className="flex flex-1 flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
         {/* Chat Header */}
-
         <div className="border-b border-gray-200 dark:border-gray-700 p-5 flex items-center justify-between">
-
           <div>
-
             <h2 className="text-2xl font-bold dark:text-white">
               💬 Conversation
             </h2>
-
             <p className="text-gray-500 dark:text-gray-400">
               Chat naturally with Mana AI
             </p>
-
           </div>
-
           <div className="hidden md:flex items-center gap-2 rounded-full bg-emerald-100 dark:bg-emerald-900 px-4 py-2">
-
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-
             <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-
               Online
-
             </span>
-
           </div>
-
         </div>
 
         {/* Suggested Prompts */}
-
         {messages.length === 1 && (
-
           <div className="px-6 pt-6">
-
             <p className="font-semibold text-gray-700 dark:text-gray-300 mb-3">
-
               Try asking:
-
             </p>
-
             <div className="flex flex-wrap gap-3">
-
               {suggestions.map((prompt) => (
-
                 <button
                   key={prompt}
                   onClick={() => handleSuggestion(prompt)}
                   className="rounded-full border border-emerald-200 dark:border-gray-700 bg-emerald-50 dark:bg-gray-800 px-4 py-2 text-sm hover:bg-emerald-100 dark:hover:bg-gray-700 transition"
                 >
-
                   {prompt}
-
                 </button>
-
               ))}
-
             </div>
-
           </div>
-
         )}
 
         {/* Messages */}
-
         <div
           ref={chatRef}
-          className="h-[520px] overflow-y-auto px-6 py-6 space-y-6"
+          className="flex-1 overflow-y-auto px-6 py-6 space-y-6"
         >
-
           {messages.map((msg, index) => (
-
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 15 }}
@@ -742,9 +500,11 @@ const handleSend = async () => {
                         : "bg-gray-100 dark:bg-gray-800 dark:text-white"
                     }`}
                   >
-
-                    {msg.text}
-
+                    {msg.sender === "ai" ? (
+                      <AIReport text={msg.text} />
+                    ) : (
+                      msg.text
+                    )}
                   </div>
 
                   <p
@@ -1121,7 +881,6 @@ const handleSend = async () => {
             />
 
             {/* Send */}
-
             <motion.button
               whileTap={{ scale: 0.92 }}
               whileHover={{ scale: 1.08 }}
@@ -1129,58 +888,18 @@ const handleSend = async () => {
               onClick={handleSend}
               className="w-14 h-14 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 text-white flex items-center justify-center shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
-
               {loading ? (
-
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-
               ) : (
-
                 <FaPaperPlane />
-
               )}
-
             </motion.button>
-
           </div>
-
-          {/* Footer */}
-
-          <div className="mt-4 flex flex-col md:flex-row items-center justify-between gap-3">
-
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-
-              Press <kbd className="px-2 py-1 rounded bg-gray-200 dark:bg-gray-700">Enter</kbd> to send ·
-              <kbd className="ml-2 px-2 py-1 rounded bg-gray-200 dark:bg-gray-700">
-                Shift + Enter
-              </kbd>{" "}
-              for a new line.
-
-            </p>
-
-            <div className="flex items-center gap-2 rounded-full bg-emerald-100 dark:bg-emerald-900 px-4 py-2">
-
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-
-              <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-
-                Powered by Mana AI Agents
-
-              </span>
-
-            </div>
-
-          </div>
-
         </div>
-
       </div>
-
     </div>
-
-  </div>
-
-);
+  </AuthenticatedLayout>
+  );
 }
 
 export default AICompanion;

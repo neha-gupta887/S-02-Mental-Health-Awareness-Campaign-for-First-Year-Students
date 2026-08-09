@@ -1,5 +1,5 @@
 import { FaChartLine, FaDownload } from "react-icons/fa";
-import { downloadWellnessReport } from "./services/pdfService";
+import { downloadWellnessReport } from "../../services/pdfService";
 
 function AnalyticsHeader({ analytics }) {
   return (

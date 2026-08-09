@@ -6,7 +6,7 @@ import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
 import QuickActions from "../components/dashboard/QuickActions";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
-import { getDashboardStats } from "../services/dashboardService";
+import { getDashboardStats } from "../services/dashboardStatsService.js";
 
 function Dashboard() {
   const [stats, setStats] = useState({});

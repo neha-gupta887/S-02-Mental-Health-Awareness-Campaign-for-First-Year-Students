@@ -89,7 +89,7 @@ const getDateKey = (date) => {
 // SAVE MOOD
 // =====================================================
 
-export const saveMood = async (mood) => {
+export const saveMood = async (mood, note) => {
   try {
     const user = getCurrentUser();
 
@@ -102,6 +102,7 @@ export const saveMood = async (mood) => {
       email: user.email || "",
       mood: mood.label,
       emoji: mood.emoji || "",
+      note: note || "",
       createdAt: serverTimestamp(),
     });
 

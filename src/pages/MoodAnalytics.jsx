@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
-import AnalyticsHeader from "../components/analytics/AnalyticsHeader";
+import AnalyticsHeader from "../AnalyticsHeader.jsx";
 import MoodDistributionChart from "../components/dashboard/MoodDistributionChart";
 import WellnessHeatmap from "../components/dashboard/WellnessHeatmap";
 import MoodHistory from "../components/dashboard/MoodHistory";

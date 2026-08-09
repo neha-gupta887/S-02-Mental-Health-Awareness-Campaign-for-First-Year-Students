@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import { FaCheckCircle, FaLeaf } from "react-icons/fa";
 
-import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
-import { saveMood } from "../services/moodService";
+import AuthenticatedLayout from "../layout/AuthenticatedLayout";
+import { saveMood } from "../../services/moodService";
 
 const moods = [
   { emoji: "😊", label: "Happy", color: "bg-green-400" },
@@ -33,11 +33,7 @@ function MoodCheckin() {
     }
 
     setLoading(true);
-    const success = await saveMood(
-      selectedMood.label,
-      selectedMood.emoji,
-      note
-    );
+    const success = await saveMood(selectedMood, note);
 
     if (success) {
       setSubmitted(true);

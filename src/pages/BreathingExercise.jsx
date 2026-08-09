@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import BreathingCircle from "../components/BreathingCircle";
 
 function BreathingExercise() {
@@ -94,134 +95,129 @@ function BreathingExercise() {
   const seconds = sessionTimeLeft % 60;
     if (sessionCompleted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-6 transition-colors duration-300">
-
-        <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 text-center transition-colors duration-300">
-
-          <div className="text-6xl mb-5">🌿</div>
-
-          <h1 className="text-4xl font-bold text-emerald-700">
-            Great Job!
+      <div className="flex min-h-screen items-center justify-center bg-emerald-50 p-6 dark:bg-gray-900">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl dark:bg-gray-800"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1, rotate: 360 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              delay: 0.2,
+            }}
+            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 text-4xl text-white"
+          >
+            🌿
+          </motion.div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Well Done!
           </h1>
-
-          <p className="mt-5 text-lg text-gray-700 dark:text-gray-300">
-            You completed your{" "}
-            <span className="font-semibold">
-              {sessionMinutes}-minute
+          <p className="mt-4 text-gray-600 dark:text-gray-300">
+            You've completed your{" "}
+            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+              {sessionMinutes} minute
             </span>{" "}
             breathing session.
           </p>
-
-          <p className="mt-3 text-gray-500 dark:text-gray-400">
-            Every mindful breath is a step toward a healthier and calmer mind.
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            Carry this feeling of calm with you.
           </p>
-
-          <div className="grid gap-4 mt-10">
-
+          <div className="mt-8 flex flex-col gap-3">
             <button
               onClick={handleStart}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold transition"
+              className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-700"
             >
-              🔄 Start Again
+              Start Another Session
             </button>
-
             <Link
               to="/dashboard"
-              className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 py-3 rounded-xl font-semibold transition"
+              className="rounded-xl bg-gray-100 px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
             >
-              🏠 Back to Dashboard
+              Return to Dashboard
             </Link>
-
           </div>
-
-        </div>
-
+        </motion.div>
       </div>
     );
   }
     return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-6 transition-colors duration-300">
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 p-4 dark:bg-gray-900">
+      <div className="w-full max-w-md rounded-3xl bg-white p-6 text-center shadow-2xl dark:bg-gray-800">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={phaseIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">
+              {phases[phaseIndex].name}
+            </h1>
+          </motion.div>
+        </AnimatePresence>
 
-      <div className="w-full max-w-xl bg-white/70 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 dark:border-gray-700 p-8 transition-colors duration-300">
-
-        <h1 className="text-4xl font-bold text-center text-emerald-700">
-          🌿 Guided Breathing
-        </h1>
-
-        <p className="text-center text-gray-600 dark:text-gray-400 mt-3">
-          Relax your mind with a calm breathing exercise.
-        </p>
-
-        <div className="mt-8">
-
-          <p className="text-center text-gray-700 dark:text-gray-300 font-semibold mb-3">
-            Session Duration
-          </p>
-
-          <div className="flex justify-center gap-3 flex-wrap">
-
-            {[1, 3, 5, 10].map((minute) => (
-
-              <button
-                key={minute}
-                onClick={() => !isRunning && setSessionMinutes(minute)}
-                className={`px-5 py-2 rounded-full transition ${
-                  sessionMinutes === minute
-                    ? "bg-emerald-600 text-white"
-                    : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border dark:border-gray-600"
-                }`}
-              >
-                {minute} min
-              </button>
-
-            ))}
-
-          </div>
-
-        </div>
-
-        <div className="mt-12 flex justify-center">
+        <div className="my-8 flex justify-center">
           <BreathingCircle phase={phases[phaseIndex].name} />
         </div>
 
-        <h2 className="text-center text-3xl font-bold mt-10 text-gray-800 dark:text-white">
-          {phases[phaseIndex].name}
-        </h2>
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={timeLeft}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3 }}
+            className="text-7xl font-bold text-gray-800 dark:text-white"
+          >
+            {timeLeft}
+          </motion.p>
+        </AnimatePresence>
 
-        <p className="text-center text-6xl font-extrabold text-emerald-600 mt-4">
-          {timeLeft}
-        </p>
-
-        <p className="text-center mt-6 text-gray-700 dark:text-gray-300 font-medium">
-          Session Time Remaining
-        </p>
-
-        <p className="text-center text-2xl font-bold text-emerald-700">
-          {String(minutes).padStart(2, "0")}:
-          {String(seconds).padStart(2, "0")}
-        </p>
-
-        {/* Progress Bar */}
         <div className="mt-8">
-
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
-
+          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>Session Progress</span>
+            <span>
+              {String(minutes).padStart(2, "0")}:
+              {String(seconds).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
             <div
-              className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+              className="h-full rounded-full bg-emerald-500 transition-all duration-1000 ease-linear"
               style={{ width: `${progress}%` }}
             />
-
           </div>
-
-          <p className="text-center mt-2 text-gray-600 dark:text-gray-400">
-            {Math.round(progress)}% Completed
-          </p>
-
         </div>
 
-        {/* Controls */}
-        <div className="grid grid-cols-2 gap-4 mt-10">
+        <div className="mt-8">
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+            Session Duration
+          </p>
+          <div className="mt-3 flex justify-center gap-2">
+            {[1, 2, 5, 10].map((minute) => (
+              <button
+                key={minute}
+                onClick={() => !isRunning && setSessionMinutes(minute)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  sessionMinutes === minute
+                    ? "bg-emerald-600 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                }`}
+                disabled={isRunning}
+              >
+                {minute} min
+              </button>
+            ))}
+          </div>
+        </div>
 
+        <div className="mt-8 grid grid-cols-2 gap-4">
           {!isRunning ? (
             <button
               onClick={
@@ -229,7 +225,7 @@ function BreathingExercise() {
                   ? handleStart
                   : handleResume
               }
-              className="bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-lg font-semibold transition duration-300"
+              className="rounded-xl bg-emerald-600 py-3 text-lg font-semibold text-white transition hover:bg-emerald-700"
             >
               {sessionTimeLeft === sessionMinutes * 60
                 ? "▶ Start"
@@ -238,87 +234,19 @@ function BreathingExercise() {
           ) : (
             <button
               onClick={handlePause}
-              className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-xl text-lg font-semibold transition duration-300"
+              className="rounded-xl bg-yellow-500 py-3 text-lg font-semibold text-white transition hover:bg-yellow-600"
             >
               ⏸ Pause
             </button>
           )}
-
           <button
             onClick={handleReset}
-            className="bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl text-lg font-semibold transition duration-300"
+            className="rounded-xl bg-gray-200 py-3 text-lg font-semibold text-gray-700 transition hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
           >
             🔄 Reset
           </button>
-
         </div>
-
-        {/* Status */}
-        <div className="mt-6 text-center">
-
-          <span
-            className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
-              isRunning
-                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
-                : sessionTimeLeft === sessionMinutes * 60
-                ? "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                : "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300"
-            }`}
-          >
-            {isRunning
-              ? "🟢 Session Running"
-              : sessionTimeLeft === sessionMinutes * 60
-              ? "⚪ Ready to Start"
-              : "⏸ Session Paused"}
-          </span>
-
-        </div>
-
-        {/* Breathing Guide */}
-        <div className="mt-10 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-5 border border-emerald-100 dark:border-emerald-800 transition-colors duration-300">
-
-          <h3 className="text-lg font-semibold text-emerald-700 dark:text-emerald-300">
-            🌸 Breathing Guide
-          </h3>
-
-          <ul className="mt-3 space-y-2 text-gray-700 dark:text-gray-300">
-
-            <li>
-              🟢 <strong>Inhale</strong> slowly through your nose for 4 seconds.
-            </li>
-
-            <li>
-              🟡 <strong>Hold</strong> your breath gently for 4 seconds.
-            </li>
-
-            <li>
-              🔵 <strong>Exhale</strong> slowly through your mouth for 6 seconds.
-            </li>
-
-          </ul>
-
-        </div>
-
-        {/* Tips */}
-        <div className="mt-6 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 p-5 transition-colors duration-300">
-
-          <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300">
-            💡 Tips
-          </h3>
-
-          <ul className="mt-3 space-y-2 text-gray-700 dark:text-gray-300">
-
-            <li>✨ Sit comfortably and relax your shoulders.</li>
-            <li>🌿 Focus only on your breathing.</li>
-            <li>📵 Keep your phone away to avoid distractions.</li>
-            <li>🧘 Practice daily for the best results.</li>
-
-          </ul>
-
-        </div>
-
       </div>
-
     </div>
   );
 }
