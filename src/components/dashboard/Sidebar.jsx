@@ -5,6 +5,7 @@ import {
   FaBook,
   FaChartLine,
   FaCog,
+  FaUserFriends,
   FaWind,
   FaUsers,
   FaSignOutAlt,
@@ -45,7 +46,17 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       ],
     },
     {
-      title: "SUPPORT",
+      title: "HUMAN SUPPORT",
+      items: [
+        {
+          icon: <FaUserFriends />,
+          label: "Senior Buddy",
+          path: "/support",
+        },
+      ],
+    },
+    {
+      title: "TOOLS",
       items: [
         {
           icon: <FaWind />,
@@ -56,11 +67,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           icon: <FaRobot />,
           label: "Talk to Mana",
           path: "/chat",
-        },
-        {
-          icon: <FaUsers />,
-          label: "Senior Buddy",
-          path: "/support",
         },
       ],
     },
