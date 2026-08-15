@@ -449,6 +449,48 @@ The key questions related to awareness, stigma, and help-seeking were kept consi
 | Positive help-seeking attitude | `[Actual %]` | `[Actual %]` | `[Calculate]` |
 
 ### Awareness Improvement
+---
+
+## 📈 Results & Impact Analysis
+
+The impact of the Mind Matters campaign was evaluated by comparing pre-campaign and post-campaign survey responses, along with campaign reach, workshop participation, and resource distribution.
+
+### Key Impact Metrics
+
+| Metric | Target | Actual Result |
+|---|---:|---:|
+| Students reached | ≥ 300 | `[Actual Number]` |
+| Workshop participants | ≥ 75 | `[Actual Number]` |
+| Awareness improvement | ≥ 35% | `[Actual %]` |
+| Resource map distribution | ≥ 200 | `[Actual Number]` |
+| Peer-led workshops | 3 | **3 Completed** |
+| Mental Health Ambassadors | 5 | `[Actual Number]` |
+
+### 📊 Pre-Campaign vs Post-Campaign
+
+The following areas were compared to measure the effectiveness of the campaign:
+
+- Mental-health awareness
+- Knowledge of available resources
+- Comfort with seeking support
+- Help-seeking attitudes
+- Stigma-related perceptions
+
+### Key Findings
+
+The comparison of pre- and post-campaign responses was used to identify:
+
+- Changes in students' awareness of mental-health resources
+- Changes in willingness to seek appropriate support
+- Changes in attitudes toward discussing mental health
+- Awareness of available campus and online resources
+- Student engagement with the campaign and MindBridge
+
+### Impact Summary
+
+The campaign combined **awareness activities, peer-led workshops, resource mapping, and digital support through MindBridge** to create a more accessible mental-health support pathway for first-year students.
+
+> 📌 **Note:** Final percentages, graphs, and statistical findings will be updated using the collected survey data.
 
 The percentage improvement will be calculated using:
 
