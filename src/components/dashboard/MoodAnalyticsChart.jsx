@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  AreaChart,
   LineChart,
   Line,
   CartesianGrid,
@@ -8,7 +9,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useTheme } from "../../context/ThemeContext";
 
+import LoadingState from "../ui/LoadingState";
+import ErrorState from "../ui/ErrorState";
 import { getMoodHistory } from "../../services/moodService";
 
 const moodScore = {
@@ -21,29 +25,67 @@ const moodScore = {
 };
 
 function MoodAnalyticsChart() {
+  const { darkMode } = useTheme();
   const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadMoodData = async () => {
+    fetchMoodData();
+  }, []);
+
+  const fetchMoodData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
       const moods = await getMoodHistory();
 
+      // Sort by date ascending to get the correct order for the chart
+      const sortedMoods = moods.sort(
+        (a, b) => a.createdAt.toDate() - b.createdAt.toDate()
+      );
+
       const weeklyData = moods
-        .slice(0, 7)
-        .reverse()
+        .slice(-7) // Take the last 7 entries for the most recent trend
         .map((mood) => ({
+          name: mood.mood,
           day: mood.createdAt?.toDate
             ? mood.createdAt.toDate().toLocaleDateString("en-IN", {
                 weekday: "short",
               })
             : "Today",
           score: moodScore[mood.mood] || 3,
+          fullDate: mood.createdAt?.toDate()
+            ? mood.createdAt.toDate().toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+              })
+            : "N/A",
         }));
 
       setChartData(weeklyData);
-    };
+    } catch (err) {
+      console.error("Failed to load mood data for chart:", err);
+      setError("Could not load your mood analytics. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadMoodData();
-  }, []);
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="rounded-xl border border-slate-200 bg-white/80 p-3 text-sm shadow-lg backdrop-blur-sm dark:border-slate-700 dark:bg-slate-800/80">
+          <p className="font-bold text-slate-800 dark:text-white">{data.name}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {data.fullDate}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <section className="rounded-[28px] border border-slate-200/80 bg-white/80 p-6 shadow-[0_12px_40px_rgba(15,23,42,0.04)] backdrop-blur-sm sm:p-7 dark:border-white/[0.06] dark:bg-white/[0.025]">
@@ -74,27 +116,26 @@ function MoodAnalyticsChart() {
 
       {/* Chart */}
       <div className="mt-7 h-72 w-full">
-
-        {chartData.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center rounded-2xl bg-slate-50/70 dark:bg-white/[0.02]">
-
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-xl dark:bg-emerald-950/30">
+        {loading ? (
+          <LoadingState message="Analyzing mood trends..." />
+        ) : error ? (
+          <ErrorState message={error} onRetry={fetchMoodData} />
+        ) : chartData.length === 0 ? (
+          <div className="flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-emerald-300/50 bg-emerald-50/20 text-center dark:border-emerald-700/50 dark:bg-emerald-950/20">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-3xl text-emerald-500 shadow-sm dark:bg-slate-800 dark:text-emerald-400">
               🌿
             </div>
-
-            <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">
-              Your mood journey starts here
-            </p>
-
-            <p className="mt-1 max-w-xs text-center text-xs leading-5 text-slate-400">
+            <h3 className="mt-4 text-lg font-semibold text-slate-800 dark:text-white">
+              Your Mood Journey Starts Here
+            </h3>
+            <p className="mx-auto mt-2 max-w-xs text-sm leading-6 text-slate-500 dark:text-slate-400">
               Check in with yourself to start building your personal mood
-              history.
+              history. Your weekly trend will appear here.
             </p>
-
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
+            <AreaChart
               data={chartData}
               margin={{
                 top: 10,
@@ -103,11 +144,17 @@ function MoodAnalyticsChart() {
                 bottom: 5,
               }}
             >
+              <defs>
+                <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.4}/>
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
 
               <CartesianGrid
                 strokeDasharray="4 6"
                 vertical={false}
-                stroke="rgba(148, 163, 184, 0.16)"
+                stroke={darkMode ? "rgba(255, 255, 255, 0.08)" : "rgba(148, 163, 184, 0.16)"}
               />
 
               <XAxis
@@ -115,7 +162,7 @@ function MoodAnalyticsChart() {
                 axisLine={false}
                 tickLine={false}
                 tick={{
-                  fill: "#94a3b8",
+                  fill: darkMode ? "#64748b" : "#94a3b8",
                   fontSize: 11,
                 }}
                 dy={10}
@@ -127,7 +174,7 @@ function MoodAnalyticsChart() {
                 axisLine={false}
                 tickLine={false}
                 tick={{
-                  fill: "#94a3b8",
+                  fill: darkMode ? "#64748b" : "#94a3b8",
                   fontSize: 10,
                 }}
                 tickFormatter={(value) => {
@@ -146,18 +193,20 @@ function MoodAnalyticsChart() {
 
               <Tooltip
                 cursor={{
-                  stroke: "rgba(16, 185, 129, 0.18)",
+                  stroke: "#10b981",
                   strokeWidth: 1,
+                  strokeDasharray: "3 3",
                 }}
-                contentStyle={{
-                  borderRadius: "14px",
-                  border: "1px solid rgba(226, 232, 240, 0.8)",
-                  background: "rgba(255, 255, 255, 0.96)",
-                  boxShadow: "0 10px 30px rgba(15, 23, 42, 0.08)",
-                  padding: "10px 12px",
-                }}
+                content={<CustomTooltip />}
               />
 
+              <Area
+                type="monotone"
+                dataKey="score"
+                strokeWidth={2.5}
+                stroke="#10b981"
+                fill="url(#colorScore)"
+              />
               <Line
                 type="monotone"
                 dataKey="score"
@@ -177,7 +226,7 @@ function MoodAnalyticsChart() {
                 }}
               />
 
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
         )}
 

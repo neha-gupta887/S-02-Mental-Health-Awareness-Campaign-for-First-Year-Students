@@ -80,7 +80,7 @@ function QuickActions() {
           >
             <Link
               to={action.path}
-              className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-[24px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_10px_32px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_20px_45px_rgba(16,185,129,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 dark:border-white/[0.06] dark:bg-white/[0.025] dark:hover:border-emerald-900/50 dark:focus-visible:ring-offset-[#0b1110] sm:p-6"
+              className="group relative flex h-full min-h-[220px] flex-col justify-between overflow-hidden rounded-[24px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_10px_32px_rgba(15,23,42,0.04)] transition-all duration-300 hover:border-emerald-200 hover:shadow-[0_20px_45px_rgba(16,185,129,0.12)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 dark:border-white/[0.06] dark:bg-white/[0.025] dark:hover:border-emerald-900/50 dark:focus-visible:ring-offset-slate-900 sm:p-6"
             >
 
               {/* Very subtle background glow */}
@@ -100,16 +100,23 @@ function QuickActions() {
               </div>
 
               {/* Content */}
-              <div className="relative mt-7">
+              <div className="relative mt-7 flex-grow">
 
                 <h3 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
                   {action.title}
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400 line-clamp-3">
                   {action.description}
                 </p>
 
+              </div>
+
+              {/* Action Arrow */}
+              <div className="mt-4 flex justify-end">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-400 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white dark:bg-slate-800 dark:text-slate-500 dark:group-hover:bg-emerald-500">
+                  <FaArrowRight className="text-xs" />
+                </div>
               </div>
 
             </Link>
