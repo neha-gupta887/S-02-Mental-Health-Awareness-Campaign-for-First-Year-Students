@@ -9,6 +9,7 @@ import RecentActivity from "../components/dashboard/RecentActivity";
 import LoadingState from "../components/ui/LoadingState";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
 import { getMoodHistory } from "../services/moodService";
+import useAuth from "../hooks/useAuth.js";
 
 function Dashboard() {
   const [stats, setStats] = useState({});
@@ -21,6 +22,7 @@ function Dashboard() {
     "Take a moment for yourself today."
   );
 
+  const { user } = useAuth();
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour < 12) setGreeting("Good morning");
@@ -64,6 +66,7 @@ function Dashboard() {
         <DashboardHero
           stats={stats}
           greeting={greeting}
+          user={user}
           dailyMessage={dailyMessage}
           onRefresh={handleRefresh}
           isRefreshing={isRefreshing}

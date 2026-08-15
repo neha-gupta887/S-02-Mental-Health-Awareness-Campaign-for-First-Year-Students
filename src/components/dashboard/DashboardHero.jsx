@@ -8,7 +8,14 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function DashboardHero({ stats, greeting, dailyMessage, onRefresh, isRefreshing, }) {
+function DashboardHero({
+  stats,
+  greeting,
+  dailyMessage,
+  onRefresh,
+  isRefreshing,
+  user,
+}) {
   // Today's Date
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -29,6 +36,13 @@ function DashboardHero({ stats, greeting, dailyMessage, onRefresh, isRefreshing,
 
   const affirmation =
     affirmations[new Date().getDate() % affirmations.length];
+
+  const getDisplayName = () => {
+    if (user?.displayName && user.displayName !== "Student") {
+      return user.displayName.split(" ")[0]; // Get first name
+    }
+    return user?.email?.split("@")[0] || "there";
+  };
 
   return (
     <section className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-emerald-600 via-green-600 to-teal-700 p-6 text-white shadow-xl sm:p-8 lg:p-10">
@@ -59,9 +73,22 @@ function DashboardHero({ stats, greeting, dailyMessage, onRefresh, isRefreshing,
           </div>
 
           <div className="mt-8">
-            <p className="text-lg font-medium text-emerald-100">
-              {greeting}
-            </p>
+            <div className="flex items-center gap-3">
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-lg font-bold backdrop-blur-sm">
+                  {getDisplayName().charAt(0).toUpperCase()}
+                </div>
+              )}
+              <p className="text-lg font-medium text-emerald-100">
+                {greeting},
+              </p>
+            </div>
 
             <div className="mt-2 flex items-center gap-2 text-emerald-100">
               <FaCalendarAlt />
@@ -69,8 +96,10 @@ function DashboardHero({ stats, greeting, dailyMessage, onRefresh, isRefreshing,
             </div>
           </div>
 
-          <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl">
-            How is your heart feeling today? 💚
+          <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
+            {getDisplayName()}
+            <span className="text-emerald-300">,</span> how is your heart
+            feeling today?
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-emerald-50">
