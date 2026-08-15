@@ -1,7 +1,5 @@
-import { useState, useMemo } from "react";
-import toast from "react-hot-toast";
-
-import { notifications } from "../data/notifications";
+import { useState } from "react";
+import { useNotifications } from "../context/NotificationContext";
 
 import NotificationHeader from "../components/notifications/NotificationHeader";
 import NotificationStats from "../components/notifications/NotificationStats";
@@ -13,61 +11,18 @@ import ClearFiltersButton from "../components/notifications/ClearFiltersButton";
 import NotificationSort from "../components/notifications/NotificationSort";
 
 function Notifications() {
-  // NOTE: This component uses static data. State changes are not persistent.
-  const [notificationList, setNotificationList] = useState(notifications);
+  const {
+    notifications: notificationList,
+    unreadCount,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+    clearAllNotifications,
+  } = useNotifications();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [sortBy, setSortBy] = useState("latest");
-
-  const handleMarkAsRead = (id) => {
-    setNotificationList((prevNotifications) =>
-      prevNotifications.map((notification) =>
-        notification.id === id
-          ? { ...notification, read: true }
-          : notification
-      )
-    );
-    toast.success("Notification marked as read.");
-  };
-
-  const handleMarkAllAsRead = () => {
-    setNotificationList((prevNotifications) =>
-      prevNotifications.map((notification) => ({
-        ...notification,
-        read: true,
-      }))
-    );
-    toast.success("All notifications marked as read.");
-  };
-
-  const handleDeleteNotification = (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this notification?"
-    );
-
-    if (!confirmed) return;
-
-    setNotificationList((prevNotifications) =>
-      prevNotifications.filter(
-        (notification) => notification.id !== id
-      )
-    );
-    toast.success("Notification deleted.");
-  };
-
-  const handleClearAllNotifications = () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to clear all notifications?"
-    );
-
-    if (!confirmed) return;
-
-    setNotificationList([]);
-    toast.success("All notifications cleared.");
-  };
-
-  const unreadCount = useMemo(() => notificationList.filter((n) => !n.read).length, [notificationList]);
 
   const stats = [
     {
@@ -179,7 +134,7 @@ function Notifications() {
 
         <div className="mt-6 flex flex-wrap justify-end gap-3">
           <button
-            onClick={handleMarkAllAsRead}
+            onClick={markAllAsRead}
             disabled={
               notificationList.length === 0 ||
               notificationList.every(
@@ -192,7 +147,7 @@ function Notifications() {
           </button>
 
           <button
-            onClick={handleClearAllNotifications}
+            onClick={clearAllNotifications}
             disabled={notificationList.length === 0}
             className="rounded-xl bg-red-600 px-5 py-2 text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
@@ -211,8 +166,8 @@ function Notifications() {
           ) : (
             <NotificationList
               notifications={filteredNotifications}
-              onMarkAsRead={handleMarkAsRead}
-              onDelete={handleDeleteNotification}
+              onMarkAsRead={markAsRead}
+              onDelete={deleteNotification}
             />
           )}
 

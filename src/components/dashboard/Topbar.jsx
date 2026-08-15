@@ -10,12 +10,14 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import useAuth from "../../hooks/useAuth";
+import { useNotifications } from "../../context/NotificationContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
 function Topbar({ setSidebarOpen }) {
   const { darkMode, setDarkMode } = useTheme();
   const { user } = useAuth();
+  const { unreadCount } = useNotifications();
   const navigate = useNavigate();
 
   const [isProfileOpen, setProfileOpen] = useState(false);
@@ -103,16 +105,27 @@ function Topbar({ setSidebarOpen }) {
           </button>
 
           {/* Notifications */}
-          <button
-            type="button"
+          <Link
+            to="/notifications"
             className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition-all duration-200 hover:border-emerald-200 hover:text-emerald-600 dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-300 dark:hover:border-emerald-900 dark:hover:text-emerald-400"
-            aria-label="Notifications"
-            title="Notifications"
+            aria-label={
+              unreadCount > 0
+                ? `${unreadCount} unread notifications`
+                : "Notifications"
+            }
+            title={
+              unreadCount > 0
+                ? `${unreadCount} unread notifications`
+                : "Notifications"
+            }
           >
             <FaBell className="text-sm transition-transform duration-200 group-hover:-rotate-6" />
-
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full border-2 border-white bg-emerald-500 dark:border-[#09100E]" />
-          </button>
+            {unreadCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-red-500 text-[10px] font-bold text-white dark:border-gray-950">
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </span>
+            )}
+          </Link>
 
           {/* Profile */}
           <div className="relative" ref={profileRef}>
