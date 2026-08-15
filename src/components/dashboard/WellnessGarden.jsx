@@ -1,18 +1,60 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaSeedling, FaLeaf, FaStar } from "react-icons/fa";
+import { FaSeedling, FaLeaf, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
+import { getGardenData, claimDailyReward } from "../../services/gardenService";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { isToday, format } from "date-fns";
 
-const getGardenData = () => {
-  // Placeholder data. In a real app, this would come from a service.
-  return {
-    xp: 75,
-    level: 2,
-    tree: "🌳",
-    treeTitle: "Young Tree",
+// Reward component for individual daily rewards
+function Reward({ reward, isCompleted, onClaim, isClaiming }) {
+  const handleClaim = () => {
+    if (!isCompleted && !isClaiming) {
+      onClaim(reward.id, reward.xp);
+    }
   };
+
+  return (
+    <motion.div
+      whileHover={{ y: isCompleted ? 0 : -2 }} // Only animate hover if not completed
+      className={`
+        flex items-center justify-between rounded-2xl border p-3.5 transition-all duration-200
+        ${isCompleted
+          ? "border-emerald-100 bg-emerald-50/60 dark:border-emerald-900/30 dark:bg-emerald-950/20"
+          : "border-slate-100 bg-slate-50/60 hover:bg-white hover:shadow-sm dark:border-slate-800 dark:bg-white/[0.025] dark:hover:bg-white/[0.04]"
+        }
+      `}
+    >
+      <div className="flex items-center gap-3">
+        {/* Icon for the reward */}
+        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm ${isCompleted ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400" : "bg-white text-slate-500 shadow-sm dark:bg-slate-800"}`}>
+          {reward.icon}
+        </span>
+        {/* Title of the reward */}
+        <span className={`text-xs font-medium ${isCompleted ? "text-emerald-700 dark:text-emerald-300" : "text-slate-600 dark:text-slate-300"}`}>
+          {reward.title}
+        </span>
+      </div>
+      {isCompleted ? (
+        <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          <FaCheckCircle /> Completed
+        </span>
+      ) : (
+        <button
+          onClick={handleClaim}
+          disabled={isClaiming}
+          className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-600 transition-all duration-200 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:hover:bg-emerald-950/60"
+        >
+          {isClaiming ? "Claiming..." : `+${reward.xp} XP`}
+          {!isClaiming && <FaPlusCircle className="text-[10px]" />}
+        </button>
+      )}
+    </motion.div>
+  );
 };
 
 function WellnessGarden() {
+  const { user } = useAuth(); // Get authenticated user
   const [xp, setXP] = useState(0);
   const [level, setLevel] = useState(1);
 
@@ -181,31 +223,28 @@ function WellnessGarden() {
               <h3 className="mt-1 text-base font-semibold text-slate-900 dark:text-white">
                 Today's Rewards
               </h3>
+              {lastRewardResetDate && (
+                <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                  Last reset: {format(lastRewardResetDate, "MMM dd, yyyy")}
+                </p>
+              )}
             </div>
           </div>
 
           <div className="mt-4 space-y-2">
-            <Reward title="😊 Mood Check-in" xp="+5 XP" />
-            <Reward title="📖 Journal Entry" xp="+10 XP" />
-            <Reward title="🌬 Breathing Exercise" xp="+8 XP" />
-            <Reward title="🤖 Talk to Mana AI" xp="+5 XP" />
+            {dailyRewards.map((reward) => (
+              <Reward
+                key={reward.id}
+                reward={reward}
+                isCompleted={completedDailyRewards.includes(reward.id)}
+                onClaim={handleClaimReward}
+                isClaiming={claimingRewardId === reward.id}
+              />
+            ))}
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Reward({ title, xp }) {
-  return (
-    <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-slate-50/60 px-4 py-3 transition-all duration-200 hover:bg-white hover:shadow-sm dark:border-slate-800 dark:bg-white/[0.025] dark:hover:bg-white/[0.04]">
-      <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
-        {title}
-      </span>
-      <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400">
-        {xp}
-      </span>
-    </div>
   );
 }
 

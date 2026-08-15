@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 
 import { auth, db } from "./firebase";
+import { isToday } from "date-fns";
 
 const COLLECTION = "garden";
 
@@ -51,6 +52,8 @@ export const getGardenData = async () => {
       tree: "🌱",
       treeTitle: "Seed",
       streak: 0,
+      completedDailyRewards: [], // New field
+      lastRewardResetDate: serverTimestamp(), // New field
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
@@ -61,6 +64,21 @@ export const getGardenData = async () => {
   }
 
   return snap.data();
+
+  // Check if daily rewards need to be reset
+  const lastResetDate = gardenData.lastRewardResetDate?.toDate();
+  if (!lastResetDate || !isToday(lastResetDate)) {
+    // It's a new day or no reset date exists, reset rewards
+    await updateDoc(ref, {
+      completedDailyRewards: [],
+      lastRewardResetDate: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+    gardenData.completedDailyRewards = [];
+    gardenData.lastRewardResetDate = new Date(); // Update locally for immediate use
+  }
+
+  return gardenData;
 };
 
 // Add XP
@@ -72,13 +90,16 @@ export const addXP = async (amount) => {
   const ref = doc(db, COLLECTION, user.uid);
 
   const snap = await getDoc(ref);
-
   if (!snap.exists()) {
     await getGardenData();
+    const recheck = await getDoc(ref);
+    if (!recheck.exists()) {
+      console.error("Garden document still missing after initialization attempt.");
+      return;
+    }
+    latest = recheck;
   }
-
-  const latest = await getDoc(ref);
-
+  
   const currentXP = latest.data().xp || 0;
 
   const newXP = currentXP + amount;
@@ -99,4 +120,54 @@ export const addXP = async (amount) => {
     tree: currentLevel.tree,
     treeTitle: currentLevel.title,
   };
+};
+
+// New function to claim a daily reward
+export const claimDailyReward = async (rewardId, xpAmount) => {
+  const user = auth.currentUser;
+  if (!user) {
+    console.error("No authenticated user to claim reward.");
+    return { success: false, message: "User not authenticated." };
+  }
+
+  const ref = doc(db, COLLECTION, user.uid);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) {
+    console.error("Garden document not found for user:", user.uid);
+    return { success: false, message: "Garden data not found." };
+  }
+
+  const gardenData = snap.data();
+  let completedDailyRewards = gardenData.completedDailyRewards || [];
+  const lastRewardResetDate = gardenData.lastRewardResetDate?.toDate();
+
+  // Re-check for daily reset in case getGardenData wasn't called recently
+  if (!lastRewardResetDate || !isToday(lastRewardResetDate)) {
+    completedDailyRewards = []; // Reset for new day
+    await updateDoc(ref, {
+      completedDailyRewards: [],
+      lastRewardResetDate: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+  }
+
+  if (completedDailyRewards.includes(rewardId)) {
+    return { success: false, message: "Reward already claimed today." };
+  }
+
+  try {
+    const updatedXPInfo = await addXP(xpAmount); // Use existing addXP logic
+    completedDailyRewards.push(rewardId);
+
+    await updateDoc(ref, {
+      completedDailyRewards: completedDailyRewards,
+      updatedAt: serverTimestamp(),
+    });
+
+    return { success: true, message: "Reward claimed successfully!", ...updatedXPInfo, completedDailyRewards: completedDailyRewards };
+  } catch (error) {
+    console.error("Error claiming daily reward:", error);
+    return { success: false, message: "Failed to claim reward." };
+  }
 };
