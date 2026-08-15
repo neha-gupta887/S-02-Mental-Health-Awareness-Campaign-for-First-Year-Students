@@ -54,7 +54,6 @@ Make sure you have the following installed:
 
 Clone the repository:
 
-```bash
 git clone https://github.com/neha-gupta887/S-02-Mental-Health-Awareness-Campaign-for-First-Year-Students.git
 
 ## 🖥️ Screenshots
@@ -91,7 +90,6 @@ MindBridge follows a modular web-based architecture where students interact with
 
 ### 🔄 Workflow
 
-```text
 Student
    │
    ▼
@@ -365,7 +363,6 @@ Make sure you have the following installed:
 
 Clone the repository:
 
-```bash
 git clone https://github.com/neha-gupta887/S-02-Mental-Health-Awareness-Campaign-for-First-Year-Students.git
 Student
    │
