@@ -246,7 +246,77 @@ The campaign focused on:
 #### Awareness Materials
 
 `[Insert Campaign Poster and Video Screenshots Here]`
+---
 
+## 🧑‍🤝‍🧑 Peer-Led Workshops
+
+As part of the Mind Matters campaign, three peer-led workshops were conducted to provide first-year students with practical knowledge and strategies for maintaining mental well-being.
+
+### 🧠 Workshop 1 — Stress & Anxiety
+
+**Focus Areas:**
+- Understanding stress and anxiety
+- Identifying common triggers
+- Recognizing signs of excessive stress
+- Simple stress-management techniques
+- When and where to seek support
+
+**Activities:**
+- Interactive discussion
+- Stress-management activity
+- Peer sharing
+- Q&A session
+
+---
+
+### 😴 Workshop 2 — Sleep & Lifestyle
+
+**Focus Areas:**
+- Importance of healthy sleep
+- Sleep hygiene
+- Managing screen time
+- Healthy daily routines
+- Physical activity and well-being
+
+**Activities:**
+- Sleep-habit discussion
+- Lifestyle self-check
+- Practical routine-building activity
+- Peer discussion
+
+---
+
+### 💬 Workshop 3 — Help-Seeking & Resources
+
+**Focus Areas:**
+- Understanding mental-health stigma
+- When to seek professional support
+- How to approach a counselor
+- Supporting a friend who is struggling
+- Available university and online resources
+
+**Activities:**
+- Help-seeking scenarios
+- Peer discussion
+- Resource awareness activity
+- Q&A session
+
+---
+
+### 📊 Workshop Summary
+
+| Workshop | Topic | Participants |
+|---|---|---:|
+| Workshop 1 | Stress & Anxiety | `[Actual Number]` |
+| Workshop 2 | Sleep & Lifestyle | `[Actual Number]` |
+| Workshop 3 | Help-Seeking & Resources | `[Actual Number]` |
+| **Total** | — | **[Actual Total]** |
+
+### Workshop Outcome
+
+The workshops provided students with practical strategies for managing common university-related challenges and increased awareness of appropriate help-seeking pathways.
+
+> **Workshop attendance, feedback, and field documentation will be included in the project evidence section.**
 ### Campaign Outcome
 
 The campaign successfully provided first-year students with information about mental-health awareness, healthy coping strategies, help-seeking, and available support resources.
