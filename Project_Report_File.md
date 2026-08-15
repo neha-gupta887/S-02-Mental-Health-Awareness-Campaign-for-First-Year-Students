@@ -103,3 +103,41 @@ The project aims to:
 | Resource map distribution | **200+** |
 | Peer-led workshops | **3** |
 | Mental Health Ambassadors | **5** *(Bonus)* |
+
+---
+
+## 🔬 Research & Methodology
+
+The project follows a six-week structured approach to understand student needs, implement awareness activities, and measure campaign impact.
+
+### Research Sources
+
+The campaign planning is based on reliable mental-health resources and research, including:
+
+- World Health Organization (WHO)
+- National Institute of Mental Health and Neuro-Sciences (NIMHANS)
+- Peer-reviewed research on university student mental health
+- Best practices in mental-health awareness and destigmatization campaigns
+
+### Project Methodology
+
+```text
+Research
+   ↓
+Pre-Campaign Survey
+   ↓
+Campaign Planning
+   ↓
+Awareness Campaign
+   ↓
+3 Peer-Led Workshops
+   ↓
+Resource Map & Digital Support
+   ↓
+Post-Campaign Survey
+   ↓
+Data Analysis
+   ↓
+Impact Evaluation
+   ↓
+Campaign Toolkit
