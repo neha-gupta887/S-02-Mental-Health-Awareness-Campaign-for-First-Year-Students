@@ -13,28 +13,15 @@ import { getMoodHistory } from "../services/moodService";
 function Dashboard() {
   const [stats, setStats] = useState({});
   const [moods, setMoods] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(true); // For the first page load
+  const [error, setError] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [greeting, setGreeting] = useState("Welcome back");
   const [dailyMessage, setDailyMessage] = useState(
     "Take a moment for yourself today."
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [statsData, moodData] = await Promise.all([
-          getDashboardStats(),
-          getMoodHistory(),
-        ]);
-        setStats(statsData);
-        setMoods(moodData);
-      } catch (error) {
-        console.error("Failed to load dashboard data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const hour = new Date().getHours();
     if (hour < 12) setGreeting("Good morning");
     else if (hour < 18) setGreeting("Good afternoon");
@@ -43,6 +30,34 @@ function Dashboard() {
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    // Don't show the full-page loader on subsequent refreshes
+    if (!isInitialLoading) {
+      setIsRefreshing(true);
+    }
+    setError(null);
+
+    try {
+      const [statsData, moodData] = await Promise.all([
+        getDashboardStats(),
+        getMoodHistory(),
+      ]);
+      setStats(statsData);
+      setMoods(moodData);
+    } catch (err) {
+      console.error("Failed to load dashboard data:", err);
+      setError("Could not load dashboard data. Please try again.");
+    } finally {
+      setIsInitialLoading(false);
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    if (isRefreshing) return;
+    fetchData();
+  };
+
   return (
     <AuthenticatedLayout>
       <div className="space-y-8">
@@ -50,9 +65,11 @@ function Dashboard() {
           stats={stats}
           greeting={greeting}
           dailyMessage={dailyMessage}
+          onRefresh={handleRefresh}
+          isRefreshing={isRefreshing}
         />
 
-        {loading ? (
+        {isInitialLoading ? (
           <div className="mt-8 flex h-96 items-center justify-center">
             <LoadingState message="Loading your wellness dashboard..." />
           </div>

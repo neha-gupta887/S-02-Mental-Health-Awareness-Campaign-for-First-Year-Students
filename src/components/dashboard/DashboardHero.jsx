@@ -4,10 +4,11 @@ import {
   FaSpa,
   FaSun,
   FaCalendarAlt,
+  FaSync,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function DashboardHero({ stats, greeting, dailyMessage }) {
+function DashboardHero({ stats, greeting, dailyMessage, onRefresh, isRefreshing, }) {
   // Today's Date
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -41,10 +42,21 @@ function DashboardHero({ stats, greeting, dailyMessage }) {
       <div className="relative flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
         {/* LEFT SIDE */}
         <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-semibold backdrop-blur-md">
-            <FaLeaf />
-            Your Safe Wellness Space
-          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-md">
+              <FaLeaf />
+              Your Safe Wellness Space
+            </span>
+            <button
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              className="group inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-md transition-colors duration-300 hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-70"
+              aria-label="Refresh dashboard data"
+            >
+              <FaSync className={isRefreshing ? "animate-spin" : "transition-transform group-hover:rotate-90"} />
+              <span>{isRefreshing ? "Refreshing..." : "Refresh"}</span>
+            </button>
+          </div>
 
           <div className="mt-8">
             <p className="text-lg font-medium text-emerald-100">
