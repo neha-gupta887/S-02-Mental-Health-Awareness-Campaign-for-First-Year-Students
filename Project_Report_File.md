@@ -407,7 +407,6 @@ https://github.com/neha-gupta887/S-02-Mental-Health-Awareness-Campaign-for-First
 
 The MindBridge platform was developed and tested using a Vite-based React environment.
 
-```text
 npm install
 npm run dev
 ### Campaign Outcome
@@ -417,3 +416,45 @@ The campaign successfully provided first-year students with information about me
 **Students Reached:** `[Actual Number]`
 
 **Campaign Duration:** 6 Weeks
+
+
+---
+
+## 📊 Post-Campaign Survey & Evaluation
+
+After completing the awareness campaign and workshops, a post-campaign survey was conducted to evaluate changes in students' awareness, attitudes, and knowledge of mental-health resources.
+
+### Evaluation Areas
+
+The post-campaign survey measured:
+
+- Mental-health awareness
+- Knowledge of available support resources
+- Attitudes toward seeking help
+- Mental-health stigma
+- Confidence in approaching support services
+- Campaign recall
+- Participation in campaign activities
+- Awareness of MindBridge and available resources
+
+### Pre vs Post Comparison
+
+The key questions related to awareness, stigma, and help-seeking were kept consistent across both surveys to enable comparison.
+
+| Evaluation Area | Pre-Campaign | Post-Campaign | Change |
+|---|---:|---:|---:|
+| Mental-health awareness | `[Actual %]` | `[Actual %]` | `[Calculate]` |
+| Knowledge of support resources | `[Actual %]` | `[Actual %]` | `[Calculate]` |
+| Comfortable seeking help | `[Actual %]` | `[Actual %]` | `[Calculate]` |
+| Positive help-seeking attitude | `[Actual %]` | `[Actual %]` | `[Calculate]` |
+
+### Awareness Improvement
+
+The percentage improvement will be calculated using:
+
+```text
+Awareness Improvement (%) =
+(Post-Campaign Score − Pre-Campaign Score)
+÷ Pre-Campaign Score × 100
+
+
