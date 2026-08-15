@@ -665,5 +665,57 @@ The project can be further expanded through:
 ### Long-Term Vision
 
 The long-term goal is to develop **Mind Matters + MindBridge** into a sustainable student-wellness initiative that can be reused and expanded by future student communities.
+---
+
+## ✅ Conclusion
+
+The **Mind Matters** project was developed as a student-focused mental-health awareness and peer-support initiative for first-year university students.
+
+The project brought together:
+
+- Mental-health awareness
+- Student surveys
+- Awareness campaign activities
+- Peer-led workshops
+- Mental-health resource mapping
+- Digital support through **MindBridge**
+- Post-campaign evaluation
+- Reusable campaign documentation
+
+The combination of offline activities and digital support provides students with multiple ways to learn about mental health, access resources, and understand appropriate help-seeking pathways.
+
+**Mind Matters** demonstrates how student-led initiatives and technology can work together to promote a more informed, supportive, and mental-health-friendly university environment.
+
+---
+
+## 📚 References
+
+- World Health Organization (WHO) — Mental Health Resources  
+  https://www.who.int/health-topics/mental-health
+
+- National Institute of Mental Health and Neuro-Sciences (NIMHANS)  
+  https://nimhans.ac.in/
+
+- Relevant peer-reviewed research on university student mental health, stigma, and help-seeking behavior.
+
+- University counseling and student-support resources used for the project.
+
+---
+
+## 👩‍💻 Project Author
+
+**Neha Gupta**  
+**Student ID:** 25BCS12521  
+**B.E. Computer Science Engineering**  
+**Chandigarh University**  
+**Chandigarh University Seasons of Code (CUSoC), 2026**
+
+---
+
+## ⭐ Project Status
+
+**Completed**
+
+Mind Matters was implemented as a six-week mental-health awareness and peer-support campaign, supported by the **MindBridge** digital platform.
 
 
