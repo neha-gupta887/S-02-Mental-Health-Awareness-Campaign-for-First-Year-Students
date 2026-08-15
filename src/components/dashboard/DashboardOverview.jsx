@@ -6,8 +6,9 @@ import {
   FaArrowUp,
   FaLeaf,
 } from "react-icons/fa";
+import WellnessTrend from "./WellnessTrend";
 
-function DashboardOverview({ stats = {} }) {
+function DashboardOverview({ stats = {}, moods = [] }) {
   const toSafeNumber = (value) => {
     const parsedValue = Number(value);
     return Number.isFinite(parsedValue) ? parsedValue : 0;
@@ -117,6 +118,11 @@ function DashboardOverview({ stats = {} }) {
 
         </div>
 
+      </div>
+
+      {/* Wellness Trend */}
+      <div className="mt-5">
+        <WellnessTrend moods={moods} />
       </div>
 
       {/* Mini Stats */}

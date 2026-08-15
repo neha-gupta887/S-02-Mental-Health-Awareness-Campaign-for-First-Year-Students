@@ -10,7 +10,7 @@ import { getJournalHistory } from "../../services/journalService";
 import { formatDistanceToNow } from "date-fns";
 import ErrorState from "../ui/ErrorState";
 
-function RecentActivity() {
+function RecentActivity({ moods = [] }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,11 +18,10 @@ function RecentActivity() {
 
   useEffect(() => {
     const fetchActivities = async () => {
-      try { 
-        const moodHistory = await getMoodHistory();
+      try {
         const journalHistory = await getJournalHistory();
 
-        const moodActivities = moodHistory.map((mood) => ({
+        const moodActivities = moods.map((mood) => ({
           id: `mood-${mood.id}`,
           title: "Mood Check-in",
           description: `You logged a ${mood.mood} mood.`,
@@ -62,7 +61,7 @@ function RecentActivity() {
     };
 
     fetchActivities();
-  }, [retryCount]);
+  }, [retryCount, moods]);
 
   const handleRetry = () => {
     setError(null);

@@ -13,7 +13,6 @@ import { useTheme } from "../../context/ThemeContext";
 
 import LoadingState from "../ui/LoadingState";
 import ErrorState from "../ui/ErrorState";
-import { getMoodHistory } from "../../services/moodService";
 
 const moodScore = {
   Happy: 5,
@@ -24,53 +23,39 @@ const moodScore = {
   Angry: 1,
 };
 
-function MoodAnalyticsChart() {
+function MoodAnalyticsChart({ moods = [] }) {
   const { darkMode } = useTheme();
   const [chartData, setChartData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchMoodData();
-  }, []);
-
-  const fetchMoodData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const moods = await getMoodHistory();
-
+    const processMoodData = () => {
       // Sort by date ascending to get the correct order for the chart
       const sortedMoods = moods.sort(
         (a, b) => a.createdAt.toDate() - b.createdAt.toDate()
       );
 
-      const weeklyData = moods
+      const weeklyData = sortedMoods
         .slice(-7) // Take the last 7 entries for the most recent trend
         .map((mood) => ({
           name: mood.mood,
-          day: mood.createdAt?.toDate
-            ? mood.createdAt.toDate().toLocaleDateString("en-IN", {
+          day: mood.createdAt?.toDate()
+            ? mood.createdAt.toDate().toLocaleDateString("en-US", {
                 weekday: "short",
               })
             : "Today",
           score: moodScore[mood.mood] || 3,
           fullDate: mood.createdAt?.toDate()
-            ? mood.createdAt.toDate().toLocaleDateString("en-IN", {
+            ? mood.createdAt.toDate().toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "short",
               })
             : "N/A",
         }));
-
       setChartData(weeklyData);
-    } catch (err) {
-      console.error("Failed to load mood data for chart:", err);
-      setError("Could not load your mood analytics. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    processMoodData();
+  }, [moods]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -116,11 +101,7 @@ function MoodAnalyticsChart() {
 
       {/* Chart */}
       <div className="mt-7 h-72 w-full">
-        {loading ? (
-          <LoadingState message="Analyzing mood trends..." />
-        ) : error ? (
-          <ErrorState message={error} onRetry={fetchMoodData} />
-        ) : chartData.length === 0 ? (
+        {chartData.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-emerald-300/50 bg-emerald-50/20 text-center dark:border-emerald-700/50 dark:bg-emerald-950/20">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-3xl text-emerald-500 shadow-sm dark:bg-slate-800 dark:text-emerald-400">
               🌿

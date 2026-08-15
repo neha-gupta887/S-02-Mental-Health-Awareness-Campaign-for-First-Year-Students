@@ -6,19 +6,33 @@ import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
 import QuickActions from "../components/dashboard/QuickActions";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
+import LoadingState from "../components/ui/LoadingState";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
+import { getMoodHistory } from "../services/moodService";
 
 function Dashboard() {
   const [stats, setStats] = useState({});
+  const [moods, setMoods] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [greeting, setGreeting] = useState("Welcome back");
   const [dailyMessage, setDailyMessage] = useState(
     "Take a moment for yourself today."
   );
 
   useEffect(() => {
-    const fetchStats = async () => {
-      const data = await getDashboardStats();
-      setStats(data);
+    const fetchData = async () => {
+      try {
+        const [statsData, moodData] = await Promise.all([
+          getDashboardStats(),
+          getMoodHistory(),
+        ]);
+        setStats(statsData);
+        setMoods(moodData);
+      } catch (error) {
+        console.error("Failed to load dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     const hour = new Date().getHours();
@@ -26,7 +40,7 @@ function Dashboard() {
     else if (hour < 18) setGreeting("Good afternoon");
     else setGreeting("Good evening");
 
-    fetchStats();
+    fetchData();
   }, []);
 
   return (
@@ -38,17 +52,23 @@ function Dashboard() {
           dailyMessage={dailyMessage}
         />
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-          <div className="space-y-8 lg:col-span-3">
-            <DashboardOverview stats={stats} />
-            <MoodAnalyticsChart />
-            <QuickActions />
+        {loading ? (
+          <div className="mt-8 flex h-96 items-center justify-center">
+            <LoadingState message="Loading your wellness dashboard..." />
           </div>
-          <div className="space-y-8 lg:col-span-2">
-            <WellnessGarden />
-            <RecentActivity />
+        ) : (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
+            <div className="space-y-8 lg:col-span-3">
+              <DashboardOverview stats={stats} moods={moods} />
+              <MoodAnalyticsChart moods={moods} />
+              <QuickActions />
+            </div>
+            <div className="space-y-8 lg:col-span-2">
+              <WellnessGarden />
+              <RecentActivity moods={moods} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </AuthenticatedLayout>
   );
