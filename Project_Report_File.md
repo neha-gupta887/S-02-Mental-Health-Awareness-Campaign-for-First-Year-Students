@@ -53,3 +53,53 @@ The platform brings together mental-wellness resources, self-care tools, peer-su
 > 🚧 **Project Status:** In Progress
 >
 > This repository will be updated throughout the six-week campaign with research, survey data, campaign materials, workshop documentation, field-work evidence, MindBridge development, and impact analysis.
+
+---
+
+## ❗ Problem Statement
+
+First-year university students commonly face challenges such as:
+
+- Academic pressure and exam stress
+- Anxiety and emotional difficulties
+- Homesickness and loneliness
+- Sleep and lifestyle problems
+- Difficulty adjusting to university life
+- Lack of awareness about available mental-health resources
+- Fear of judgment or stigma around seeking help
+
+### Key Problem
+
+Many students may experience mental-health challenges but **do not know where to seek support or hesitate to ask for help**.
+
+**Mind Matters** aims to bridge this gap through awareness, peer engagement, workshops, accessible resources, and digital support through **MindBridge**.
+
+---
+
+## 🎯 Project Objectives
+
+The project aims to:
+
+- Assess mental-health awareness among first-year students.
+- Understand students' knowledge of available support resources.
+- Identify common mental-health challenges and barriers to help-seeking.
+- Conduct a multi-format mental-health awareness campaign.
+- Organize **3 peer-led workshops**.
+- Create a verified mental-health resource map.
+- Measure changes through pre- and post-campaign surveys.
+- Encourage healthy and timely help-seeking behavior.
+- Provide digital mental-wellness support through **MindBridge**.
+- Create a reusable campaign toolkit for future student groups.
+
+---
+
+## 📊 Target Impact
+
+| Metric | Target |
+|---|---:|
+| Students reached | **300+** |
+| Workshop participants | **75+** |
+| Awareness improvement | **≥35%** |
+| Resource map distribution | **200+** |
+| Peer-led workshops | **3** |
+| Mental Health Ambassadors | **5** *(Bonus)* |
