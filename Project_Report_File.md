@@ -580,7 +580,7 @@ The MindBridge platform was demonstrated as the digital component of the campaig
 
 All major field activities and project outputs will be documented in the repository.
 
-```text
+
 assets/
 ├── survey/
 ├── campaign/
@@ -588,5 +588,54 @@ assets/
 ├── resource-map/
 ├── mindbridge/
 └── results/
+---
+
+## 📦 Campaign Toolkit
+
+The Mind Matters Campaign Toolkit has been prepared as a reusable resource for future student groups who want to conduct similar mental-health awareness activities.
+
+### Toolkit Contents
+
+- Pre-campaign survey template
+- Post-campaign survey template
+- Mental-health awareness posters
+- Social-media content
+- Workshop facilitation guides
+- Workshop feedback form
+- Attendance format
+- Mental-health resource map
+- QR-based resource access
+- Campaign implementation plan
+- Impact evaluation format
+- Documentation guidelines
+
+### Workshop Guides
+
+Each workshop guide contains:
+
+- Workshop objective
+- Key discussion topics
+- Activities
+- Discussion questions
+- Required materials
+- Feedback method
+- Expected outcome
+
+### Reproducibility
+
+The toolkit provides a step-by-step framework that can be adapted by future student bodies based on their campus resources, student needs, and available support services.
+
+### 📁 Toolkit Structure
+
+```text
+campaign-toolkit/
+├── surveys/
+├── posters/
+├── social-media/
+├── workshops/
+├── resource-map/
+├── feedback-forms/
+├── evaluation/
+└── documentation/
 
 
