@@ -1,3 +1,49 @@
+---
+
+## 📑 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Problem Statement](#-problem-statement)
+- [Project Objectives](#-project-objectives)
+- [Research & Methodology](#-research--methodology)
+- [Pre-Campaign Survey](#-pre-campaign-survey)
+- [Campaign Implementation](#-campaign-implementation)
+- [Peer-Led Workshops](#-peer-led-workshops)
+- [Mental Health Resource Map](#-mental-health-resource-map)
+- [MindBridge](#-mindbridge)
+- [Post-Campaign Survey & Evaluation](#-post-campaign-survey--evaluation)
+- [Results & Impact Analysis](#-results--impact-analysis)
+- [Field Work & Documentation](#-field-work--documentation)
+- [Campaign Toolkit](#-campaign-toolkit)
+- [Challenges & Limitations](#-challenges--limitations)
+- [Future Scope](#-future-scope)
+- [Conclusion](#-conclusion)
+- [References](#-references)
+
+---
+
+## 🔗 Quick Links
+
+| Resource | Link |
+|---|---|
+| 💻 MindBridge Repository | [View Repository](https://github.com/neha-gupta887/S-02-Mental-Health-Awareness-Campaign-for-First-Year-Students) |
+| 📋 Pre-Campaign Survey | `[Add Link]` |
+| 📊 Survey Results | `[Add Link/File]` |
+| 🗺️ Mental Health Resource Map | `[Add Link]` |
+| 📦 Campaign Toolkit | `[Add Link]` |
+
+---
+
+## 📌 Project Highlights
+
+- 🎓 Designed for **first-year university students**
+- 📢 Multi-format mental-health awareness campaign
+- 🧑‍🤝‍🧑 **3 peer-led workshops**
+- 📝 Pre- and post-campaign evaluation
+- 🗺️ Mental-health resource mapping
+- 💻 **MindBridge digital platform**
+- 📊 Impact measurement
+- 📦 Reusable campaign toolkit
 # 🧠 Mind Matters
 
 ### Mental Health Awareness & Peer Support Campaign for First-Year University Students
