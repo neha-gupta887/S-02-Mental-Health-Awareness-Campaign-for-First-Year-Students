@@ -7,10 +7,12 @@ import {
 import { getMoodHistory } from "../../services/moodService";
 import { getJournalHistory } from "../../services/journalService";
 import { formatDistanceToNow } from "date-fns";
+import ErrorState from "../ui/ErrorState";
 
 function RecentActivity() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -50,6 +52,7 @@ function RecentActivity() {
 
         setActivities(combinedActivities);
       } catch (error) {
+        setError("Failed to load recent activities. Please try again.");
         console.error("Error fetching recent activities:", error);
       } finally {
         setLoading(false);
@@ -58,6 +61,14 @@ function RecentActivity() {
 
     fetchActivities();
   }, []);
+
+  const handleRetry = () => {
+    setError(null);
+    setLoading(true);
+    // Re-trigger the useEffect by changing a dependency if needed, but here we can just call the fetch function.
+    // For simplicity, we'll just reload the component's data fetching logic.
+    window.location.reload(); // A simple but effective retry. A more advanced implementation might re-call fetchActivities.
+  };
 
   return (
     <div className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 sm:p-7">
@@ -91,7 +102,15 @@ function RecentActivity() {
         </div>
       )}
 
-      {!loading && activities.length === 0 && (
+      {!loading && error && (
+        <ErrorState
+          title="Could Not Load Activities"
+          message={error}
+          onRetry={handleRetry}
+        />
+      )}
+
+      {!loading && !error && activities.length === 0 && (
         <div className="mt-6 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 py-10 text-center dark:border-slate-700">
           <FaBookOpen className="text-4xl text-slate-400" />
           <p className="mt-4 font-semibold text-slate-600 dark:text-slate-300">
@@ -103,7 +122,7 @@ function RecentActivity() {
         </div>
       )}
 
-      {!loading && activities.length > 0 && (
+      {!loading && !error && activities.length > 0 && (
         <div className="mt-6 space-y-3">
           {activities.map((activity) => (
             <div key={activity.id} className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-white/[0.025]">
