@@ -494,9 +494,99 @@ The campaign combined **awareness activities, peer-led workshops, resource mappi
 
 The percentage improvement will be calculated using:
 
-```text
 Awareness Improvement (%) =
 (Post-Campaign Score − Pre-Campaign Score)
 ÷ Pre-Campaign Score × 100
+
+---
+
+## 📸 Field Work & Documentation
+
+The Mind Matters campaign was implemented through practical, student-focused activities across the project period. Field evidence was collected to document the actual execution of the campaign.
+
+### 🔹 1. Survey Implementation
+
+- Pre-campaign survey conducted with first-year students
+- Post-campaign survey conducted after the campaign
+- Survey responses recorded and analyzed
+- Student feedback collected
+
+**Evidence:**
+- Survey screenshots
+- Google Forms response summary
+- Data analysis screenshots
+
+---
+
+### 🔹 2. Awareness Campaign
+
+The awareness campaign was implemented through:
+
+- Campus posters
+- Hostel/notice-board outreach
+- Social-media awareness content
+- Digital awareness materials
+- Student interactions
+
+**Evidence:**
+- Poster photographs
+- Campus/hostel photographs
+- Social-media screenshots
+- Campaign material
+
+---
+
+### 🔹 3. Peer-Led Workshops
+
+Three workshops were conducted:
+
+1. **Stress & Anxiety**
+2. **Sleep & Lifestyle**
+3. **Help-Seeking & Resources**
+
+**Evidence:**
+- Workshop photographs
+- Attendance records
+- Workshop materials
+- Student feedback
+
+---
+
+### 🔹 4. Resource Map Distribution
+
+The mental-health resource map was shared with students in digital and/or printable formats.
+
+**Evidence:**
+- Resource map
+- QR code
+- Distribution photographs
+- Digital access screenshots
+
+---
+
+### 🔹 5. MindBridge Demonstration
+
+The MindBridge platform was demonstrated as the digital component of the campaign.
+
+**Evidence:**
+- Homepage screenshot
+- Dashboard screenshot
+- Feature screenshots
+- Platform demonstration photographs
+
+---
+
+### 🔹 6. Documentation Gallery
+
+All major field activities and project outputs will be documented in the repository.
+
+```text
+assets/
+├── survey/
+├── campaign/
+├── workshops/
+├── resource-map/
+├── mindbridge/
+└── results/
 
 
