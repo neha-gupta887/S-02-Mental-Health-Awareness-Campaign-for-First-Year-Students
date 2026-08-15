@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { updateProfile as firebaseUpdateProfile } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
-import { FaUser, FaPalette, FaBell, FaSignOutAlt, FaExclamationTriangle } from "react-icons/fa";
+import { FaUser, FaPalette, FaBell, FaSignOutAlt, FaExclamationTriangle, FaMoon, FaSun } from "react-icons/fa";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 function Settings() {
@@ -35,6 +35,16 @@ function Settings() {
 
   const userAvatar = user?.photoURL;
   const userInitials = profile.name?.charAt(0).toUpperCase();
+
+  const profileCompletion = useMemo(() => {
+    if (!user) return 0;
+    let score = 0;
+    if (user.email) score += 50; // Base for having an account
+    if (user.displayName && user.displayName !== "Student") score += 25;
+    if (user.photoURL) score += 25;
+    return score;
+  }, [user]);
+
 
   const handleChange = (e) => {
     setProfile({
@@ -99,13 +109,25 @@ function Settings() {
         <SettingsCard icon={<FaUser />} title="Profile">
           <div className="flex flex-col items-center gap-6 sm:flex-row">
             {userAvatar ? (
-              <img src={userAvatar} alt="Profile" className="h-20 w-20 rounded-full object-cover" />
+              <img src={userAvatar} alt="Profile" className="h-24 w-24 rounded-full object-cover shadow-md" />
             ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 text-3xl font-bold text-white shadow-sm">
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 text-4xl font-bold text-white shadow-md">
                 {userInitials}
               </div>
             )}
-            <div className="flex-1 space-y-4 text-center sm:text-left">
+            <div className="w-full flex-1 text-center sm:text-left">
+              <div className="mb-4">
+                <div className="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  <span>Profile Completion</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">{profileCompletion}%</span>
+                </div>
+                <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"
+                    style={{ width: `${profileCompletion}%` }}
+                  />
+                </div>
+              </div>
               <SettingsInput label="Full Name" name="name" value={profile.name} onChange={handleChange} />
               <SettingsInput label="Email Address" name="email" value={profile.email} readOnly />
             </div>
