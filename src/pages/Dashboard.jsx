@@ -9,11 +9,13 @@ import RecentActivity from "../components/dashboard/RecentActivity";
 import LoadingState from "../components/ui/LoadingState";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
 import { getMoodHistory } from "../services/moodService";
+import { getJournalHistory } from "../services/journalService.js";
 import useAuth from "../hooks/useAuth.js";
 
 function Dashboard() {
   const [stats, setStats] = useState({});
   const [moods, setMoods] = useState([]);
+  const [journals, setJournals] = useState([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true); // For the first page load
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -43,9 +45,11 @@ function Dashboard() {
       const [statsData, moodData] = await Promise.all([
         getDashboardStats(),
         getMoodHistory(),
+        getJournalHistory(),
       ]);
       setStats(statsData);
       setMoods(moodData);
+      setJournals(journalData);
     } catch (err) {
       console.error("Failed to load dashboard data:", err);
       setError("Could not load dashboard data. Please try again.");
@@ -57,7 +61,8 @@ function Dashboard() {
 
   const handleRefresh = async () => {
     if (isRefreshing) return;
-    fetchData();
+    // Re-call fetchData to refresh all dashboard data
+    await fetchData();
   };
 
   return (
@@ -79,13 +84,13 @@ function Dashboard() {
         ) : (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
             <div className="space-y-8 lg:col-span-3">
-              <DashboardOverview stats={stats} moods={moods} />
+              <DashboardOverview stats={stats} moods={moods} journals={journals} />
               <MoodAnalyticsChart moods={moods} />
               <QuickActions />
             </div>
             <div className="space-y-8 lg:col-span-2">
               <WellnessGarden />
-              <RecentActivity moods={moods} />
+              <RecentActivity moods={moods} journals={journals} />
             </div>
           </div>
         )}

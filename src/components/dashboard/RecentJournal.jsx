@@ -1,34 +1,11 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight, FaBook, FaPlus } from "react-icons/fa";
-import { getJournalHistory } from "../../services/journalService";
 import { formatDistanceToNow } from "date-fns";
-import LoadingState from "../ui/LoadingState";
 import GlassCard from "../ui/GlassCard";
 
-function RecentJournal() {
-  const [journals, setJournals] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchJournals = async () => {
-      try {
-        const history = await getJournalHistory(3); // Fetch latest 3
-        setJournals(history);
-      } catch (error) {
-        console.error("Error fetching recent journals:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJournals();
-  }, []);
-
-  if (loading) {
-    return (
-      <GlassCard><LoadingState message="Loading recent journals..." /></GlassCard>
-    );
-  }
+function RecentJournal({ journals = [] }) {
+  // Display only the latest 3 journals passed via props
+  const recentJournals = journals.slice(0, 3);
 
   return (
     <GlassCard>
@@ -52,7 +29,7 @@ function RecentJournal() {
       </div>
 
       {/* Empty State */}
-      {!loading && journals.length === 0 ? (
+      {recentJournals.length === 0 ? (
         <div className="mt-7 rounded-[24px] border border-dashed border-slate-200 bg-slate-50/70 px-6 py-14 text-center dark:border-slate-800 dark:bg-white/[0.025]">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-sm dark:bg-slate-800">
             <FaBook />
@@ -74,7 +51,7 @@ function RecentJournal() {
         </div>
       ) : (
         <div className="mt-6 space-y-3">
-          {journals.map((journal) => (
+          {recentJournals.map((journal) => (
             <Link
               to="/journal"
               key={journal.id}

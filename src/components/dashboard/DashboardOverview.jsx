@@ -6,9 +6,10 @@ import {
   FaArrowUp,
   FaLeaf,
 } from "react-icons/fa";
+import TodaysFocus from "./TodaysFocus";
 import WellnessTrend from "./WellnessTrend";
 
-function DashboardOverview({ stats = {}, moods = [] }) {
+function DashboardOverview({ stats = {}, moods = [], journals = [] }) {
   const toSafeNumber = (value) => {
     const parsedValue = Number(value);
     return Number.isFinite(parsedValue) ? parsedValue : 0;
@@ -123,6 +124,14 @@ function DashboardOverview({ stats = {}, moods = [] }) {
       {/* Wellness Trend */}
       <div className="mt-5">
         <WellnessTrend moods={moods} />
+      </div>
+
+      {/* Today's Focus */}
+      <div className="mt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+          Today's Focus
+        </p>
+        <TodaysFocus moods={moods} journals={journals} />
       </div>
 
       {/* Mini Stats */}

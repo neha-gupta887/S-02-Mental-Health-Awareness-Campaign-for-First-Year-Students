@@ -6,21 +6,19 @@ import {
   FaHistory,
 } from "react-icons/fa";
 import { getMoodHistory } from "../../services/moodService";
-import { getJournalHistory } from "../../services/journalService";
 import { formatDistanceToNow } from "date-fns";
 import ErrorState from "../ui/ErrorState";
 
-function RecentActivity({ moods = [] }) {
+function RecentActivity({ moods = [], journals = [] }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
-    const fetchActivities = async () => {
+    const processActivities = () => {
+      setLoading(true);
       try {
-        const journalHistory = await getJournalHistory();
-
         const moodActivities = moods.map((mood) => ({
           id: `mood-${mood.id}`,
           title: "Mood Check-in",
@@ -33,7 +31,7 @@ function RecentActivity({ moods = [] }) {
           date: mood.createdAt?.toDate() || new Date(),
         }));
 
-        const journalActivities = journalHistory.map((journal) => ({
+        const journalActivities = journals.map((journal) => ({
           id: `journal-${journal.id}`,
           title: "Journal Entry",
           description: journal.title || "You wrote a new journal entry.",
@@ -60,8 +58,8 @@ function RecentActivity({ moods = [] }) {
       }
     };
 
-    fetchActivities();
-  }, [retryCount, moods]);
+    processActivities();
+  }, [retryCount, moods, journals]);
 
   const handleRetry = () => {
     setError(null);
