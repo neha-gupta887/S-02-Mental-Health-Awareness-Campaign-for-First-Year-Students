@@ -317,6 +317,42 @@ As part of the Mind Matters campaign, three peer-led workshops were conducted to
 The workshops provided students with practical strategies for managing common university-related challenges and increased awareness of appropriate help-seeking pathways.
 
 > **Workshop attendance, feedback, and field documentation will be included in the project evidence section.**
+---
+
+## 🗺️ Mental Health Resource Map
+
+A mental-health resource map was created to make support information easier for students to find and access.
+
+### Resource Categories
+
+- University counseling services
+- Student support services
+- Academic support
+- Peer and mentor support
+- Online mental-health resources
+- Professional mental-health services
+- Emergency support information
+
+### Purpose
+
+The resource map helps students quickly identify:
+
+**Where to go → Whom to contact → How to access support**
+
+### Distribution
+
+The resource map was made available in both:
+
+- **Digital format**
+- **Printable format**
+
+A QR-based access method was also used to make the digital resource map easily accessible to students.
+
+**Target Distribution:** 200+ students
+
+**Actual Distribution:** `[Actual Number]`
+
+> All contact details and support information included in the resource map were verified before distribution.
 ### Campaign Outcome
 
 The campaign successfully provided first-year students with information about mental-health awareness, healthy coping strategies, help-seeking, and available support resources.
