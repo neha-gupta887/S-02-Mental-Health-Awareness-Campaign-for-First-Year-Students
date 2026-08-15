@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  FaRegSmile,
   FaSmile,
   FaBookOpen,
   FaHistory,
@@ -13,10 +14,11 @@ function RecentActivity() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     const fetchActivities = async () => {
-      try {
+      try { 
         const moodHistory = await getMoodHistory();
         const journalHistory = await getJournalHistory();
 
@@ -27,7 +29,7 @@ function RecentActivity() {
           time: mood.createdAt?.toDate
             ? formatDistanceToNow(mood.createdAt.toDate(), { addSuffix: true })
             : "Just now",
-          icon: <FaSmile />,
+          icon: <FaRegSmile />,
           type: "Mood",
           date: mood.createdAt?.toDate() || new Date(),
         }));
@@ -60,14 +62,13 @@ function RecentActivity() {
     };
 
     fetchActivities();
-  }, []);
+  }, [retryCount]);
 
   const handleRetry = () => {
     setError(null);
     setLoading(true);
-    // Re-trigger the useEffect by changing a dependency if needed, but here we can just call the fetch function.
-    // For simplicity, we'll just reload the component's data fetching logic.
-    window.location.reload(); // A simple but effective retry. A more advanced implementation might re-call fetchActivities.
+    // Incrementing retryCount will re-trigger the useEffect hook
+    setRetryCount(prev => prev + 1);
   };
 
   return (
@@ -111,12 +112,12 @@ function RecentActivity() {
       )}
 
       {!loading && !error && activities.length === 0 && (
-        <div className="mt-6 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 py-10 text-center dark:border-slate-700">
-          <FaBookOpen className="text-4xl text-slate-400" />
-          <p className="mt-4 font-semibold text-slate-600 dark:text-slate-300">
+        <div className="mt-6 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-emerald-300/50 bg-emerald-50/20 py-12 text-center dark:border-emerald-700/50 dark:bg-emerald-950/20">
+          <FaHistory className="text-4xl text-emerald-400" />
+          <p className="mt-4 font-semibold text-slate-700 dark:text-slate-200">
             No recent activity yet
           </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Your mood and journal entries will appear here.
           </p>
         </div>
@@ -125,8 +126,8 @@ function RecentActivity() {
       {!loading && !error && activities.length > 0 && (
         <div className="mt-6 space-y-3">
           {activities.map((activity) => (
-            <div key={activity.id} className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-white/[0.025]">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-500 shadow-sm dark:bg-slate-700 dark:text-slate-400">
+            <div key={activity.id} className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/70 p-4 transition-all duration-300 hover:bg-white hover:shadow-sm dark:border-slate-800 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-lg text-slate-500 shadow-sm dark:bg-slate-800 dark:text-slate-400">
                 {activity.icon}
               </div>
               <div className="flex-1">
