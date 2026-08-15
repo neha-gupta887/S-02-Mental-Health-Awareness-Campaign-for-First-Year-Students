@@ -120,8 +120,9 @@ The campaign planning is based on reliable mental-health resources and research,
 - Best practices in mental-health awareness and destigmatization campaigns
 
 ### Project Methodology
+---
 
-```text
+
 Research
    ↓
 Pre-Campaign Survey
@@ -141,3 +142,51 @@ Data Analysis
 Impact Evaluation
    ↓
 Campaign Toolkit
+
+---
+## 📝 Pre-Campaign Survey
+
+A pre-campaign survey is being conducted to understand the existing level of mental-health awareness, attitudes toward help-seeking, and knowledge of available support resources among first-year university students.
+
+### Survey Areas
+
+The survey covers:
+
+- Mental-health awareness
+- Knowledge of university counseling services
+- Common challenges faced by first-year students
+- Attitudes toward mental-health support
+- Mental-health stigma
+- Help-seeking behavior
+- Preferred campaign topics and formats
+
+### Survey Structure
+
+| Section | Focus |
+|---|---|
+| Basic Information | Student background |
+| Mental Health Awareness | Awareness and resource knowledge |
+| Attitudes & Stigma | Perceptions toward mental-health support |
+| Challenges & Help-Seeking | Barriers and support preferences |
+| Campaign Needs | Topics and formats students prefer |
+
+### Target
+
+**Target respondents:** 300+ first-year university students
+
+### Privacy
+
+- No unnecessary personal information is collected.
+- Responses are used for project evaluation.
+- Participation is voluntary.
+- Sensitive personal or medical information is not collected.
+
+### 🔗 Survey
+
+**Pre-Campaign Survey:** `[Add Google Form Link Here]`
+
+### 📊 Response Data
+
+**Total Responses:** `[To be updated after data collection]`
+
+> 🚧 **Status:** Survey preparation / data collection in progress.
