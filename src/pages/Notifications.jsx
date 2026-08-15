@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import toast from "react-hot-toast";
 
 import { notifications } from "../data/notifications";
 
@@ -12,6 +13,7 @@ import ClearFiltersButton from "../components/notifications/ClearFiltersButton";
 import NotificationSort from "../components/notifications/NotificationSort";
 
 function Notifications() {
+  // NOTE: This component uses static data. State changes are not persistent.
   const [notificationList, setNotificationList] = useState(notifications);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,6 +28,7 @@ function Notifications() {
           : notification
       )
     );
+    toast.success("Notification marked as read.");
   };
 
   const handleMarkAllAsRead = () => {
@@ -35,6 +38,7 @@ function Notifications() {
         read: true,
       }))
     );
+    toast.success("All notifications marked as read.");
   };
 
   const handleDeleteNotification = (id) => {
@@ -49,6 +53,7 @@ function Notifications() {
         (notification) => notification.id !== id
       )
     );
+    toast.success("Notification deleted.");
   };
 
   const handleClearAllNotifications = () => {
@@ -59,7 +64,10 @@ function Notifications() {
     if (!confirmed) return;
 
     setNotificationList([]);
+    toast.success("All notifications cleared.");
   };
+
+  const unreadCount = useMemo(() => notificationList.filter((n) => !n.read).length, [notificationList]);
 
   const stats = [
     {
@@ -69,9 +77,7 @@ function Notifications() {
     },
     {
       title: "Unread",
-      value: notificationList.filter(
-        (notification) => !notification.read
-      ).length,
+      value: unreadCount,
       color: "text-red-500",
     },
     {
@@ -136,7 +142,7 @@ function Notifications() {
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 py-10">
 
-        <NotificationHeader />
+        <NotificationHeader unreadCount={unreadCount} />
 
         <NotificationStats stats={stats} />
 
