@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaArrowRight, FaBook, FaPlus } from "react-icons/fa";
 import { getJournalHistory } from "../../services/journalService";
 import { formatDistanceToNow } from "date-fns";
+import LoadingState from "../ui/LoadingState";
 import GlassCard from "../ui/GlassCard";
 
 function RecentJournal() {
@@ -25,16 +26,7 @@ function RecentJournal() {
 
   if (loading) {
     return (
-      <GlassCard>
-        <div className="flex flex-col items-center justify-center py-12">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 dark:bg-violet-950/30">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
-          </div>
-          <p className="mt-5 text-sm text-slate-500 dark:text-slate-400">
-            Loading recent journals...
-          </p>
-        </div>
-      </GlassCard>
+      <GlassCard><LoadingState message="Loading recent journals..." /></GlassCard>
     );
   }
 

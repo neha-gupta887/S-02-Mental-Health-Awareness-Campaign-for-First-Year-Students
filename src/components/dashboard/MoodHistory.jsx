@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaSyncAlt, FaHistory } from "react-icons/fa";
 
+import LoadingState from "../ui/LoadingState";
 import { getMoodHistory } from "../../services/moodService";
 import useAuth from "../../hooks/useAuth";
 
@@ -38,21 +39,9 @@ function MoodHistory() {
   if (loading) {
     return (
       <section className="rounded-[28px] border border-slate-200/80 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col items-center justify-center py-12">
-
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/30">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
-          </div>
-
-          <p className="mt-5 text-sm text-slate-500 dark:text-slate-400">
-            Loading your mood history...
-          </p>
-
-          <p className="mt-1 text-xs text-slate-400">
-            Just a moment
-          </p>
-
-        </div>
+        <LoadingState
+          message="Loading your mood history..."
+        />
       </section>
     );
   }
