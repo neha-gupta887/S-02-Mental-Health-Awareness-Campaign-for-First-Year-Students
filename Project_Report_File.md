@@ -627,7 +627,6 @@ The toolkit provides a step-by-step framework that can be adapted by future stud
 
 ### 📁 Toolkit Structure
 
-```text
 campaign-toolkit/
 ├── surveys/
 ├── posters/
@@ -637,5 +636,34 @@ campaign-toolkit/
 ├── feedback-forms/
 ├── evaluation/
 └── documentation/
+## ⚠️ Challenges & Limitations
+
+During the implementation of the Mind Matters campaign, the following challenges were considered:
+
+- Reaching a large number of first-year students.
+- Encouraging students to openly discuss mental-health concerns.
+- Managing participation alongside students' academic schedules.
+- Ensuring that all mental-health resources were verified and reliable.
+- Maintaining privacy while collecting survey responses.
+- Coordinating awareness activities, workshops, surveys, and documentation.
+
+---
+
+## 🚀 Future Scope
+
+The project can be further expanded through:
+
+- Regular mental-health awareness sessions for new students.
+- Training more student mental-health ambassadors.
+- Collaboration with the university counseling center.
+- Expansion of MindBridge with additional wellness features.
+- Integration of verified campus support services.
+- Regular mental-health resource updates.
+- Larger-scale surveys and long-term impact evaluation.
+- Expansion of the campaign to students beyond the first year.
+
+### Long-Term Vision
+
+The long-term goal is to develop **Mind Matters + MindBridge** into a sustainable student-wellness initiative that can be reused and expanded by future student communities.
 
 
