@@ -192,3 +192,65 @@ The survey covers:
 **Total Responses:** `[To be updated after data collection]`
 
 > 🚧 **Status:** Survey preparation / data collection in progress.
+---
+
+## 📢 Campaign Implementation
+
+The **Mind Matters** awareness campaign was conducted to reach first-year university students through multiple offline and digital channels.
+
+### Campaign Activities
+
+- Awareness posters were designed and displayed at relevant campus locations.
+- Mental-health awareness content was shared through social media.
+- Short-form awareness content was used to communicate key messages in a student-friendly format.
+- Hostel and campus outreach activities were conducted.
+- Students were encouraged to discuss mental-health concerns openly and seek appropriate support.
+- The **MindBridge** platform was introduced as a digital support and awareness resource.
+
+### Campaign Topics
+
+The campaign focused on:
+
+- Stress and anxiety
+- Academic pressure
+- Homesickness and loneliness
+- Sleep and healthy lifestyle
+- Mental-health stigma
+- Help-seeking behavior
+- Supporting a friend
+- Available mental-health resources
+
+### Campaign Materials
+
+| Material | Purpose |
+|---|---|
+| 🖼️ Awareness Posters | Campus awareness |
+| 📱 Social Media Posts | Digital outreach |
+| 🎥 Awareness Videos | Student engagement |
+| 🗺️ Resource Map | Easy access to support information |
+| 📋 Awareness Cards | Quick reference for students |
+| 💻 MindBridge | Digital mental-wellness support |
+
+### 📸 Campaign Evidence
+
+> **Field photographs and campaign screenshots are included below to document the actual implementation.**
+
+#### Campus Awareness
+
+`[Insert Poster/Campus Outreach Photos Here]`
+
+#### Social Media Campaign
+
+`[Insert Instagram/Social Media Screenshots Here]`
+
+#### Awareness Materials
+
+`[Insert Campaign Poster and Video Screenshots Here]`
+
+### Campaign Outcome
+
+The campaign successfully provided first-year students with information about mental-health awareness, healthy coping strategies, help-seeking, and available support resources.
+
+**Students Reached:** `[Actual Number]`
+
+**Campaign Duration:** 6 Weeks
