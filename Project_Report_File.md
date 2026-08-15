@@ -353,6 +353,63 @@ A QR-based access method was also used to make the digital resource map easily a
 **Actual Distribution:** `[Actual Number]`
 
 > All contact details and support information included in the resource map were verified before distribution.
+---
+
+## 💻 MindBridge
+
+**MindBridge** is the digital component of the Mind Matters campaign, designed as a student-focused mental-wellness platform for university students.
+
+The platform aims to make mental-health awareness, self-care tools, peer support, and verified support resources more accessible in one place.
+
+### 🎯 Purpose
+
+MindBridge addresses common student challenges by providing:
+
+- Easy access to mental-wellness information
+- Simple self-care and relaxation activities
+- A supportive digital environment
+- Guidance toward appropriate support resources
+- Peer and mentor connection pathways
+
+### ✨ Key Features
+
+| Feature | Purpose |
+|---|---|
+| 🏠 Landing Page | Introduces the platform and its purpose |
+| 🔐 Login / Signup | Provides user access |
+| 📊 Dashboard | Centralized student wellness space |
+| 😊 Mood Check-in | Allows students to reflect on their current mood |
+| 🧘 Guided Breathing | Provides simple breathing and relaxation exercises |
+| 🤖 AI Wellness Companion | Provides supportive wellness-oriented interaction |
+| 🧑‍🤝‍🧑 Senior Buddy Connect | Enables peer-support pathways |
+| 👨‍🏫 Mentor Connect | Provides mentor-support pathways |
+| 🩺 Counselor Directory | Helps students find appropriate professional support |
+| 📚 Resources | Provides mental-health information and support resources |
+
+### 🛠️ Technology
+
+**Frontend:**
+- React
+- Vite
+- Tailwind CSS
+
+**Development Tools:**
+- VS Code
+- Git
+- GitHub
+
+### 🔗 Platform
+
+**MindBridge Repository:**  
+https://github.com/neha-gupta887/S-02-Mental-Health-Awareness-Campaign-for-First-Year-Students
+
+### 🌐 Local Development
+
+The MindBridge platform was developed and tested using a Vite-based React environment.
+
+```text
+npm install
+npm run dev
 ### Campaign Outcome
 
 The campaign successfully provided first-year students with information about mental-health awareness, healthy coping strategies, help-seeking, and available support resources.
