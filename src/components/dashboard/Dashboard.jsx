@@ -8,6 +8,7 @@ import UpcomingSessions from '../../components/Dashboard/UpcomingSessions';
 import ResourceCarousel from '../../components/Dashboard/ResourceCarousel';
 import MoodHistory from '../../components/Dashboard/MoodHistory';
 import HowItWorks from '../../components/Dashboard/HowItWorks';
+import WellnessTips from '../../components/Dashboard/WellnessTips';
 import { getDashboardStats } from '../../services/dashboardService';
 import { FaUserFriends } from 'react-icons/fa';
 
@@ -48,7 +49,7 @@ const Dashboard = () => {
           </div>
           <div className="space-y-8">
             <MoodHistory />
-            <HowItWorks />
+            <WellnessTips />
           </div>
         </motion.section>
 
