@@ -232,6 +232,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             hover:bg-red-50
             hover:text-red-600
             dark:text-slate-400
+            focus-visible:outline-none
+            focus-visible:ring-2 focus-visible:ring-red-500/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950
             dark:hover:bg-red-950/20
             dark:hover:text-red-400
           "

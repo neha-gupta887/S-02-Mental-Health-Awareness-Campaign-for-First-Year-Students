@@ -1,6 +1,6 @@
 import { FaArrowRight, FaMagic } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const actions = [
   {
@@ -34,6 +34,8 @@ const actions = [
 ];
 
 function QuickActions() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section>
       {/* Header */}
@@ -70,7 +72,7 @@ function QuickActions() {
             key={action.title}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
+            whileHover={shouldReduceMotion ? {} : { y: -4 }}
             transition={{
               duration: 0.35,
               delay: index * 0.06,

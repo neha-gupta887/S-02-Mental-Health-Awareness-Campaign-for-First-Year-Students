@@ -90,9 +90,9 @@ function WellnessTips() {
           <button
             onClick={showNextTip}
             aria-label="Show next tip"
-            className="group -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-emerald-500 transition-colors hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900"
+            className="group -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-emerald-500 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 dark:text-emerald-400 dark:hover:bg-emerald-900"
           >
-            <FaChevronRight className="h-3 w-3 transition-transform group-hover:scale-125" />
+            <FaChevronRight className="h-3 w-3 transition-transform motion-safe:group-hover:scale-125" />
           </button>
         </div>
       </div>

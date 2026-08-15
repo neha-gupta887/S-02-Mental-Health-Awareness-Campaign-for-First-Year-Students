@@ -64,10 +64,10 @@ function DashboardHero({
             <button
               onClick={onRefresh}
               disabled={isRefreshing}
-              className="group inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-md transition-colors duration-300 hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-70"
+              className="group inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur-md transition-colors duration-300 hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               aria-label="Refresh dashboard data"
             >
-              <FaSync className={isRefreshing ? "animate-spin" : "transition-transform group-hover:rotate-90"} />
+              <FaSync className={isRefreshing ? "animate-spin" : "transition-transform motion-safe:group-hover:rotate-90"} />
               <span>{isRefreshing ? "Refreshing..." : "Refresh"}</span>
             </button>
           </div>
