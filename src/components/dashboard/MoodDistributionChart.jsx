@@ -7,8 +7,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { getMoodHistory } from "../../services/moodService";
-
 const COLORS = [
   "#10B981",
   "#3B82F6",
@@ -19,35 +17,26 @@ const COLORS = [
   "#EC4899",
 ];
 
-function MoodDistributionChart() {
+function MoodDistributionChart({ moods = [] }) {
   const [moodData, setMoodData] = useState([]);
 
   useEffect(() => {
-    const loadMoodDistribution = async () => {
-      try {
-        const moods = await getMoodHistory();
+    if (moods.length > 0) {
+      const moodCount = {};
 
-        const moodCount = {};
+      moods.forEach((mood) => {
+        const key = `${mood.mood} ${mood.emoji}`;
+        moodCount[key] = (moodCount[key] || 0) + 1;
+      });
 
-        moods.forEach((mood) => {
-          const key = `${mood.mood} ${mood.emoji}`;
+      const chartData = Object.keys(moodCount).map((key) => ({
+        name: key,
+        value: moodCount[key],
+      }));
 
-          moodCount[key] = (moodCount[key] || 0) + 1;
-        });
-
-        const chartData = Object.keys(moodCount).map((key) => ({
-          name: key,
-          value: moodCount[key],
-        }));
-
-        setMoodData(chartData);
-      } catch (error) {
-        console.error("Error loading mood distribution:", error);
-      }
-    };
-
-    loadMoodDistribution();
-  }, []);
+      setMoodData(chartData);
+    }
+  }, [moods]);
 
   const totalEntries = moodData.reduce(
     (total, item) => total + item.value,

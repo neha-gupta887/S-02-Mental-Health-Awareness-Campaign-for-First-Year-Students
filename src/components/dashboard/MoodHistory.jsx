@@ -1,51 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
 import { FaSyncAlt, FaHistory } from "react-icons/fa";
 
-import LoadingState from "../ui/LoadingState";
-import { getMoodHistory } from "../../services/moodService";
-import useAuth from "../../hooks/useAuth";
-
-function MoodHistory() {
-    const { user } = useAuth();
-
-  const [moods, setMoods] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchMoods = async () => {
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const data = await getMoodHistory();
-      setMoods(data);
-    } catch (error) {
-      console.error("Failed to load mood history:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (user === undefined) return;
-
-    fetchMoods();
-  }, [user]);
-
-  if (loading) {
-    return (
-      <section className="rounded-[28px] border border-slate-200/80 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <LoadingState
-          message="Loading your mood history..."
-        />
-      </section>
-    );
-  }
-
+function MoodHistory({ moods = [], onRefresh }) {
   return (
     <section className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 sm:p-7">
 
@@ -85,7 +41,7 @@ function MoodHistory() {
 
           <button
             type="button"
-            onClick={fetchMoods}
+            onClick={onRefresh}
             className="group inline-flex items-center gap-2 rounded-xl border border-emerald-100 bg-emerald-50 px-3.5 py-2 text-xs font-semibold text-emerald-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-100 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
           >
             <FaSyncAlt className="text-[10px] transition-transform duration-300 group-hover:rotate-180" />

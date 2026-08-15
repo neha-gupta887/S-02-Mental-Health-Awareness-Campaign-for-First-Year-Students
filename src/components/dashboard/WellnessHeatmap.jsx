@@ -2,27 +2,19 @@ import { useEffect, useState } from "react";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 
-import { getMoodHistory } from "../../services/moodService";
-
-function WellnessHeatmap() {
+function WellnessHeatmap({ moods = [] }) {
   const today = new Date();
 
   const [values, setValues] = useState([]);
 
   useEffect(() => {
-    const loadHeatmap = async () => {
-      try {
-        const moods = await getMoodHistory();
-
+    if (moods.length > 0) {
         const activityMap = {};
 
         moods.forEach((mood) => {
           if (!mood.createdAt?.toDate) return;
 
-          const date = mood.createdAt
-            .toDate()
-            .toISOString()
-            .split("T")[0];
+          const date = mood.createdAt.toDate().toISOString().split("T")[0];
 
           activityMap[date] = (activityMap[date] || 0) + 1;
         });
@@ -33,13 +25,8 @@ function WellnessHeatmap() {
         }));
 
         setValues(heatmapData);
-      } catch (error) {
-        console.error("Error loading wellness activity:", error);
-      }
-    };
-
-    loadHeatmap();
-  }, []);
+    }
+  }, [moods]);
 
   const totalCheckIns = values.reduce(
     (total, item) => total + item.count,
