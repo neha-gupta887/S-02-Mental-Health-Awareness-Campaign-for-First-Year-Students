@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 dark:bg-gray-950 sm:p-6 lg:p-8">
+    <>
       <main className="mx-auto max-w-7xl">
         <WelcomeHeader />
         <motion.section
@@ -73,7 +73,7 @@ const Dashboard = () => {
           </div>
         </motion.section>
       </main>
-    </div>
+    </>
   );
 };
 
