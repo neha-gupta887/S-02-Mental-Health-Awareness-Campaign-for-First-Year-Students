@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNotifications } from "../context/NotificationContext";
+import { useNotifications } from "../context/NotificationContext.jsx";
 
 import NotificationHeader from "../components/notifications/NotificationHeader";
 import NotificationStats from "../components/notifications/NotificationStats";

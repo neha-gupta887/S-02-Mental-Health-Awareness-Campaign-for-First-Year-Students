@@ -11,8 +11,8 @@ import {
 } from "recharts";
 import { useTheme } from "../../context/ThemeContext";
 
-import LoadingState from "../ui/LoadingState";
-import ErrorState from "../ui/ErrorState";
+import LoadingState from "../dashboard/LoadingState";
+import ErrorState from "../ErrorState";
 
 const moodScore = {
   Happy: 5,

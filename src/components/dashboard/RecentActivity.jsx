@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { getMoodHistory } from "../../services/moodService";
 import { formatDistanceToNow } from "date-fns";
-import ErrorState from "../ui/ErrorState";
+import ErrorState from "../ErrorState";
 
 function RecentActivity({ moods = [], journals = [] }) {
   const [activities, setActivities] = useState([]);

@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import useAuth from "../../hooks/useAuth";
-import { useNotifications } from "../../context/NotificationContext";
+import { useNotifications } from "../../context/NotificationContext.jsx";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 

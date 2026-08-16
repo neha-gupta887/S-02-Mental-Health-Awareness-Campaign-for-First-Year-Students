@@ -6,7 +6,7 @@ import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
 import QuickActions from "../components/dashboard/QuickActions";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
-import LoadingState from "../components/ui/LoadingState";
+import LoadingState from "../components/dashboard/LoadingState";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
 import { getMoodHistory } from "../services/moodService";
 import { getJournalHistory } from "../services/journalService.js";

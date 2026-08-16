@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
-import AnalyticsHeader from "../components/analytics/AnalyticsHeader.jsx";
+import AnalyticsHeader from "../components/AnalyticsHeader.jsx";
 import MoodDistributionChart from "../components/dashboard/MoodDistributionChart";
 import WellnessHeatmap from "../components/dashboard/WellnessHeatmap";
 import MoodHistory from "../components/dashboard/MoodHistory";
-import MoodSummary from "../components/analytics/MoodSummary.jsx";
-import LoadingState from "../components/ui/LoadingState.jsx";
-import ErrorState from "../components/ui/ErrorState.jsx";
+import MoodSummary from "../components/dashboard/MoodSummary.jsx";
+import LoadingState from "../components/dashboard/LoadingState.jsx";
+import ErrorState from "../components/ErrorState.jsx";
 
 import { getMoodHistory } from "../services/moodService";
 
@@ -100,7 +100,9 @@ function MoodAnalytics() {
         <AnalyticsHeader analytics={{ totalEntries: moods.length }} />
 
         {error ? (
-          <ErrorState message={error} onRetry={fetchData} />
+          <div className="mt-8">
+            <ErrorState message={error} onRetry={fetchData} />
+          </div>
         ) : (
           <>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
