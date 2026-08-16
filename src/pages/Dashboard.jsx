@@ -42,14 +42,14 @@ function Dashboard() {
     setError(null);
 
     try {
-      const [statsData, moodData] = await Promise.all([
+      const [statsData, moodData, journalData] = await Promise.all([
         getDashboardStats(),
         getMoodHistory(),
         getJournalHistory(),
       ]);
       setStats(statsData);
       setMoods(moodData);
-      setJournals(journalData);
+      setJournals(journalData || []);
     } catch (err) {
       console.error("Failed to load dashboard data:", err);
       setError("Could not load dashboard data. Please try again.");

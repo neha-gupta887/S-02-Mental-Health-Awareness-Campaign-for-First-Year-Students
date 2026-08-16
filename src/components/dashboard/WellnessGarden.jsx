@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaSeedling, FaLeaf, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
+import { FaSeedling, FaLeaf, FaCheckCircle, FaPlusCircle, FaSmile, FaBookOpen, FaWind, FaRobot } from "react-icons/fa";
 import { getGardenData, claimDailyReward } from "../../services/gardenService";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -53,10 +53,40 @@ function Reward({ reward, isCompleted, onClaim, isClaiming }) {
   );
 };
 
+const dailyRewards = [
+  { id: 'mood', title: 'Mood Check-in', xp: 10, icon: <FaSmile /> },
+  { id: 'journal', title: 'Journal Entry', xp: 15, icon: <FaBookOpen /> },
+  { id: 'breathing', title: 'Breathing Exercise', xp: 10, icon: <FaWind /> },
+  { id: 'chat', title: 'Talk to Mana AI', xp: 20, icon: <FaRobot /> },
+];
+
 function WellnessGarden() {
   const { user } = useAuth(); // Get authenticated user
   const [xp, setXP] = useState(0);
   const [level, setLevel] = useState(1);
+  const [lastRewardResetDate, setLastRewardResetDate] = useState(null);
+  const [completedDailyRewards, setCompletedDailyRewards] = useState([]);
+  const [claimingRewardId, setClaimingRewardId] = useState(null);
+
+  const handleClaimReward = async (rewardId, xpAmount) => {
+    setClaimingRewardId(rewardId);
+    try {
+      const result = await claimDailyReward(rewardId, xpAmount);
+      if (result.success) {
+        toast.success(`+${xpAmount} XP! Reward claimed.`);
+        setXP(result.xp);
+        setLevel(result.level);
+        setCompletedDailyRewards(result.completedDailyRewards);
+      } else {
+        toast.error(result.message || "Could not claim reward.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while claiming the reward.");
+      console.error("Claim reward error:", error);
+    } finally {
+      setClaimingRewardId(null);
+    }
+  };
 
   const [tree, setTree] = useState({
     emoji: "🌱",
@@ -68,6 +98,7 @@ function WellnessGarden() {
   useEffect(() => {
     const loadGarden = async () => {
       try {
+        if (!user?.uid) return; // Don't load if user or user.uid is not yet available
         const data = await getGardenData();
 
         if (data) {
@@ -78,6 +109,8 @@ function WellnessGarden() {
             emoji: data.tree || "🌱",
             title: data.treeTitle || "Seed",
           });
+          setLastRewardResetDate(data.lastRewardResetDate?.toDate());
+          setCompletedDailyRewards(data.completedDailyRewards || []);
         }
       } catch (error) {
         console.error("Error loading garden:", error);
@@ -87,7 +120,7 @@ function WellnessGarden() {
     };
 
     loadGarden();
-  }, []);
+  }, [user]); // Re-run when user object becomes available
 
   const nextLevelXP = level * 100;
 

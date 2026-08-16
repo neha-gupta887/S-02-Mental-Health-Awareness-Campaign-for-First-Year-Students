@@ -12,7 +12,7 @@ const moods = [
   { emoji: "😌", label: "Calm", color: "bg-blue-400" },
   { emoji: "😐", label: "Neutral", color: "bg-gray-400" },
   { emoji: "😔", label: "Sad", color: "bg-indigo-400" },
-  { emoji: " stressed", label: "Stressed", color: "bg-orange-400" },
+  { emoji: "😣", label: "Stressed", color: "bg-orange-400" },
   { emoji: "😠", label: "Angry", color: "bg-red-400" },
 ];
 

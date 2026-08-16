@@ -63,7 +63,7 @@ export const getGardenData = async () => {
     return initial;
   }
 
-  return snap.data();
+  const gardenData = snap.data();
 
   // Check if daily rewards need to be reset
   const lastResetDate = gardenData.lastRewardResetDate?.toDate();
@@ -90,6 +90,7 @@ export const addXP = async (amount) => {
   const ref = doc(db, COLLECTION, user.uid);
 
   const snap = await getDoc(ref);
+  let latestSnap = snap;
   if (!snap.exists()) {
     await getGardenData();
     const recheck = await getDoc(ref);
@@ -97,10 +98,10 @@ export const addXP = async (amount) => {
       console.error("Garden document still missing after initialization attempt.");
       return;
     }
-    latest = recheck;
+    latestSnap = recheck;
   }
   
-  const currentXP = latest.data().xp || 0;
+  const currentXP = latestSnap.data().xp || 0;
 
   const newXP = currentXP + amount;
 

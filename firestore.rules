@@ -50,8 +50,8 @@ service cloud.firestore {
     match /achievements/{userId} {
       allow read, write: if isOwner(userId);
     }
-    match /garden/{userId} {
-      allow read, write: if isOwner(userId);
+    match /garden/{uid} {
+      allow read, write: if isOwner(uid);
     }
 
     // =====================================================================
