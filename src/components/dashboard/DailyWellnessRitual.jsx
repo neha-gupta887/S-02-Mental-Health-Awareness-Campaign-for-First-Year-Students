@@ -4,7 +4,6 @@ import { FaCheck } from 'react-icons/fa';
 import { Leaf } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
 import { getTodaysWellnessRitual, updateWellnessRitualItem } from '../../services/wellnessRitualService';
-import LoadingSpinner from '../LoadingSpinner';
 
 const DailyWellnessRitual = () => {
   const [items, setItems] = useState([]);
@@ -56,12 +55,40 @@ const DailyWellnessRitual = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex h-64 items-center justify-center rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-lg shadow-emerald-950/[0.03] backdrop-blur-sm dark:border-white/[0.06] dark:bg-white/[0.025]">
-        <LoadingSpinner />
+  const SkeletonLoader = () => (
+    <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-lg shadow-emerald-950/[0.03] backdrop-blur-sm sm:p-7 dark:border-white/[0.06] dark:bg-white/[0.025]">
+      <div className="flex animate-pulse items-start gap-3">
+        <div className="h-10 w-10 shrink-0 rounded-xl bg-slate-200 dark:bg-slate-700" />
+        <div className="w-full space-y-2">
+          <div className="h-5 w-2/3 rounded-md bg-slate-200 dark:bg-slate-700" />
+          <div className="h-4 w-full rounded-md bg-slate-200 dark:bg-slate-700" />
+        </div>
       </div>
-    );
+      <div className="mt-6 animate-pulse">
+        <div className="flex items-center justify-between">
+          <div className="h-3 w-24 rounded-md bg-slate-200 dark:bg-slate-700" />
+          <div className="h-3 w-20 rounded-md bg-slate-200 dark:bg-slate-700" />
+        </div>
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700" />
+      </div>
+      <div className="mt-5 space-y-2">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="animate-pulse rounded-2xl p-4">
+            <div className="flex items-start gap-4">
+              <div className="mt-1 h-6 w-6 shrink-0 rounded-full border-2 border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800" />
+              <div className="w-full flex-grow space-y-2">
+                <div className="h-4 w-4/5 rounded-md bg-slate-200 dark:bg-slate-700" />
+                <div className="h-3 w-full rounded-md bg-slate-200 dark:bg-slate-700" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (loading) {
+    return <SkeletonLoader />;
   }
 
   if (error) {
