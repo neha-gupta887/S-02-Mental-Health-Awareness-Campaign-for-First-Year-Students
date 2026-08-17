@@ -71,7 +71,7 @@ function WellnessGarden() {
   const handleClaimReward = async (rewardId, xpAmount) => {
     setClaimingRewardId(rewardId);
     try {
-      const result = await claimDailyReward(rewardId, xpAmount);
+      const result = await claimDailyReward(user, rewardId, xpAmount);
       if (result.success) {
         toast.success(`+${xpAmount} XP! Reward claimed.`);
         setXP(result.xp);
@@ -99,7 +99,7 @@ function WellnessGarden() {
     const loadGarden = async () => {
       try {
         if (!user?.uid) return; // Don't load if user or user.uid is not yet available
-        const data = await getGardenData();
+        const data = await getGardenData(user);
 
         if (data) {
           setXP(data.xp || 0);

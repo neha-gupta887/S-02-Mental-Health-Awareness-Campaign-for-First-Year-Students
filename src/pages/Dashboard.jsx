@@ -5,6 +5,7 @@ import DashboardOverview from "../components/dashboard/DashboardOverview";
 import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
 import HumanSupport from "../components/dashboard/HumanSupport";
 import QuickActions from "../components/dashboard/QuickActions";
+import DailyWellnessRitual from "../components/dashboard/DailyWellnessRitual";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import LoadingState from "../components/dashboard/LoadingState";
@@ -84,15 +85,19 @@ function Dashboard() {
             <LoadingState message="Loading your wellness dashboard..." />
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-            <div className="space-y-8 lg:col-span-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {/* Main Column */}
+            <div className="space-y-8 lg:col-span-2">
               <DashboardOverview stats={stats} moods={moods} journals={journals} />
               <MoodAnalyticsChart moods={moods} />
-              <QuickActions />
-            </div>
-            <div className="space-y-8 lg:col-span-2">
-              <WellnessGarden />
               <RecentActivity moods={moods} journals={journals} />
+            </div>
+            {/* Right Sidebar */}
+            <div className="space-y-8 lg:col-span-1">
+              <QuickActions />
+              <DailyWellnessRitual />
+              <WellnessGarden />
+              <HumanSupport />
             </div>
           </div>
         )}

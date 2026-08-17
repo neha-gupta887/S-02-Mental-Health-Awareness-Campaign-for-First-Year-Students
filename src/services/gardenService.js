@@ -35,9 +35,7 @@ const calculateLevel = (xp) => {
 };
 
 // Get Garden Data
-export const getGardenData = async () => {
-  const user = auth.currentUser;
-
+export const getGardenData = async (user) => {
   if (!user) return null;
 
   const ref = doc(db, COLLECTION, user.uid);
@@ -82,9 +80,7 @@ export const getGardenData = async () => {
 };
 
 // Add XP
-export const addXP = async (amount) => {
-  const user = auth.currentUser;
-
+export const addXP = async (user, amount) => {
   if (!user) return;
 
   const ref = doc(db, COLLECTION, user.uid);
@@ -92,7 +88,7 @@ export const addXP = async (amount) => {
   const snap = await getDoc(ref);
   let latestSnap = snap;
   if (!snap.exists()) {
-    await getGardenData();
+    await getGardenData(user);
     const recheck = await getDoc(ref);
     if (!recheck.exists()) {
       console.error("Garden document still missing after initialization attempt.");
@@ -124,8 +120,7 @@ export const addXP = async (amount) => {
 };
 
 // New function to claim a daily reward
-export const claimDailyReward = async (rewardId, xpAmount) => {
-  const user = auth.currentUser;
+export const claimDailyReward = async (user, rewardId, xpAmount) => {
   if (!user) {
     console.error("No authenticated user to claim reward.");
     return { success: false, message: "User not authenticated." };
@@ -158,7 +153,7 @@ export const claimDailyReward = async (rewardId, xpAmount) => {
   }
 
   try {
-    const updatedXPInfo = await addXP(xpAmount); // Use existing addXP logic
+    const updatedXPInfo = await addXP(user, xpAmount); // Use existing addXP logic
     completedDailyRewards.push(rewardId);
 
     await updateDoc(ref, {
