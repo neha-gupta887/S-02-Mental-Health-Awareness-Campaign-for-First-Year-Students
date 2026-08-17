@@ -175,22 +175,23 @@ function WellnessReport() {
 
           </div>
 
-          <div className="rounded-3xl bg-white dark:bg-gray-800 shadow-lg p-6">
-
-            <FaFire className="text-4xl text-orange-500" />
-
-            <h3 className="mt-4 text-gray-500">
-
-              Current Streak
-
-            </h3>
-
-            <p className="text-4xl font-bold dark:text-white">
-
-              {report.streak}
-
-            </p>
-
+          <div className="rounded-3xl bg-white dark:bg-gray-800 shadow-lg p-4 sm:p-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                <div className="flex items-center gap-3">
+                    <FaFire className="text-2xl sm:text-3xl text-orange-500 shrink-0" />
+                    <p className="text-2xl sm:text-3xl font-bold dark:text-white">
+                        {report.streak} <span className="text-base font-medium text-gray-500 dark:text-gray-400">Days</span>
+                    </p>
+                </div>
+                <div className="sm:text-right">
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                        Current Streak
+                    </h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        Keep going! &bull; Best: 25 days
+                    </p>
+                </div>
+            </div>
           </div>
 
           <div className="rounded-3xl bg-white dark:bg-gray-800 shadow-lg p-6">

@@ -13,20 +13,12 @@ const DailyWellnessRitual = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    console.log("DailyWellnessRitual: user object from useAuth:", user);
-    // useAuth returns undefined on first load, so we wait until it's not.
-    if (user === undefined) {
-      console.log("DailyWellnessRitual: user is undefined, waiting for auth state.");
-      return; // Still authenticating
-    }
-
     if (!user) {
-      console.log("DailyWellnessRitual: No user found after auth check.");
-      setLoading(false); // Not logged in, so don't show an error, just an empty state.
+      // If there's no user, we don't need to show a loading state indefinitely.
+      if (loading) setLoading(false);
       return;
     }
 
-    console.log("DailyWellnessRitual: user is present, fetching data with uid:", user.uid);
     const fetchData = async () => {
       try {
         setLoading(true);

@@ -79,6 +79,7 @@ function Dashboard() {
           isRefreshing={isRefreshing}
         />
         <HumanSupport />
+        <QuickActions />
 
         {isInitialLoading ? (
           <div className="mt-8 flex h-96 items-center justify-center">
@@ -94,10 +95,8 @@ function Dashboard() {
             </div>
             {/* Right Sidebar */}
             <div className="space-y-8 lg:col-span-1">
-              <QuickActions />
               <DailyWellnessRitual />
               <WellnessGarden />
-              <HumanSupport />
             </div>
           </div>
         )}
