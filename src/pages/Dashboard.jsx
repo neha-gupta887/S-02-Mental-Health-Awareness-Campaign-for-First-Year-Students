@@ -1,3 +1,4 @@
+import DailyWellnessRitual from "../components/dashboard/DailyWellnessRitual";
 import { useEffect, useState } from "react";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
 import DashboardHero from "../components/dashboard/DashboardHero";
@@ -5,7 +6,6 @@ import DashboardOverview from "../components/dashboard/DashboardOverview";
 import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
 import HumanSupport from "../components/dashboard/HumanSupport";
 import QuickActions from "../components/dashboard/QuickActions";
-import DailyWellnessRitual from "../components/dashboard/DailyWellnessRitual";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import LoadingState from "../components/dashboard/LoadingState";
@@ -80,6 +80,7 @@ function Dashboard() {
         />
         <HumanSupport />
         <QuickActions />
+        <DailyWellnessRitual />
 
         {isInitialLoading ? (
           <div className="mt-8 flex h-96 items-center justify-center">
@@ -95,8 +96,8 @@ function Dashboard() {
             </div>
             {/* Right Sidebar */}
             <div className="space-y-8 lg:col-span-1">
-              <DailyWellnessRitual />
               <WellnessGarden />
+              <DailyWellnessRitual />
             </div>
           </div>
         )}

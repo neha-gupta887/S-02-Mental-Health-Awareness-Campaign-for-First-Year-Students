@@ -1,253 +1,312 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheck } from 'react-icons/fa';
-import { Leaf } from 'lucide-react';
-import useAuth from '../../hooks/useAuth';
-import { getTodaysWellnessRitual, updateWellnessRitualItem } from '../../services/wellnessRitualService';
+import { useEffect, useMemo, useState } from "react";
+import {
+  FaCheck,
+  FaTint,
+  FaWind,
+  FaWalking,
+  FaPen,
+  FaMobileAlt,
+  FaMoon,
+  FaSun,
+  FaLeaf,
+} from "react-icons/fa";
 
-const DailyWellnessRitual = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [totalRitualPoints, setTotalRitualPoints] = useState(0);
-  const [error, setError] = useState(null);
-  const { user } = useAuth();
+const STORAGE_KEY = "manasetu_daily_wellness_ritual";
 
-  useEffect(() => {
-    if (!user) {
-      // If there's no user, we don't need to show a loading state indefinitely.
-      if (loading) setLoading(false);
-      return;
+const wellnessTasks = [
+  {
+    id: "mindful-start",
+    title: "Start your day mindfully",
+    description: "Take 2 minutes to pause, breathe, and set an intention.",
+    icon: FaSun,
+  },
+  {
+    id: "mindful-breaths",
+    title: "Take 5 mindful breaths",
+    description: "Pause for a few slow breaths when your mind feels busy.",
+    icon: FaWind,
+  },
+  {
+    id: "hydration",
+    title: "Drink enough water",
+    description: "Take regular hydration breaks throughout the day.",
+    icon: FaTint,
+  },
+  {
+    id: "movement",
+    title: "Move for 10 minutes",
+    description: "Walk, stretch, or step outside for a short movement break.",
+    icon: FaWalking,
+  },
+  {
+    id: "write",
+    title: "Write one thing down",
+    description: "Write a thought, feeling, or something you appreciate.",
+    icon: FaPen,
+  },
+  {
+    id: "screen-break",
+    title: "Take a screen break",
+    description: "Step away from your phone or laptop for a few minutes.",
+    icon: FaMobileAlt,
+  },
+  {
+    id: "sleep",
+    title: "Prepare for restful sleep",
+    description: "Create a calm wind-down routine before bedtime.",
+    icon: FaMoon,
+  },
+];
+
+function getTodayKey() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function getInitialCompleted() {
+  const today = getTodayKey();
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      return {};
     }
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const ritualData = await getTodaysWellnessRitual(user.uid);
-        if (ritualData && ritualData.items) {
-          setItems(ritualData.items);
-          // Calculate initial points from already completed items
-          const initialPoints = ritualData.items.reduce((sum, item) => {
-            return sum + (item.completed ? (item.xp || 0) : 0);
-          }, 0);
-          setTotalRitualPoints(initialPoints);
-        }
-      } catch (err) {
-        console.error("Daily ritual load failed:", err); // Log the actual error
-        setError("Could not load today's ritual. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [user]);
+    const parsed = JSON.parse(saved);
 
-  const handleToggle = async (id) => {
-    const originalItems = [...items];
-    const newItems = items.map(item =>
-      item.id === id ? { ...item, completed: !item.completed } : item
-    );
-
-    // Update total points based on the toggle
-    const toggledItem = newItems.find(item => item.id === id);
-    if (toggledItem) {
-      setTotalRitualPoints(prevPoints =>
-        toggledItem.completed ? prevPoints + (toggledItem.xp || 0) : prevPoints - (toggledItem.xp || 0)
-      );
+    if (parsed?.date !== today) {
+      return {};
     }
 
-    setItems(newItems);
+    return parsed.completed || {};
+  } catch (error) {
+    console.error("Unable to load wellness ritual:", error);
+    return {};
+  }
+}
 
-    try {
-      const itemToUpdate = newItems.find(item => item.id === id);
-      if (itemToUpdate) {
-        // Assuming updateWellnessRitualItem can handle the xp field if it exists, or it's ignored.
-        await updateWellnessRitualItem(user.uid, id, itemToUpdate.completed);
-      }
-    } catch (err) {
-      console.error("Error updating wellness ritual:", err);
-      setError("Could not save your progress. Please check your connection.");
-      // Revert to original state on error
-      setItems(originalItems);
-      // Also revert points on error
-      setTotalRitualPoints(prevPoints =>
-        toggledItem.completed ? prevPoints - (toggledItem.xp || 0) : prevPoints + (toggledItem.xp || 0)
-      );
+function DailyWellnessRitual() {
+  const [completed, setCompleted] = useState(getInitialCompleted);
 
-    }
-  };
+  const today = getTodayKey();
 
-  const SkeletonLoader = () => (
-    <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-lg shadow-emerald-950/[0.03] backdrop-blur-sm sm:p-7 dark:border-white/[0.06] dark:bg-white/[0.025]">
-      <div className="flex animate-pulse items-start gap-3">
-        <div className="h-10 w-10 shrink-0 rounded-xl bg-slate-200 dark:bg-slate-700" />
-        <div className="w-full space-y-2">
-          <div className="h-5 w-2/3 rounded-md bg-slate-200 dark:bg-slate-700" />
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-1/2 rounded-md bg-slate-200 dark:bg-slate-700" />
-            <div className="h-4 w-1/4 rounded-md bg-slate-200 dark:bg-slate-700" />
-          </div>
-        </div>
-      </div>
-      <div className="mt-6 animate-pulse">
-        <div className="flex items-center justify-between">
-          <div className="h-3 w-24 rounded-md bg-slate-200 dark:bg-slate-700" />
-          <div className="h-3 w-20 rounded-md bg-slate-200 dark:bg-slate-700" />
-        </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700" />
-      </div>
-      <div className="mt-5 space-y-2">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="animate-pulse rounded-2xl p-4">
-            <div className="flex items-start gap-4">
-              <div className="mt-1 h-6 w-6 shrink-0 rounded-full border-2 border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800" />
-              <div className="w-full flex-grow space-y-2">
-                <div className="h-4 w-4/5 rounded-md bg-slate-200 dark:bg-slate-700" />
-                <div className="h-3 w-full rounded-md bg-slate-200 dark:bg-slate-700" />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+  const completedCount = useMemo(() => {
+    return wellnessTasks.filter((task) => completed[task.id]).length;
+  }, [completed]);
+
+  const progress = Math.round(
+    (completedCount / wellnessTasks.length) * 100
   );
 
-  if (loading) {
-    return <SkeletonLoader />;
-  }
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          date: today,
+          completed,
+        })
+      );
+    } catch (error) {
+      console.error("Unable to save wellness ritual:", error);
+    }
+  }, [completed, today]);
 
-  if (error) {
-    return (
-        <div className="flex h-64 items-center justify-center rounded-3xl border border-rose-200/80 bg-rose-50/50 p-5 shadow-lg shadow-rose-950/[0.03] backdrop-blur-sm dark:border-rose-900/[0.2] dark:bg-rose-950/[0.1]">
-            <p className="text-center text-sm font-medium text-rose-600 dark:text-rose-400">{error}</p>
-        </div>
-    );
-  }
-  
-  const completedCount = items.filter(item => item.completed).length;
-  const allCompleted = items.length > 0 && completedCount === items.length;
-  const progress = items.length > 0 ? (completedCount / items.length) * 100 : 0;
+  // Check for a new day when the component remains open.
+  useEffect(() => {
+    const checkNewDay = () => {
+      const currentDate = getTodayKey();
+
+      if (currentDate !== today) {
+        setCompleted({});
+      }
+    };
+
+    const interval = setInterval(checkNewDay, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [today]);
+
+  const toggleTask = (taskId) => {
+    setCompleted((previous) => ({
+      ...previous,
+      [taskId]: !previous[taskId],
+    }));
+  };
 
   return (
-    <section className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-lg shadow-emerald-950/[0.03] backdrop-blur-sm sm:p-7 dark:border-white/[0.06] dark:bg-white/[0.025]">
+    <section className="mt-6 overflow-hidden rounded-[26px] border border-emerald-100/80 bg-white shadow-[0_10px_40px_rgba(15,23,42,0.04)] dark:border-white/[0.06] dark:bg-white/[0.025]">
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-50 to-teal-100/80 text-emerald-600 dark:from-emerald-950/70 dark:to-teal-950/60 dark:text-emerald-400">
-              <Leaf size={20} />
+      <div className="p-5 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400">
+              <FaLeaf className="text-sm" />
             </div>
+
             <div>
-              <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
-                Daily Wellness Ritual
-              </h2>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400">
+                Daily wellness
+              </p>
+
+              <h3 className="mt-1 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+                Your daily ritual
+              </h3>
+
+              <p className="mt-1 max-w-xl text-xs leading-5 text-slate-500 dark:text-slate-400">
                 Small moments of self-care can make a calmer day.
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/70 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-300">
-            <span className="text-sm">✨</span>
-            <span>{totalRitualPoints} Points</span>
+
+          {/* Progress */}
+          <div className="shrink-0 rounded-2xl bg-slate-50 px-4 py-3 dark:bg-white/[0.04]">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Today's progress
+            </p>
+
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-lg font-bold text-slate-900 dark:text-white">
+                {completedCount}
+              </span>
+
+              <span className="text-xs text-slate-400">
+                / {wellnessTasks.length}
+              </span>
             </div>
+          </div>
         </div>
-      </div>
-      {/* Progress */}
-      <div className="mt-6">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Today's progress</p>
-          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-            {completedCount} / {items.length} completed
-          </p>
-        </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800">
-          <motion.div
-            className="h-2 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500"
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-          />
+
+        {/* Progress bar */}
+        <div className="mt-5">
+          <div className="h-1.5 overflow-hidden rounded-full bg-emerald-50 dark:bg-emerald-950/40">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <div className="mt-2 flex items-center justify-between">
+            <span className="text-[11px] text-slate-400">
+              {progress}% complete
+            </span>
+
+            {completedCount === wellnessTasks.length ? (
+              <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                Beautiful work 🌿
+              </span>
+            ) : (
+              <span className="text-[11px] text-slate-400">
+                One small step at a time
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Checklist */}
-      <div className="mt-5 space-y-2">
-        {items.map((item) => (
-          <motion.div
-            key={item.id}
-            onClick={() => handleToggle(item.id)}
-            className="group cursor-pointer rounded-2xl p-4 transition-colors duration-200"
-            animate={{
-              backgroundColor: item.completed ? 'rgba(16, 185, 129, 0.05)' : 'transparent'
-            }}
-            whileHover={{ backgroundColor: 'rgba(16, 185, 129, 0.08)'}}
-          >
-            <div className="flex items-start gap-4">
-              <motion.div
-                className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2"
-                animate={{
-                  borderColor: item.completed ? '#10B981' : '#CBD5E1',
-                  backgroundColor: item.completed ? '#10B981' : 'transparent',
-                }}
-                transition={{ duration: 0.2 }}
+      <div className="border-t border-slate-100 px-4 py-3 dark:border-white/[0.05] sm:px-5">
+        <div className="space-y-2">
+          {wellnessTasks.map((task) => {
+            const Icon = task.icon;
+            const isCompleted = Boolean(completed[task.id]);
+
+            return (
+              <button
+                key={task.id}
+                type="button"
+                onClick={() => toggleTask(task.id)}
+                className={`group flex w-full items-center gap-3 rounded-2xl border p-3 text-left transition-all duration-200 ${
+                  isCompleted
+                    ? "border-emerald-100 bg-emerald-50/70 dark:border-emerald-900/40 dark:bg-emerald-950/20"
+                    : "border-transparent bg-slate-50/70 hover:border-emerald-100 hover:bg-emerald-50/40 dark:bg-white/[0.025] dark:hover:border-emerald-900/40 dark:hover:bg-emerald-950/10"
+                }`}
+                aria-pressed={isCompleted}
+                aria-label={`${isCompleted ? "Completed" : "Complete"} ${task.title}`}
               >
-                <AnimatePresence>
-                  {item.completed && (
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <FaCheck className="text-xs text-white" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-              
-              <div className="flex-grow">
-                <p
-                  className="font-medium text-slate-800 transition-colors duration-200 dark:text-slate-200"
-                  style={{
-                    opacity: item.completed ? 0.7 : 1,
-                  }}
+                {/* Checkbox */}
+                <span
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-all duration-200 ${
+                    isCompleted
+                      ? "border-emerald-500 bg-emerald-500 text-white"
+                      : "border-slate-200 bg-white text-transparent group-hover:border-emerald-300 dark:border-white/[0.1] dark:bg-white/[0.04]"
+                  }`}
                 >
-                  <span className="mr-2">{item.emoji}</span>
-                  {item.xp && (
-                    <span className="mr-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">+{item.xp}</span>
-                  )}
-                  {item.title}
-                </p>
-                <p
-                  className="mt-1 text-sm text-slate-500 transition-colors duration-200 dark:text-slate-400"
-                  style={{
-                    opacity: item.completed ? 0.7 : 1,
-                  }}
+                  {isCompleted && <FaCheck className="text-[11px]" />}
+                </span>
+
+                {/* Icon */}
+                <span
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs ${
+                    isCompleted
+                      ? "bg-white/80 text-emerald-600 dark:bg-white/[0.06] dark:text-emerald-400"
+                      : "bg-white text-slate-400 dark:bg-white/[0.04] dark:text-slate-500"
+                  }`}
                 >
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+                  <Icon />
+                </span>
+
+                {/* Text */}
+                <span className="min-w-0 flex-1">
+                  <span
+                    className={`block text-sm font-semibold transition-colors ${
+                      isCompleted
+                        ? "text-emerald-700 dark:text-emerald-300"
+                        : "text-slate-800 dark:text-slate-100"
+                    }`}
+                  >
+                    {task.title}
+                  </span>
+
+                  <span
+                    className={`mt-0.5 block text-[11px] leading-4 ${
+                      isCompleted
+                        ? "text-emerald-600/70 dark:text-emerald-400/70"
+                        : "text-slate-400 dark:text-slate-500"
+                    }`}
+                  >
+                    {task.description}
+                  </span>
+                </span>
+
+                {/* Status */}
+                <span className="hidden shrink-0 text-[10px] font-semibold uppercase tracking-wider text-slate-400 sm:block">
+                  {isCompleted ? "Done" : "Do it"}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Completion State */}
-      <AnimatePresence>
-        {allCompleted && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.5 }}
-            className="mt-6 flex flex-col items-center text-center"
-          >
-            <span className="text-4xl">🌿</span>
-            <h3 className="mt-2 text-lg font-semibold text-slate-800 dark:text-white">Beautiful work.</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">You showed up for yourself today.</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Completion message */}
+      {completedCount === wellnessTasks.length && (
+        <div className="border-t border-emerald-100 bg-emerald-50/60 px-5 py-4 dark:border-emerald-900/30 dark:bg-emerald-950/20">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-white">
+              <FaCheck className="text-xs" />
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
+                You showed up for yourself today.
+              </p>
+
+              <p className="mt-0.5 text-xs text-emerald-700/70 dark:text-emerald-400/70">
+                Take a moment to appreciate that.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
-};
+}
 
 export default DailyWellnessRitual;
