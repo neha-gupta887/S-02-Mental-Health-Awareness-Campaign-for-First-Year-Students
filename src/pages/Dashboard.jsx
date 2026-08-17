@@ -3,6 +3,7 @@ import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
 import DashboardHero from "../components/dashboard/DashboardHero";
 import DashboardOverview from "../components/dashboard/DashboardOverview";
 import MoodAnalyticsChart from "../components/dashboard/MoodAnalyticsChart";
+import HumanSupport from "../components/dashboard/HumanSupport";
 import QuickActions from "../components/dashboard/QuickActions";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
@@ -76,6 +77,7 @@ function Dashboard() {
           onRefresh={handleRefresh}
           isRefreshing={isRefreshing}
         />
+        <HumanSupport />
 
         {isInitialLoading ? (
           <div className="mt-8 flex h-96 items-center justify-center">
