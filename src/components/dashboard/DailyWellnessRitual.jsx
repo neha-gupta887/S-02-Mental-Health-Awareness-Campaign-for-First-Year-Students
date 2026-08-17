@@ -8,6 +8,7 @@ import { getTodaysWellnessRitual, updateWellnessRitualItem } from '../../service
 const DailyWellnessRitual = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalRitualPoints, setTotalRitualPoints] = useState(0);
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
@@ -24,6 +25,11 @@ const DailyWellnessRitual = () => {
         const ritualData = await getTodaysWellnessRitual(user.uid);
         if (ritualData && ritualData.items) {
           setItems(ritualData.items);
+          // Calculate initial points from already completed items
+          const initialPoints = ritualData.items.reduce((sum, item) => {
+            return sum + (item.completed ? (item.xp || 0) : 0);
+          }, 0);
+          setTotalRitualPoints(initialPoints);
         }
       } catch (err) {
         console.error("Daily ritual load failed:", err); // Log the actual error
@@ -40,11 +46,21 @@ const DailyWellnessRitual = () => {
     const newItems = items.map(item =>
       item.id === id ? { ...item, completed: !item.completed } : item
     );
+
+    // Update total points based on the toggle
+    const toggledItem = newItems.find(item => item.id === id);
+    if (toggledItem) {
+      setTotalRitualPoints(prevPoints =>
+        toggledItem.completed ? prevPoints + (toggledItem.xp || 0) : prevPoints - (toggledItem.xp || 0)
+      );
+    }
+
     setItems(newItems);
 
     try {
       const itemToUpdate = newItems.find(item => item.id === id);
       if (itemToUpdate) {
+        // Assuming updateWellnessRitualItem can handle the xp field if it exists, or it's ignored.
         await updateWellnessRitualItem(user.uid, id, itemToUpdate.completed);
       }
     } catch (err) {
@@ -52,6 +68,11 @@ const DailyWellnessRitual = () => {
       setError("Could not save your progress. Please check your connection.");
       // Revert to original state on error
       setItems(originalItems);
+      // Also revert points on error
+      setTotalRitualPoints(prevPoints =>
+        toggledItem.completed ? prevPoints - (toggledItem.xp || 0) : prevPoints + (toggledItem.xp || 0)
+      );
+
     }
   };
 
@@ -61,7 +82,10 @@ const DailyWellnessRitual = () => {
         <div className="h-10 w-10 shrink-0 rounded-xl bg-slate-200 dark:bg-slate-700" />
         <div className="w-full space-y-2">
           <div className="h-5 w-2/3 rounded-md bg-slate-200 dark:bg-slate-700" />
-          <div className="h-4 w-full rounded-md bg-slate-200 dark:bg-slate-700" />
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-1/2 rounded-md bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-1/4 rounded-md bg-slate-200 dark:bg-slate-700" />
+          </div>
         </div>
       </div>
       <div className="mt-6 animate-pulse">
@@ -121,9 +145,12 @@ const DailyWellnessRitual = () => {
               </p>
             </div>
           </div>
+          <div className="flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/70 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-300">
+            <span className="text-sm">✨</span>
+            <span>{totalRitualPoints} Points</span>
+            </div>
         </div>
       </div>
-
       {/* Progress */}
       <div className="mt-6">
         <div className="flex items-center justify-between">
@@ -135,7 +162,6 @@ const DailyWellnessRitual = () => {
         <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800">
           <motion.div
             className="h-2 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500"
-            initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           />
@@ -185,6 +211,9 @@ const DailyWellnessRitual = () => {
                   }}
                 >
                   <span className="mr-2">{item.emoji}</span>
+                  {item.xp && (
+                    <span className="mr-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">+{item.xp}</span>
+                  )}
                   {item.title}
                 </p>
                 <p
