@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaPlus, FaSeedling } from "react-icons/fa";
 
-import useAuth from "../../../hooks/useAuth";
-import { getMoodHistory } from "../../../services/moodService";
+import useAuth from "../../hooks/useAuth";
+import { getMoodHistory } from "../../services/moodService";
 import LoadingState from "../../../LoadingState";
 
 const weatherMapping = {
