@@ -14,6 +14,8 @@ import { getMoodHistory } from "../services/moodService";
 import { getJournalHistory } from "../services/journalService.js";
 import useAuth from "../hooks/useAuth.js";
 
+import StressSOSCard from "../components/dashboard/StressSOSCard";
+
 function Dashboard() {
   const [stats, setStats] = useState({});
   const [moods, setMoods] = useState([]);
@@ -79,6 +81,7 @@ function Dashboard() {
           isRefreshing={isRefreshing}
         />
         <HumanSupport />
+        <StressSOSCard />
         <QuickActions />
         <DailyWellnessRitual />
 
