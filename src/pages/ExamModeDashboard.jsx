@@ -15,7 +15,7 @@ import {
 import { differenceInCalendarDays, format, isToday, isFuture, startOfToday } from "date-fns";
 import AuthenticatedLayout from "../components/layout/AuthenticatedLayout";
 import useAuth from "../hooks/useAuth";
-import { getActiveExam } from "../services/examService";
+import { getActiveExam, deleteExam } from "../services/examService";
 import LoadingState from "../../LoadingState";
 
 const ExamModeDashboard = () => {
@@ -42,6 +42,20 @@ const ExamModeDashboard = () => {
       fetchExam();
     }
   }, [user]);
+
+  const handleCancelPlan = async () => {
+    if (!exam?.id) return;
+    if (window.confirm("Are you sure you want to cancel your exam plan? This action cannot be undone.")) {
+      try {
+        await deleteExam(exam.id);
+        setExam(null);
+        // Optionally, show a success notification
+      } catch (err) {
+        console.error("Failed to cancel exam plan:", err);
+        setError("Could not cancel the exam plan. Please try again.");
+      }
+    }
+  };
 
   const calculateDaysToGo = () => {
     if (!exam?.date) return null;
@@ -101,7 +115,7 @@ const ExamModeDashboard = () => {
       <div className="space-y-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="rounded-3xl bg-white p-6 shadow-lg dark:bg-slate-800">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                 🎓 Exam Mode
@@ -115,6 +129,14 @@ const ExamModeDashboard = () => {
               {daysToGo !== "Exam day has passed" && <p className="text-sm text-slate-500">by {format(exam.date, "EEEE, d MMMM")}</p>}
             </div>
           </div>
+           <div className="mt-4 border-t pt-4 dark:border-slate-700">
+                <button
+                    onClick={handleCancelPlan}
+                    className="w-full text-center rounded-lg bg-red-50 py-2 px-4 text-sm font-semibold text-red-700 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40"
+                >
+                    Cancel Plan
+                </button>
+            </div>
         </motion.div>
 
         {/* Today's Plan */}
