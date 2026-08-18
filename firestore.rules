@@ -40,6 +40,9 @@ service cloud.firestore {
     match /garden/{userId} {
       allow read, write: if isOwner(userId);
     }
+    match /examMode/{userId} {
+      allow read, write: if isOwner(userId);
+    }
     
     // User-specific data nested under a /users/{userId} document.
     match /users/{userId}/{documents=**} {
