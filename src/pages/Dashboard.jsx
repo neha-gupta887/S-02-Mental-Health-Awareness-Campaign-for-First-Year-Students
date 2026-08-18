@@ -13,9 +13,11 @@ import LoadingState from "../../LoadingState.jsx";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
 import { getMoodHistory } from "../services/moodService";
 import { getJournalHistory } from "../services/journalService.js";
+import { getTodaysWellnessRitual } from "../services/wellnessRitualService"; // New import
 import useAuth from "../hooks/useAuth.js";
 import ErrorState from "./ErrorState.jsx";
 import ExamModeCard from "../components/dashboard/ExamModeCard.jsx";
+import MindMirror from "../components/dashboard/MindMirror.jsx"; // New import
 
 import StressSOSCard from "../components/dashboard/StressSOSCard";
 
@@ -23,6 +25,7 @@ function Dashboard() {
   const [stats, setStats] = useState({});
   const [moods, setMoods] = useState([]);
   const [journals, setJournals] = useState([]);
+  const [ritual, setRitual] = useState(null); // New state
   const [isInitialLoading, setIsInitialLoading] = useState(true); // For the first page load
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -51,14 +54,16 @@ function Dashboard() {
     setError(null);
 
     try {
-      const [statsData, moodData, journalData] = await Promise.all([
+      const [statsData, moodData, journalData, ritualData] = await Promise.all([ // Added ritualData
         getDashboardStats(),
         getMoodHistory(),
         getJournalHistory(),
+        getTodaysWellnessRitual(user.uid), // Fetch ritual data
       ]);
       setStats(statsData);
       setMoods(moodData);
       setJournals(journalData || []);
+      setRitual(ritualData); // Set ritual state
     } catch (err) {
       console.error("Failed to load dashboard data:", err);
       setError("Could not load dashboard data. Please try again.");
@@ -114,6 +119,13 @@ function Dashboard() {
             </div>
             {/* Right Sidebar */}
             <div className="space-y-8 lg:col-span-1">
+              <MindMirror // New MindMirror component
+                moods={moods}
+                journals={journals}
+                ritual={ritual}
+                isLoading={isInitialLoading}
+                error={error}
+              />
               <EmotionalWeather />
               <WellnessGarden />
               <DailyWellnessRitual />
