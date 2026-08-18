@@ -113,6 +113,7 @@ function Dashboard() {
             </div>
             {/* Right Sidebar */}
             <div className="space-y-8 lg:col-span-1">
+              <EmotionalWeather />
               <WellnessGarden />
               <DailyWellnessRitual />
             </div>
