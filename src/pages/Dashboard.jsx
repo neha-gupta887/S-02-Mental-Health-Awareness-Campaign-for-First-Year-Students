@@ -14,6 +14,7 @@ import { getMoodHistory } from "../services/moodService";
 import { getJournalHistory } from "../services/journalService.js";
 import useAuth from "../hooks/useAuth.js";
 import ErrorState from "./ErrorState.jsx";
+import ExamModeCard from "../components/dashboard/ExamModeCard.jsx";
 
 import StressSOSCard from "../components/dashboard/StressSOSCard";
 
@@ -89,6 +90,7 @@ function Dashboard() {
         />
         <HumanSupport />
         <StressSOSCard />
+        <ExamModeCard />
         <QuickActions />
 
         {isInitialLoading ? (

@@ -19,6 +19,8 @@ import Support from "./pages/Support";
 import MoodCheckin from "./components/dashboard/MoodCheckin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import StressSOS from "./pages/StressSOS";
+import ExamModeDashboard from "./pages/ExamModeDashboard";
+import ExamModeSetup from "./pages/ExamModeSetup";
 
 const privateRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;
 function App() {
@@ -42,6 +44,8 @@ function App() {
           <Route path="/support" element={privateRoute(<Support />)} />
           <Route path="/settings" element={privateRoute(<Settings />)} />
           <Route path="/stress-sos" element={privateRoute(<StressSOS />)} />
+          <Route path="/exam-mode" element={privateRoute(<ExamModeDashboard />)} />
+          <Route path="/exam-mode-setup" element={privateRoute(<ExamModeSetup />)} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
