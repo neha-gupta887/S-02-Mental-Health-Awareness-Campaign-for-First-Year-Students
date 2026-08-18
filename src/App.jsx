@@ -18,6 +18,7 @@ import MoodAnalytics from "./pages/MoodAnalytics";
 import Support from "./pages/Support";
 import MoodCheckin from "./components/dashboard/MoodCheckin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import StressSOS from "./pages/StressSOS";
 
 const privateRoute = (element) => <ProtectedRoute>{element}</ProtectedRoute>;
 function App() {
@@ -40,11 +41,13 @@ function App() {
           <Route path="/analytics" element={privateRoute(<MoodAnalytics />)} />
           <Route path="/support" element={privateRoute(<Support />)} />
           <Route path="/settings" element={privateRoute(<Settings />)} />
+          <Route path="/stress-sos" element={privateRoute(<StressSOS />)} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </NotificationProvider>
   );
 }
+
 
 export default App;
