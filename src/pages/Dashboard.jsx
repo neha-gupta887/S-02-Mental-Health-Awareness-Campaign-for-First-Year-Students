@@ -8,11 +8,12 @@ import HumanSupport from "../components/dashboard/HumanSupport";
 import QuickActions from "../components/dashboard/QuickActions";
 import WellnessGarden from "../components/dashboard/WellnessGarden";
 import RecentActivity from "../components/dashboard/RecentActivity";
-import LoadingState from "../components/dashboard/LoadingState";
+import LoadingState from "../../LoadingState.jsx";
 import { getDashboardStats } from "../services/dashboardStatsService.js";
 import { getMoodHistory } from "../services/moodService";
 import { getJournalHistory } from "../services/journalService.js";
 import useAuth from "../hooks/useAuth.js";
+import ErrorState from "./ErrorState.jsx";
 
 import StressSOSCard from "../components/dashboard/StressSOSCard";
 
@@ -34,11 +35,13 @@ function Dashboard() {
     if (hour < 12) setGreeting("Good morning");
     else if (hour < 18) setGreeting("Good afternoon");
     else setGreeting("Good evening");
-
-    fetchData();
   }, []);
 
   const fetchData = async () => {
+    if (!user) {
+      return;
+    }
+
     // Don't show the full-page loader on subsequent refreshes
     if (!isInitialLoading) {
       setIsRefreshing(true);
@@ -63,6 +66,10 @@ function Dashboard() {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, [user]);
+
   const handleRefresh = async () => {
     if (isRefreshing) return;
     // Re-call fetchData to refresh all dashboard data
@@ -83,12 +90,17 @@ function Dashboard() {
         <HumanSupport />
         <StressSOSCard />
         <QuickActions />
-        <DailyWellnessRitual />
 
         {isInitialLoading ? (
           <div className="mt-8 flex h-96 items-center justify-center">
             <LoadingState message="Loading your wellness dashboard..." />
           </div>
+        ) : error ? (
+          <ErrorState
+            title="Could not load dashboard"
+            message={error}
+            onRetry={fetchData}
+          />
         ) : (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             {/* Main Column */}
