@@ -4,8 +4,7 @@ import { analyzeMood } from "../MoodAgent";
 import { generateStudyPlan } from "../StudyAgent";
 import { analyzeSleep } from "../SleepAgent";
 import { analyzeCrisis } from "../CrisisAgent";
-
-import { generateDecision } from "../DecisionAgent";
+import { generateDecision } from "../DecisionAgent.js";
 import { predictBurnout } from "../burnoutAgent";
 
 import { getWellnessHistory } from "../../services/memoryService";
