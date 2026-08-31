@@ -5,7 +5,7 @@ import { generateStudyPlan } from "../StudyAgent";
 import { analyzeSleep } from "../SleepAgent";
 import { analyzeCrisis } from "../CrisisAgent";
 
-import { generateDecision } from "../decisionAgent";
+import { generateDecision } from "../DecisionAgent";
 import { predictBurnout } from "../burnoutAgent";
 
 import { getWellnessHistory } from "../../services/memoryService";
