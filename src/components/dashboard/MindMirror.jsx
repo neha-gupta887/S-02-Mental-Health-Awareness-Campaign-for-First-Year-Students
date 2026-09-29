@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 import { BarChart, Book, Clock, Cloudy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+const RECENT_DAYS = 14;
+
 const useMindMirror = ({ moods, journals, ritual }) => {
   const [observations, setObservations] = useState([]);
   const [gentleReflection, setGentleReflection] = useState('');
   const [hasSufficientData, setHasSufficientData] = useState(false);
 
-  const RECENT_DAYS = 14;
   const MIN_RECORDS = 3;
 
   const recentMoods = useMemo(() => {
@@ -155,7 +156,7 @@ const MindMirrorError = () => (
 
 const MindMirror = ({ moods, journals, ritual, isLoading, error }) => {
   const navigate = useNavigate();
-  const { observations, gentleReflection, hasSufficientData } = -use-mind-mirror({ moods, journals, ritual });
+  const { observations, gentleReflection, hasSufficientData } = useMindMirror({ moods, journals, ritual });
 
   if (isLoading) {
     return <MindMirrorSkeleton />;
